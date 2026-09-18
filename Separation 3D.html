@@ -1,0 +1,981 @@
+<title>Two Routes to Remove CO₂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg:        #e9edf0;
+    --surface:   #f8fafb;
+    --surface-2: #eff3f6;
+    --stage-top: #ced7dd;
+    --stage-bot: #aab8c2;
+    --ink:       #0e1418;
+    --ink-2:     #51616c;
+    --ink-3:     #7b8993;
+    --line:      #c6d0d7;
+    --line-2:    #d9e1e6;
+    --cold:      #0d7c8b;
+    --cold-soft: #d3e9ec;
+    --hot:       #b4530d;
+    --hot-soft:  #f5e2d1;
+    --focus:     #0d7c8b;
+
+    --f-display: "IBM Plex Sans Condensed", "Helvetica Neue", Arial, sans-serif;
+    --f-body:    "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    --f-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #0b1014;
+      --surface:   #141c22;
+      --surface-2: #101820;
+      --stage-top: #121a21;
+      --stage-bot: #070b0e;
+      --ink:       #e6eef3;
+      --ink-2:     #8fa2ae;
+      --ink-3:     #6b7d89;
+      --line:      #233039;
+      --line-2:    #1b252c;
+      --cold:      #2fc6d6;
+      --cold-soft: #0d2f36;
+      --hot:       #ef9134;
+      --hot-soft:  #3a2512;
+      --focus:     #2fc6d6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #0b1014;
+    --surface:   #141c22;
+    --surface-2: #101820;
+    --stage-top: #121a21;
+    --stage-bot: #070b0e;
+    --ink:       #e6eef3;
+    --ink-2:     #8fa2ae;
+    --ink-3:     #6b7d89;
+    --line:      #233039;
+    --line-2:    #1b252c;
+    --cold:      #2fc6d6;
+    --cold-soft: #0d2f36;
+    --hot:       #ef9134;
+    --hot-soft:  #3a2512;
+    --focus:     #2fc6d6;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 28px 64px;
+    display: grid;
+    gap: 26px;
+  }
+
+  /* ---------- masthead ---------- */
+  .eyebrow {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--cold);
+  }
+  h1 {
+    margin: 6px 0 0;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: clamp(30px, 5.2vw, 50px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+  .standfirst {
+    margin: 12px 0 0;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 64ch;
+    text-wrap: pretty;
+  }
+
+  /* ---------- instrument panel ---------- */
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .routebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .route {
+    flex: 1 1 210px;
+    display: grid;
+    gap: 2px;
+    padding: 11px 16px;
+    border: 0;
+    border-right: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink-2);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .route:last-child { border-right: 0; }
+  .route:hover { background: var(--surface); }
+  .route .rk {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .route .rn {
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .route[aria-pressed="true"] { background: var(--surface); color: var(--ink); }
+  .route[aria-pressed="true"].cold { box-shadow: inset 0 2px 0 var(--cold); }
+  .route[aria-pressed="true"].hot  { box-shadow: inset 0 2px 0 var(--hot); }
+  .route[aria-pressed="true"].cold .rk { color: var(--cold); }
+  .route[aria-pressed="true"].hot  .rk { color: var(--hot); }
+
+  .stagewrap { position: relative; }
+  #stage {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    max-width: 100%;
+    touch-action: none;
+    cursor: grab;
+  }
+  #stage:active { cursor: grabbing; }
+  @media (max-width: 620px) { #stage { aspect-ratio: 4 / 3; } }
+
+  .hint {
+    position: absolute;
+    left: 14px; bottom: 12px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    pointer-events: none;
+    background: color-mix(in srgb, var(--surface) 72%, transparent);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+  .tip {
+    position: absolute;
+    padding: 4px 9px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translate(-50%, -150%);
+    opacity: 0;
+    transition: opacity .12s;
+  }
+  .tip.on { opacity: 1; }
+
+  /* ---------- transport ---------- */
+  .transport {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    border-top: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .btn {
+    flex: none;
+    min-width: 92px;
+    padding: 8px 15px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .btn:hover { border-color: var(--ink-3); }
+  .btn.primary { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .btn.primary:hover { background: var(--ink-2); border-color: var(--ink-2); }
+  .scrub { flex: 1 1 190px; display: grid; gap: 3px; min-width: 0; }
+  .scrub label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  input[type="range"] { width: 100%; accent-color: var(--cold); margin: 0; }
+  .hot-route input[type="range"] { accent-color: var(--hot); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  /* ---------- readout ---------- */
+  .readout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    border-top: 1px solid var(--line);
+  }
+  .cell {
+    padding: 11px 16px;
+    border-right: 1px solid var(--line-2);
+    display: grid;
+    gap: 2px;
+  }
+  .cell:last-child { border-right: 0; }
+  .cell .k {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .cell .v {
+    font-family: var(--f-mono);
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .cell .v.cold { color: var(--cold); }
+  .cell .v.hot  { color: var(--hot); }
+
+  /* ---------- verdict ---------- */
+  .verdict {
+    padding: 15px 16px;
+    border-top: 1px solid var(--line);
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  .verdict b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- comparison ---------- */
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 22px;
+  }
+  .col { display: grid; gap: 9px; align-content: start; }
+  .col h2 {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 1.15;
+  }
+  .col .tag {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .col.cold .tag { color: var(--cold); }
+  .col.hot  .tag { color: var(--hot); }
+  .col p { margin: 0; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
+  .facts { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .facts li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 14px;
+  }
+  .facts .fk { color: var(--ink-3); }
+  .facts .fv {
+    font-family: var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--ink);
+  }
+  footer {
+    font-size: 13px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    max-width: 72ch;
+    text-wrap: pretty;
+  }
+  .nowebgl {
+    padding: 22px 16px;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Separation · in three dimensions</p>
+    <h1>Two routes to take CO₂ out of a gas stream</h1>
+    <p class="standfirst">The same target molecule, removed two ways. One route sorts molecules by a property they do not share and never touches a bond. The other converts the molecule into something else, and what leaves the vessel is not what entered it. Drag to orbit either one.</p>
+  </header>
+
+  <section class="panel" id="panel">
+    <div class="routebar" role="group" aria-label="Separation route">
+      <button class="route cold" id="btn-phys" aria-pressed="true">
+        <span class="rk">Route 01 · Physical</span>
+        <span class="rn">Cryogenic separation</span>
+      </button>
+      <button class="route hot" id="btn-chem" aria-pressed="false">
+        <span class="rk">Route 02 · Chemical</span>
+        <span class="rn">Lime scrubbing</span>
+      </button>
+    </div>
+
+    <div class="stagewrap">
+      <canvas id="stage" aria-label="Interactive 3D molecular view"></canvas>
+      <div class="hint">Drag to orbit · scroll to zoom · hover a molecule</div>
+      <div class="tip" id="tip" role="status"></div>
+    </div>
+
+    <div class="transport" id="transport">
+      <button class="btn primary" id="play">Run</button>
+      <button class="btn" id="reset">Reset</button>
+      <div class="scrub">
+        <label for="prog" id="proglabel">Process progress</label>
+        <input type="range" id="prog" min="0" max="1000" value="0" step="1">
+      </div>
+    </div>
+
+    <div class="readout" id="readout">
+      <div class="cell"><span class="k">Stage</span><span class="v" id="r-stage">Mixed feed</span></div>
+      <div class="cell"><span class="k">Temperature</span><span class="v" id="r-temp">20 °C</span></div>
+      <div class="cell"><span class="k">Bonds broken</span><span class="v" id="r-broken">0</span></div>
+      <div class="cell"><span class="k">Bonds formed</span><span class="v" id="r-formed">0</span></div>
+      <div class="cell"><span class="k">Leaves as</span><span class="v" id="r-out">—</span></div>
+    </div>
+
+    <p class="verdict" id="verdict"></p>
+  </section>
+
+  <section class="cols">
+    <div class="col cold">
+      <span class="tag">Route 01 · Physical</span>
+      <h2>Sort on a property they do not share</h2>
+      <p>CO₂ and N₂ are already separate substances drifting side by side. Chill the stream and they part company on boiling point alone — CO₂ condenses out while nitrogen stays a gas. Not one bond is broken, so warming the two back together simply remakes the mixture.</p>
+      <ul class="facts">
+        <li><span class="fk">Exploits</span><span class="fv">Phase change</span></li>
+        <li><span class="fk">CO₂ sublimes at</span><span class="fv">−78.5 °C</span></li>
+        <li><span class="fk">N₂ boils at</span><span class="fv">−195.8 °C</span></li>
+        <li><span class="fk">Bonds altered</span><span class="fv">0</span></li>
+        <li><span class="fk">To undo</span><span class="fv">Rewarm and mix</span></li>
+      </ul>
+    </div>
+    <div class="col hot">
+      <span class="tag">Route 02 · Chemical</span>
+      <h2>Convert what you want to remove</h2>
+      <p>Slaked lime reacts with CO₂ selectively. A hydroxide proton moves across, calcium keeps one oxygen, and the carbon picks it up as carbonate — solid CaCO₃ drops out and water is left behind. The carbon leaves the vessel as a different substance, so no amount of mixing brings the CO₂ back.</p>
+      <ul class="facts">
+        <li><span class="fk">Exploits</span><span class="fv">Reactivity</span></li>
+        <li><span class="fk">Reaction</span><span class="fv">CO₂ + Ca(OH)₂</span></li>
+        <li><span class="fk">Products</span><span class="fv">CaCO₃ + H₂O</span></li>
+        <li><span class="fk">Bonds altered</span><span class="fv">2 broken, 2 formed</span></li>
+        <li><span class="fk">To undo</span><span class="fv">Calcine at ~900 °C</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Geometries are drawn to real shapes — CO₂ linear, water bent at 104.5°, carbonate trigonal planar — at ball-and-stick scale rather than true van der Waals radii, so bonds stay visible. Carbonate is shown as one Lewis structure; its three C–O bonds are in reality equivalent and delocalised.</footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var canvas = document.getElementById("stage");
+  if (typeof THREE === "undefined") {
+    canvas.insertAdjacentHTML("afterend",
+      '<div class="nowebgl">The 3D view could not load its rendering library.</div>');
+    canvas.remove();
+    return;
+  }
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- element table ---------------- */
+  // Ball-and-stick radii, scaled so bonds stay readable.
+  var EL = {
+    C:  { color: 0x23282c, radius: 0.44, rough: 0.30, metal: 0.05, label: "carbon" },
+    O:  { color: 0xc1291f, radius: 0.42, rough: 0.26, metal: 0.04, label: "oxygen" },
+    N:  { color: 0x2554c0, radius: 0.42, rough: 0.28, metal: 0.04, label: "nitrogen" },
+    H:  { color: 0xe4e9ed, radius: 0.28, rough: 0.22, metal: 0.03, label: "hydrogen" },
+    Ca: { color: 0x7d9a77, radius: 0.60, rough: 0.20, metal: 0.80, label: "calcium" }
+  };
+
+  /* ---------------- renderer, scene, camera ---------------- */
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  } catch (e) {
+    canvas.insertAdjacentHTML("afterend",
+      '<div class="nowebgl">This browser could not start WebGL, so the 3D view is unavailable.</div>');
+    canvas.remove();
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.98;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(38, 16 / 10, 0.1, 200);
+
+  /* Studio environment, built in-canvas so the page fetches no image assets. */
+  function buildEnv() {
+    var c = document.createElement("canvas");
+    c.width = 512; c.height = 256;
+    var x = c.getContext("2d");
+    var g = x.createLinearGradient(0, 0, 0, 256);
+    g.addColorStop(0.00, "#9fb3c4");
+    g.addColorStop(0.45, "#5d6e7c");
+    g.addColorStop(0.55, "#3c4650");
+    g.addColorStop(1.00, "#191d21");
+    x.fillStyle = g; x.fillRect(0, 0, 512, 256);
+    // key softbox, fill softbox, warm bounce
+    function box(cx, cy, rx, ry, col) {
+      var rg = x.createRadialGradient(cx, cy, 0, cx, cy, Math.max(rx, ry));
+      rg.addColorStop(0, col); rg.addColorStop(1, "rgba(0,0,0,0)");
+      x.save(); x.translate(cx, cy); x.scale(rx / Math.max(rx, ry), ry / Math.max(rx, ry));
+      x.translate(-cx, -cy); x.fillStyle = rg; x.fillRect(0, 0, 512, 256); x.restore();
+    }
+    box(150, 52, 130, 74, "rgba(255,255,255,0.98)");
+    box(390, 84, 96, 58, "rgba(198,226,238,0.72)");
+    box(300, 224, 180, 56, "rgba(255,214,170,0.34)");
+    var tex = new THREE.CanvasTexture(c);
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.encoding = THREE.sRGBEncoding;
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    pmrem.compileEquirectangularShader();
+    var rt = pmrem.fromEquirectangular(tex);
+    tex.dispose(); pmrem.dispose();
+    return rt.texture;
+  }
+  scene.environment = buildEnv();
+
+  var key = new THREE.DirectionalLight(0xffffff, 2.1);
+  key.position.set(5.5, 8.5, 5.0);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.radius = 3.5;
+  key.shadow.bias = -0.0022;
+  var sc = key.shadow.camera;
+  sc.near = 1; sc.far = 34; sc.left = -11; sc.right = 11; sc.top = 11; sc.bottom = -11;
+  scene.add(key);
+  scene.add(new THREE.DirectionalLight(0x9fc4d8, 0.34).translateX(-6).translateY(3).translateZ(-5));
+
+  var floorY = -3.05;
+  var floor = new THREE.Mesh(
+    new THREE.CircleGeometry(19, 64).rotateX(-Math.PI / 2),
+    new THREE.ShadowMaterial({ opacity: 0.3 })
+  );
+  floor.position.y = floorY;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  /* Stage colours track the viewer's theme. */
+  var probe = document.getElementById("panel");
+  function readTheme() {
+    var cs = getComputedStyle(probe);
+    function col(name, fallback) {
+      var v = cs.getPropertyValue(name).trim();
+      try { return new THREE.Color(v || fallback); } catch (e) { return new THREE.Color(fallback); }
+    }
+    var top = col("--stage-top", "#ced7dd");
+    var bot = col("--stage-bot", "#aab8c2");
+    scene.background = top;
+    scene.fog = new THREE.Fog(bot.getHex(), 17, 38);
+    floor.material.opacity = (top.r + top.g + top.b) / 3 < 0.35 ? 0.46 : 0.26;
+  }
+  readTheme();
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    (mq.addEventListener ? mq.addEventListener.bind(mq, "change") : mq.addListener.bind(mq))(readTheme);
+  }
+  new MutationObserver(readTheme).observe(document.documentElement,
+    { attributes: true, attributeFilter: ["data-theme"] });
+
+  /* ---------------- geometry pools ---------------- */
+  var SPHERE = new THREE.SphereGeometry(1, 44, 30);
+  var ROD = new THREE.CylinderGeometry(1, 1, 1, 18, 1, true);
+  var matCache = {};
+  function mat(el) {
+    if (!matCache[el]) {
+      var d = EL[el];
+      matCache[el] = new THREE.MeshPhysicalMaterial({
+        color: d.color, roughness: d.rough, metalness: d.metal,
+        clearcoat: 0.6, clearcoatRoughness: 0.12, envMapIntensity: 0.92
+      });
+    }
+    return matCache[el];
+  }
+  var bondMat = new THREE.MeshPhysicalMaterial({
+    color: 0x9aa6af, roughness: 0.34, metalness: 0.62,
+    clearcoat: 0.45, clearcoatRoughness: 0.28, envMapIntensity: 0.9,
+    transparent: true, opacity: 1
+  });
+
+  function atomMesh(el) {
+    var m = new THREE.Mesh(SPHERE, mat(el));
+    m.scale.setScalar(EL[el].radius);
+    m.castShadow = true; m.receiveShadow = true;
+    return m;
+  }
+  function rodMesh() {
+    var m = new THREE.Mesh(ROD, bondMat.clone());
+    m.castShadow = true;
+    return m;
+  }
+
+  var UP = new THREE.Vector3(0, 1, 0);
+  var vA = new THREE.Vector3(), vB = new THREE.Vector3(), vP = new THREE.Vector3();
+  function placeRod(mesh, a, b, radius, offset) {
+    vA.subVectors(b, a);
+    var len = vA.length();
+    if (len < 1e-6) { mesh.visible = false; return; }
+    vB.copy(vA).normalize();
+    vP.set(0, 0, 1).cross(vB);
+    if (vP.lengthSq() < 1e-6) vP.set(1, 0, 0).cross(vB);
+    vP.normalize().multiplyScalar(offset || 0);
+    mesh.position.copy(a).addScaledVector(vA, 0.5).add(vP);
+    mesh.quaternion.setFromUnitVectors(UP, vB);
+    mesh.scale.set(radius, len, radius);
+  }
+
+  /* ---------------- scene 01 · physical ---------------- */
+  // Rigid molecules keep their internal geometry for the whole run; only the
+  // cloud they sit in changes. Nothing here ever edits a bond.
+  var physRoot = new THREE.Group();
+  scene.add(physRoot);
+
+  var CO2_ATOMS = [["C", 0, 0, 0], ["O", -1.16, 0, 0], ["O", 1.16, 0, 0]];
+  var CO2_BONDS = [[0, 1, 2], [0, 2, 2]];
+  var N2_ATOMS = [["N", -0.55, 0, 0], ["N", 0.55, 0, 0]];
+  var N2_BONDS = [[0, 1, 3]];
+
+  function buildMolecule(atoms, bonds) {
+    var g = new THREE.Group();
+    var pts = [];
+    atoms.forEach(function (a) {
+      var m = atomMesh(a[0]);
+      m.position.set(a[1], a[2], a[3]);
+      pts.push(m.position);
+      g.add(m);
+    });
+    bonds.forEach(function (b) {
+      var order = b[2], sep = 0.13;
+      for (var i = 0; i < order; i++) {
+        var off = order === 1 ? 0 : (i - (order - 1) / 2) * sep * 2;
+        var r = rodMesh();
+        placeRod(r, pts[b[0]], pts[b[1]], order === 1 ? 0.088 : 0.062, off);
+        g.add(r);
+      }
+    });
+    return g;
+  }
+
+  function seeded(i) { var x = Math.sin(i * 127.1) * 43758.5453; return x - Math.floor(x); }
+
+  var physMols = [];
+  (function buildPhysical() {
+    var N = 18;
+    for (var i = 0; i < N; i++) {
+      var isCO2 = i % 2 === 0;
+      var g = buildMolecule(isCO2 ? CO2_ATOMS : N2_ATOMS, isCO2 ? CO2_BONDS : N2_BONDS);
+      // start: one well-mixed cloud
+      var a = seeded(i) * Math.PI * 2, b = seeded(i + 40) * Math.PI * 2, rr = 2.2 + seeded(i + 80) * 2.9;
+      var start = new THREE.Vector3(
+        Math.cos(a) * rr, (seeded(i + 120) - 0.5) * 3.4, Math.sin(b) * rr * 0.85
+      );
+      // end: CO2 condenses into a cold ordered raft, N2 stays a dispersed gas
+      var end;
+      if (isCO2) {
+        var k = Math.floor(i / 2), cols = 3;
+        end = new THREE.Vector3(
+          -4.6 + (k % cols) * 1.34,
+          floorY + 0.72 + Math.floor(k / cols) * 1.24,
+          -0.55 + ((k % 2) ? 0.62 : 0)
+        );
+      } else {
+        var k2 = Math.floor(i / 2);
+        end = new THREE.Vector3(
+          4.3 + (seeded(k2 + 7) - 0.5) * 2.5,
+          0.6 + (seeded(k2 + 17) - 0.5) * 4.0,
+          (seeded(k2 + 27) - 0.5) * 3.0
+        );
+      }
+      g.position.copy(start);
+      physRoot.add(g);
+      physMols.push({
+        g: g, isCO2: isCO2, start: start, end: end,
+        spin: new THREE.Vector3(
+          (seeded(i + 200) - 0.5) * 0.9,
+          (seeded(i + 240) - 0.5) * 0.9,
+          (seeded(i + 280) - 0.5) * 0.9
+        ),
+        phase: seeded(i + 320) * Math.PI * 2,
+        label: isCO2 ? "CO₂ · carbon dioxide" : "N₂ · nitrogen"
+      });
+    }
+  })();
+
+  /* ---------------- scene 02 · chemical ---------------- */
+  // CO2 + Ca(OH)2 -> CaCO3 + H2O, choreographed atom by atom.
+  //   Ha migrates from Oa to Ob · Ca-Ob breaks · C-Oa forms · water leaves.
+  var chemRoot = new THREE.Group();
+  chemRoot.visible = false;
+  scene.add(chemRoot);
+
+  var chemAtoms = [
+    { id: "Ca", el: "Ca", p0: [-2.60, 0.10, 0], p1: [-1.62, -0.20, 0] },
+    { id: "Oa", el: "O",  p0: [-3.85, 0.62, 0], p1: [-0.34, 0.72, 0] },
+    { id: "Ha", el: "H",  p0: [-4.52, 1.18, 0], p1: [ 4.02, 1.30, 0] },
+    { id: "Ob", el: "O",  p0: [-1.36, 0.62, 0], p1: [ 3.36, 0.74, 0] },
+    { id: "Hb", el: "H",  p0: [-0.70, 1.18, 0], p1: [ 4.06, 0.16, 0] },
+    { id: "C",  el: "C",  p0: [ 2.90, -0.10, 0], p1: [ 0.40, -0.16, 0] },
+    { id: "Oc", el: "O",  p0: [ 1.74, -0.10, 0], p1: [ 1.08, -1.10, 0] },
+    { id: "Od", el: "O",  p0: [ 4.06, -0.10, 0], p1: [ 1.20, 0.62, 0] }
+  ];
+  var idx = {};
+  chemAtoms.forEach(function (a, i) {
+    idx[a.id] = i;
+    a.v0 = new THREE.Vector3().fromArray(a.p0);
+    a.v1 = new THREE.Vector3().fromArray(a.p1);
+    a.cur = a.v0.clone();
+    a.mesh = atomMesh(a.el);
+    a.mesh.position.copy(a.cur);
+    chemRoot.add(a.mesh);
+  });
+
+  // tIn/tOut: the window over which a bond fades in or out. order0 -> order1 at tOrd.
+  var chemBonds = [
+    { a: "Ca", b: "Oa", order0: 1, order1: 1, tIn: 0,    tOut: 1 },
+    { a: "Oa", b: "Ha", order0: 1, order1: 1, tIn: 0,    tOut: 0.40, breaks: true },
+    { a: "Ca", b: "Ob", order0: 1, order1: 1, tIn: 0,    tOut: 0.50, breaks: true },
+    { a: "Ob", b: "Hb", order0: 1, order1: 1, tIn: 0,    tOut: 1 },
+    { a: "Ob", b: "Ha", order0: 1, order1: 1, tIn: 0.56, tOut: 1, forms: true },
+    { a: "C",  b: "Oa", order0: 1, order1: 1, tIn: 0.64, tOut: 1, forms: true },
+    { a: "C",  b: "Oc", order0: 2, order1: 2, tIn: 0,    tOut: 1 },
+    { a: "C",  b: "Od", order0: 2, order1: 1, tIn: 0,    tOut: 1, tOrd: 0.64 }
+  ];
+  chemBonds.forEach(function (b) {
+    b.rods = [];
+    var maxOrder = Math.max(b.order0, b.order1);
+    for (var i = 0; i < maxOrder; i++) {
+      var r = rodMesh();
+      b.rods.push(r);
+      chemRoot.add(r);
+    }
+  });
+
+  var chemLabels = { Ca: "Ca(OH)₂ · slaked lime", Oa: "Ca(OH)₂ · slaked lime", Ha: "Ca(OH)₂ · slaked lime",
+                     Ob: "Ca(OH)₂ · slaked lime", Hb: "Ca(OH)₂ · slaked lime",
+                     C: "CO₂ · carbon dioxide", Oc: "CO₂ · carbon dioxide", Od: "CO₂ · carbon dioxide" };
+  var chemLabelsEnd = { Ca: "CaCO₃ · calcium carbonate", Oa: "CaCO₃ · calcium carbonate",
+                        C: "CaCO₃ · calcium carbonate", Oc: "CaCO₃ · calcium carbonate",
+                        Od: "CaCO₃ · calcium carbonate",
+                        Ob: "H₂O · water", Ha: "H₂O · water", Hb: "H₂O · water" };
+
+  /* ---------------- state ---------------- */
+  var route = "phys";
+  var t = 0;
+  var playing = false;
+  var dir = 1;
+
+  var els = {
+    play: document.getElementById("play"),
+    reset: document.getElementById("reset"),
+    prog: document.getElementById("prog"),
+    proglabel: document.getElementById("proglabel"),
+    transport: document.getElementById("transport"),
+    stageV: document.getElementById("r-stage"),
+    temp: document.getElementById("r-temp"),
+    broken: document.getElementById("r-broken"),
+    formed: document.getElementById("r-formed"),
+    out: document.getElementById("r-out"),
+    verdict: document.getElementById("verdict"),
+    btnPhys: document.getElementById("btn-phys"),
+    btnChem: document.getElementById("btn-chem"),
+    tip: document.getElementById("tip")
+  };
+
+  function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ramp(x, a, b) { return clamp01((x - a) / (b - a)); }
+
+  /* ---------------- per-frame layout ---------------- */
+  function layoutPhysical(time) {
+    var e = ease(t);
+    for (var i = 0; i < physMols.length; i++) {
+      var m = physMols[i];
+      // condensed CO2 slows to a near-stop; nitrogen keeps its gas-phase tumble
+      var calm = m.isCO2 ? 1 - 0.93 * e : 1;
+      var drift = m.isCO2 ? 1 - 0.9 * e : 1;
+      m.g.position.lerpVectors(m.start, m.end, e);
+      if (!reduced) {
+        m.g.position.y += Math.sin(time * 0.9 + m.phase) * 0.14 * drift;
+        m.g.position.x += Math.cos(time * 0.7 + m.phase) * 0.10 * drift;
+        m.g.rotation.x += m.spin.x * 0.010 * calm;
+        m.g.rotation.y += m.spin.y * 0.010 * calm;
+        m.g.rotation.z += m.spin.z * 0.010 * calm;
+      }
+    }
+  }
+
+  function layoutChemical(time) {
+    var i, a;
+    for (i = 0; i < chemAtoms.length; i++) {
+      a = chemAtoms[i];
+      var span = 1;
+      // the migrating proton moves first, the heavy fragments settle after
+      var s = a.id === "Ha" ? ramp(t, 0.30, 0.62)
+            : a.id === "Ob" || a.id === "Hb" ? ramp(t, 0.42, 0.90)
+            : ramp(t, 0.18, 0.86);
+      var e = ease(s);
+      a.cur.lerpVectors(a.v0, a.v1, e);
+      // water lifts away, the carbonate settles down
+      if (a.id === "Ob" || a.id === "Hb" || a.id === "Ha") a.cur.y += 0.55 * e;
+      if (!reduced) a.cur.y += Math.sin(time * 0.8 + i) * 0.05 * (1 - e * 0.7);
+      a.mesh.position.copy(a.cur);
+      span = 1;
+    }
+    for (i = 0; i < chemBonds.length; i++) {
+      var b = chemBonds[i];
+      var pa = chemAtoms[idx[b.a]].cur, pb = chemAtoms[idx[b.b]].cur;
+      var vis = 1;
+      if (b.tIn > 0) vis = Math.min(vis, ramp(t, b.tIn, b.tIn + 0.14));
+      if (b.tOut < 1) vis = Math.min(vis, 1 - ramp(t, b.tOut - 0.14, b.tOut));
+      var order = (b.tOrd != null && t >= b.tOrd) ? b.order1 : b.order0;
+      for (var k = 0; k < b.rods.length; k++) {
+        var rod = b.rods[k];
+        if (k >= order || vis <= 0.01) { rod.visible = false; continue; }
+        rod.visible = true;
+        var off = order === 1 ? 0 : (k - (order - 1) / 2) * 0.26;
+        placeRod(rod, pa, pb, order === 1 ? 0.088 : 0.062, off);
+        rod.material.opacity = vis;
+        rod.material.transparent = vis < 0.999;
+      }
+    }
+  }
+
+  /* ---------------- readouts ---------------- */
+  function updateReadout() {
+    var pct = Math.round(t * 100);
+    if (route === "phys") {
+      var temp = Math.round(20 + (-78.5 - 20) * t);
+      els.temp.textContent = temp + " °C";
+      els.broken.textContent = "0";
+      els.formed.textContent = "0";
+      els.broken.className = "v"; els.formed.className = "v";
+      els.stageV.textContent = t < 0.04 ? "Mixed feed" : t < 0.92 ? "Cooling · " + pct + "%" : "Separated";
+      els.out.textContent = t < 0.55 ? "—" : "CO₂ (condensed)";
+      els.out.className = "v cold";
+      els.verdict.innerHTML = t < 0.92
+        ? "Every molecule in view is still the molecule it started as. Only its <b>location</b> is changing."
+        : "Separated on boiling point alone. <b>Nothing left the vessel as a different substance</b>, so rewarming and mixing puts you back exactly where you started.";
+    } else {
+      els.temp.textContent = "25 °C";
+      var broken = (t >= 0.40 ? 1 : 0) + (t >= 0.50 ? 1 : 0);
+      var formed = (t >= 0.56 ? 1 : 0) + (t >= 0.64 ? 1 : 0);
+      els.broken.textContent = String(broken);
+      els.formed.textContent = String(formed);
+      els.broken.className = broken ? "v hot" : "v";
+      els.formed.className = formed ? "v hot" : "v";
+      els.stageV.textContent = t < 0.18 ? "Reagent added"
+        : t < 0.50 ? "Proton transfer"
+        : t < 0.72 ? "Carbonate forming"
+        : t < 0.94 ? "Precipitating" : "Reacted";
+      els.out.textContent = t < 0.64 ? "—" : "CaCO₃ (solid)";
+      els.out.className = "v hot";
+      els.verdict.innerHTML = t < 0.40
+        ? "Lime meets the gas. Watch the bond between <b>Oa</b> and its hydrogen — it is about to break."
+        : t < 0.72
+          ? "A proton crosses to the other hydroxide, and the carbon takes up the oxygen calcium leaves behind."
+          : "The carbon leaves as <b>calcium carbonate</b>, a substance that was not in the vessel at the start. Remixing cannot undo this — only calcining the solid at about 900 °C will.";
+    }
+    els.prog.setAttribute("aria-valuetext", pct + " percent");
+  }
+
+  function setRoute(r) {
+    route = r;
+    var isPhys = r === "phys";
+    physRoot.visible = isPhys;
+    chemRoot.visible = !isPhys;
+    els.btnPhys.setAttribute("aria-pressed", String(isPhys));
+    els.btnChem.setAttribute("aria-pressed", String(!isPhys));
+    els.transport.classList.toggle("hot-route", !isPhys);
+    els.proglabel.textContent = isPhys ? "Cooling progress" : "Reaction progress";
+    var fr = FRAME[r];
+    cam.dist = fr.dist;
+    cam.target.set(0, fr.y, 0);
+    applyCamera();
+    setT(0);
+    playing = false; dir = 1;
+    els.play.textContent = "Run";
+  }
+
+  function setT(v) {
+    t = clamp01(v);
+    els.prog.value = String(Math.round(t * 1000));
+    updateReadout();
+  }
+
+  els.btnPhys.addEventListener("click", function () { setRoute("phys"); });
+  els.btnChem.addEventListener("click", function () { setRoute("chem"); });
+  els.prog.addEventListener("input", function () {
+    playing = false; els.play.textContent = "Run";
+    setT(parseInt(els.prog.value, 10) / 1000);
+  });
+  els.reset.addEventListener("click", function () {
+    playing = false; dir = 1; els.play.textContent = "Run"; setT(0);
+  });
+  els.play.addEventListener("click", function () {
+    if (playing) { playing = false; els.play.textContent = "Run"; return; }
+    if (t >= 0.999) { dir = -1; } else if (t <= 0.001) { dir = 1; }
+    playing = true;
+    els.play.textContent = "Pause";
+  });
+
+  /* ---------------- orbit controls ---------------- */
+  var cam = { az: 0.52, el: 0.20, dist: 15.2, target: new THREE.Vector3(0, 0, 0) };
+  var FRAME = { phys: { dist: 15.4, y: 0.0 }, chem: { dist: 10.2, y: 0.25 } };
+  function applyCamera() {
+    var ce = Math.max(-1.25, Math.min(1.25, cam.el));
+    camera.position.set(
+      cam.target.x + cam.dist * Math.cos(ce) * Math.sin(cam.az),
+      cam.target.y + cam.dist * Math.sin(ce),
+      cam.target.z + cam.dist * Math.cos(ce) * Math.cos(cam.az)
+    );
+    camera.lookAt(cam.target);
+  }
+  var drag = null;
+  canvas.addEventListener("pointerdown", function (ev) {
+    drag = { x: ev.clientX, y: ev.clientY };
+    canvas.setPointerCapture(ev.pointerId);
+  });
+  canvas.addEventListener("pointermove", function (ev) {
+    if (drag) {
+      cam.az -= (ev.clientX - drag.x) * 0.0062;
+      cam.el += (ev.clientY - drag.y) * 0.0052;
+      drag.x = ev.clientX; drag.y = ev.clientY;
+      applyCamera();
+    } else {
+      hover(ev);
+    }
+  });
+  function endDrag(ev) {
+    if (drag && ev.pointerId != null) {
+      try { canvas.releasePointerCapture(ev.pointerId); } catch (e) {}
+    }
+    drag = null;
+  }
+  canvas.addEventListener("pointerup", endDrag);
+  canvas.addEventListener("pointercancel", endDrag);
+  canvas.addEventListener("pointerleave", function (ev) { endDrag(ev); hideTip(); });
+  canvas.addEventListener("wheel", function (ev) {
+    ev.preventDefault();
+    cam.dist = Math.max(7, Math.min(26, cam.dist * (1 + Math.sign(ev.deltaY) * 0.09)));
+    applyCamera();
+  }, { passive: false });
+  applyCamera();
+
+  /* ---------------- hover labels ---------------- */
+  var ray = new THREE.Raycaster();
+  var ndc = new THREE.Vector2();
+  function hideTip() { els.tip.classList.remove("on"); }
+  function hover(ev) {
+    var r = canvas.getBoundingClientRect();
+    ndc.x = ((ev.clientX - r.left) / r.width) * 2 - 1;
+    ndc.y = -((ev.clientY - r.top) / r.height) * 2 + 1;
+    ray.setFromCamera(ndc, camera);
+    var root = route === "phys" ? physRoot : chemRoot;
+    var hits = ray.intersectObjects(root.children, true);
+    if (!hits.length) { hideTip(); return; }
+    var label = null;
+    if (route === "phys") {
+      var obj = hits[0].object;
+      while (obj && obj.parent !== physRoot) obj = obj.parent;
+      for (var i = 0; i < physMols.length; i++) if (physMols[i].g === obj) label = physMols[i].label;
+    } else {
+      var m = hits[0].object;
+      for (var j = 0; j < chemAtoms.length; j++) {
+        if (chemAtoms[j].mesh === m) {
+          label = (t > 0.72 ? chemLabelsEnd : chemLabels)[chemAtoms[j].id];
+          label += " · " + EL[chemAtoms[j].el].label;
+        }
+      }
+    }
+    if (!label) { hideTip(); return; }
+    els.tip.textContent = label;
+    els.tip.style.left = (ev.clientX - r.left) + "px";
+    els.tip.style.top = (ev.clientY - r.top) + "px";
+    els.tip.classList.add("on");
+  }
+
+  /* ---------------- resize ---------------- */
+  function resize() {
+    var w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize", resize);
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  resize();
+
+  /* ---------------- loop ---------------- */
+  var last = performance.now();
+  function frame(now) {
+    var dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    if (playing) {
+      t += dir * dt * 0.14;
+      if (t >= 1) { t = 1; playing = false; els.play.textContent = "Run"; }
+      if (t <= 0) { t = 0; playing = false; dir = 1; els.play.textContent = "Run"; }
+      els.prog.value = String(Math.round(t * 1000));
+      updateReadout();
+    }
+    var time = now / 1000;
+    if (route === "phys") layoutPhysical(time); else layoutChemical(time);
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  setRoute("phys");
+  requestAnimationFrame(frame);
+})();
+</script>
