@@ -1,0 +1,412 @@
+<title>Atoms, Ions and Isotopes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg:#e9edf0; --surface:#f8fafb; --surface-2:#eff3f6;
+    --ink:#0e1418; --ink-2:#51616c; --ink-3:#7b8993;
+    --line:#c6d0d7; --line-2:#d9e1e6;
+    --cold:#0d7c8b; --hot:#b4530d; --focus:#0d7c8b;
+    --proton:#b4530d; --neutron:#6b7a85; --electron:#0d7c8b;
+    --m:#cfe0e6; --d:#e6ddc9; --n:#dcd3e4;
+    --f-display:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+    --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+      --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+      --line:#233039; --line-2:#1b252c;
+      --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+      --proton:#ef9134; --neutron:#8b9aa5; --electron:#2fc6d6;
+      --m:#1d3640; --d:#3a3222; --n:#2e2740;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+    --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+    --line:#233039; --line-2:#1b252c;
+    --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+    --proton:#ef9134; --neutron:#8b9aa5; --electron:#2fc6d6;
+    --m:#1d3640; --d:#3a3222; --n:#2e2740;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body);
+         font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding-inline:20px; padding-block:28px 64px;
+          display:grid; gap:26px; }
+  .eyebrow { margin:0; font-family:var(--f-mono); font-size:12px; letter-spacing:.13em;
+             text-transform:uppercase; color:var(--cold); }
+  h1 { margin:6px 0 0; font-family:var(--f-display); font-weight:700;
+       font-size:clamp(30px,5.2vw,50px); line-height:1.02; letter-spacing:-.015em;
+       text-wrap:balance; max-width:21ch; }
+  .standfirst { margin:12px 0 0; font-size:17px; line-height:1.5; color:var(--ink-2);
+                max-width:64ch; text-wrap:pretty; }
+  .panel { border:1px solid var(--line); border-radius:3px; background:var(--surface); overflow:hidden; }
+  .phead { padding:11px 16px; border-bottom:1px solid var(--line); background:var(--surface-2);
+           display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; }
+  .phead .k { font-family:var(--f-mono); font-size:11px; letter-spacing:.12em;
+              text-transform:uppercase; color:var(--hot); }
+  .phead .t { font-family:var(--f-display); font-weight:600; font-size:18px; }
+  h2 { margin:0; font-family:var(--f-display); font-weight:600;
+       font-size:clamp(22px,3.4vw,28px); line-height:1.12; text-wrap:balance; }
+  .intro { display:grid; gap:8px; }
+  .intro p { margin:0; color:var(--ink-2); max-width:64ch; text-wrap:pretty; }
+
+  /* ---- builder ---- */
+  .build { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:0; }
+  @media (max-width:760px) { .build { grid-template-columns:minmax(0,1fr); } }
+  .viz { padding:16px; border-right:1px solid var(--line); display:grid; gap:10px; align-content:start; }
+  @media (max-width:760px) { .viz { border-right:0; border-bottom:1px solid var(--line); } }
+  .viz svg { width:100%; height:auto; max-width:100%; display:block; }
+  .ctl { padding:16px; display:grid; gap:14px; align-content:start; }
+  .steps { display:flex; flex-wrap:wrap; gap:10px; }
+  .step { display:grid; grid-template-columns:auto auto auto; align-items:center; gap:8px;
+          padding:8px 11px; border:1px solid var(--line); border-radius:2px; background:var(--surface-2); }
+  .step .lab { grid-column:1/-1; display:flex; align-items:center; gap:7px;
+               font-family:var(--f-mono); font-size:11.5px; color:var(--ink-2); }
+  .step .sw { width:11px; height:11px; border-radius:50%; border:1px solid var(--ink-3); flex:none; }
+  .step button { width:30px; height:30px; border:1px solid var(--line); border-radius:2px;
+                 background:var(--surface); color:var(--ink); font-family:var(--f-mono);
+                 font-size:16px; line-height:1; cursor:pointer; }
+  .step button:hover { border-color:var(--hot); }
+  .step button[disabled] { opacity:.35; cursor:default; }
+  .step .n { min-width:30px; text-align:center; font-family:var(--f-mono); font-size:17px;
+             font-variant-numeric:tabular-nums; }
+  .sym { display:flex; flex-wrap:wrap; align-items:baseline; gap:10px 18px; }
+  .sym .note { font-family:var(--f-mono); font-size:44px; line-height:1.05; white-space:nowrap; }
+  .sym .note sub, .sym .note sup { font-size:19px; }
+  .sym .nm { font-size:16px; color:var(--ink-2); }
+  .sym .nm b { color:var(--ink); font-weight:600; }
+  .grid5 { display:grid; grid-template-columns:repeat(auto-fit,minmax(104px,1fr));
+           border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+  .grid5 .c { padding:9px 11px; border-right:1px solid var(--line-2); display:grid; gap:2px;
+              background:var(--surface-2); }
+  .grid5 .c:last-child { border-right:0; }
+  .grid5 .k { font-family:var(--f-mono); font-size:10px; letter-spacing:.1em;
+              text-transform:uppercase; color:var(--ink-3); }
+  .grid5 .v { font-family:var(--f-mono); font-size:19px; font-variant-numeric:tabular-nums; }
+  .msg { font-size:14px; color:var(--ink-2); min-height:1.4em; text-wrap:pretty; }
+  .msg b { color:var(--ink); font-weight:600; }
+  .msg.ion { color:var(--hot); }
+
+  /* ---- periodic table ---- */
+  .pt-wrap { padding:14px 16px; overflow-x:auto; }
+  .pt { display:grid; grid-template-columns:repeat(18,minmax(30px,1fr));
+        gap:2px; min-width:620px; }
+  .pt button, .pt .gap {
+    aspect-ratio:1/1; display:grid; place-content:center; gap:0;
+    border:1px solid var(--line-2); border-radius:1px; padding:0;
+    font-family:var(--f-mono); font-size:11px; line-height:1.05; cursor:pointer; color:var(--ink);
+  }
+  .pt .gap { border:0; cursor:default; background:none; }
+  .pt .z { font-size:7.5px; color:var(--ink-3); }
+  .pt .m { background:var(--m); }
+  .pt .d { background:var(--d); }
+  .pt .n { background:var(--n); }
+  .pt button:hover { outline:2px solid var(--hot); outline-offset:-2px; }
+  .pt button.on { outline:2.5px solid var(--hot); outline-offset:-2px; font-weight:600; }
+  .pt .marker { font-size:8px; color:var(--ink-3); background:var(--surface-2); cursor:default; }
+  .legend { display:flex; flex-wrap:wrap; gap:8px 18px; padding:0 16px 14px;
+            font-family:var(--f-mono); font-size:12px; color:var(--ink-2); }
+  .legend span { display:flex; align-items:center; gap:7px; }
+  .legend i { width:13px; height:13px; border:1px solid var(--line); display:inline-block; }
+
+  /* ---- drills ---- */
+  .drill { padding:14px 16px; display:grid; gap:12px; }
+  .scroll { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-family:var(--f-mono); font-size:13.5px; }
+  th { text-align:left; font-weight:500; font-size:10.5px; letter-spacing:.09em;
+       text-transform:uppercase; color:var(--ink-3); padding:0 12px 6px 0;
+       border-bottom:1px solid var(--line); white-space:nowrap; }
+  td { padding:7px 12px 7px 0; border-bottom:1px solid var(--line-2);
+       font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr:last-child td { border-bottom:0; }
+  .load { padding:4px 9px; border:1px solid var(--line); border-radius:2px;
+          background:var(--surface); color:var(--ink-2); font-family:var(--f-mono);
+          font-size:11px; cursor:pointer; }
+  .load:hover { border-color:var(--hot); color:var(--ink); }
+  .hide { color:var(--ink-3); }
+  .btn { padding:8px 15px; border:1px solid var(--line); border-radius:2px;
+         background:var(--surface); color:var(--ink); font-family:var(--f-mono);
+         font-size:12px; letter-spacing:.09em; text-transform:uppercase; cursor:pointer; }
+  .btn:hover { border-color:var(--ink-3); }
+  :focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+  footer { font-size:13px; color:var(--ink-3); border-top:1px solid var(--line);
+           padding-top:14px; max-width:74ch; text-wrap:pretty; }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">CHEM 1171 · Chapter 2</p>
+    <h1>Atoms, ions and isotopes, one particle at a time</h1>
+    <p class="standfirst">Three counts decide everything on this page. Protons fix which element you have and can never change without changing the element. Neutrons change only the mass, giving you isotopes. Electrons change only the charge, giving you ions. Move each one and watch which parts of the symbol move with it.</p>
+  </header>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Objectives 2 &amp; 3</span><span class="t">Build a nuclide</span></div>
+    <div class="build">
+      <div class="viz">
+        <svg id="atom" viewBox="0 0 320 300" role="img" aria-labelledby="atomdesc"></svg>
+        <p class="msg" id="vizNote"></p>
+      </div>
+      <div class="ctl">
+        <div class="steps" id="steps"></div>
+        <div class="sym">
+          <span class="note" id="notation"></span>
+          <span class="nm" id="elname"></span>
+        </div>
+        <div class="grid5">
+          <div class="c"><span class="k">Mass number A</span><span class="v" id="vA"></span></div>
+          <div class="c"><span class="k">Atomic number Z</span><span class="v" id="vZ"></span></div>
+          <div class="c"><span class="k">Protons</span><span class="v" id="vP"></span></div>
+          <div class="c"><span class="k">Electrons</span><span class="v" id="vE"></span></div>
+          <div class="c"><span class="k">Neutrons</span><span class="v" id="vN"></span></div>
+        </div>
+        <p class="msg" id="charge"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Objective 4</span><span class="t">Find it on the table</span></div>
+    <div class="pt-wrap"><div class="pt" id="pt"></div></div>
+    <div class="legend">
+      <span><i style="background:var(--m)"></i>metals</span>
+      <span><i style="background:var(--d)"></i>metalloids</span>
+      <span><i style="background:var(--n)"></i>nonmetals</span>
+      <span>click any element to load its most common isotope</span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Worksheet</span><span class="t">Write the symbol from Z and A</span></div>
+    <div class="drill">
+      <div class="scroll"><table id="t1"></table></div>
+      <div><button class="btn" id="r1">Reveal answers</button></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Worksheet</span><span class="t">Complete the particle table</span></div>
+    <div class="drill">
+      <div class="scroll"><table id="t2"></table></div>
+      <div><button class="btn" id="r2">Reveal answers</button></div>
+      <p class="msg">Load any row into the builder to see the counts assembled rather than asserted. Watch what the charge does to the electron column, and what it leaves alone.</p>
+    </div>
+  </section>
+
+  <footer>Electrons are drawn as a count, not an arrangement — a ring of dots is not where they sit. How electrons actually occupy orbitals comes later in the course, and no shell model here should be read as a configuration. Metalloid assignments follow the common seven-plus-astatine convention; texts differ on polonium and astatine.</footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var RAW = "H|Hydrogen|n|1|1;He|Helium|n|18|1;Li|Lithium|m|1|2;Be|Beryllium|m|2|2;B|Boron|d|13|2;C|Carbon|n|14|2;N|Nitrogen|n|15|2;O|Oxygen|n|16|2;F|Fluorine|n|17|2;Ne|Neon|n|18|2;Na|Sodium|m|1|3;Mg|Magnesium|m|2|3;Al|Aluminium|m|13|3;Si|Silicon|d|14|3;P|Phosphorus|n|15|3;S|Sulfur|n|16|3;Cl|Chlorine|n|17|3;Ar|Argon|n|18|3;K|Potassium|m|1|4;Ca|Calcium|m|2|4;Sc|Scandium|m|3|4;Ti|Titanium|m|4|4;V|Vanadium|m|5|4;Cr|Chromium|m|6|4;Mn|Manganese|m|7|4;Fe|Iron|m|8|4;Co|Cobalt|m|9|4;Ni|Nickel|m|10|4;Cu|Copper|m|11|4;Zn|Zinc|m|12|4;Ga|Gallium|m|13|4;Ge|Germanium|d|14|4;As|Arsenic|d|15|4;Se|Selenium|n|16|4;Br|Bromine|n|17|4;Kr|Krypton|n|18|4;Rb|Rubidium|m|1|5;Sr|Strontium|m|2|5;Y|Yttrium|m|3|5;Zr|Zirconium|m|4|5;Nb|Niobium|m|5|5;Mo|Molybdenum|m|6|5;Tc|Technetium|m|7|5;Ru|Ruthenium|m|8|5;Rh|Rhodium|m|9|5;Pd|Palladium|m|10|5;Ag|Silver|m|11|5;Cd|Cadmium|m|12|5;In|Indium|m|13|5;Sn|Tin|m|14|5;Sb|Antimony|d|15|5;Te|Tellurium|d|16|5;I|Iodine|n|17|5;Xe|Xenon|n|18|5;Cs|Caesium|m|1|6;Ba|Barium|m|2|6;La|Lanthanum|m|3|9;Ce|Cerium|m|4|9;Pr|Praseodymium|m|5|9;Nd|Neodymium|m|6|9;Pm|Promethium|m|7|9;Sm|Samarium|m|8|9;Eu|Europium|m|9|9;Gd|Gadolinium|m|10|9;Tb|Terbium|m|11|9;Dy|Dysprosium|m|12|9;Ho|Holmium|m|13|9;Er|Erbium|m|14|9;Tm|Thulium|m|15|9;Yb|Ytterbium|m|16|9;Lu|Lutetium|m|17|9;Hf|Hafnium|m|4|6;Ta|Tantalum|m|5|6;W|Tungsten|m|6|6;Re|Rhenium|m|7|6;Os|Osmium|m|8|6;Ir|Iridium|m|9|6;Pt|Platinum|m|10|6;Au|Gold|m|11|6;Hg|Mercury|m|12|6;Tl|Thallium|m|13|6;Pb|Lead|m|14|6;Bi|Bismuth|m|15|6;Po|Polonium|d|16|6;At|Astatine|d|17|6;Rn|Radon|n|18|6;Fr|Francium|m|1|7;Ra|Radium|m|2|7;Ac|Actinium|m|3|10;Th|Thorium|m|4|10;Pa|Protactinium|m|5|10;U|Uranium|m|6|10;Np|Neptunium|m|7|10;Pu|Plutonium|m|8|10;Am|Americium|m|9|10;Cm|Curium|m|10|10;Bk|Berkelium|m|11|10;Cf|Californium|m|12|10;Es|Einsteinium|m|13|10;Fm|Fermium|m|14|10;Md|Mendelevium|m|15|10;No|Nobelium|m|16|10;Lr|Lawrencium|m|17|10;Rf|Rutherfordium|m|4|7;Db|Dubnium|m|5|7;Sg|Seaborgium|m|6|7;Bh|Bohrium|m|7|7;Hs|Hassium|m|8|7;Mt|Meitnerium|m|9|7;Ds|Darmstadtium|m|10|7;Rg|Roentgenium|m|11|7;Cn|Copernicium|m|12|7;Nh|Nihonium|m|13|7;Fl|Flerovium|m|14|7;Mc|Moscovium|m|15|7;Lv|Livermorium|m|16|7;Ts|Tennessine|m|17|7;Og|Oganesson|n|18|7";
+  var EL = RAW.split(";").map(function (r, i) {
+    var f = r.split("|");
+    return { z: i + 1, sym: f[0], name: f[1], cat: f[2], col: +f[3], row: +f[4] };
+  });
+  var byZ = {}; EL.forEach(function (e) { byZ[e.z] = e; });
+  var SUP = { "0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵",
+              "6":"⁶","7":"⁷","8":"⁸","9":"⁹","+":"⁺","-":"⁻" };
+
+  // Most abundant stable isotope, or the longest-lived one for elements with none,
+  // so clicking the table lands on a nuclide that actually exists.
+  var MASS = [1,4,7,9,11,12,14,16,19,20,23,24,27,28,31,32,35,40,39,40,45,48,51,52,55,56,59,58,63,64,69,74,75,80,79,84,85,88,89,90,93,98,98,102,103,106,107,114,115,120,121,130,127,132,133,138,139,140,141,142,145,152,153,158,159,164,165,166,169,174,175,180,181,184,187,192,193,195,197,202,205,208,209,209,210,222,223,226,227,232,231,238,237,244,243,247,247,251,252,257,258,259,266,267,268,269,270,269,278,281,282,285,286,289,290,293,294,294];
+  var p = 19, n = 20, e = 19;   // opens on potassium-39, the first worksheet row
+  var MAXP = 118;
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+  function sup(s){ return String(s).split("").map(function(c){ return SUP[c]||c; }).join(""); }
+
+  /* ---------- steppers ---------- */
+  var PARTS = [
+    { k:"p", label:"protons",   col:"var(--proton)" },
+    { k:"n", label:"neutrons",  col:"var(--neutron)" },
+    { k:"e", label:"electrons", col:"var(--electron)" }
+  ];
+  $("steps").innerHTML = PARTS.map(function (q) {
+    return '<div class="step">' +
+      '<span class="lab"><span class="sw" style="background:'+q.col+'"></span>'+q.label+'</span>' +
+      '<button type="button" data-k="'+q.k+'" data-d="-1" aria-label="fewer '+q.label+'">−</button>' +
+      '<span class="n" id="n-'+q.k+'"></span>' +
+      '<button type="button" data-k="'+q.k+'" data-d="1" aria-label="more '+q.label+'">+</button>' +
+      '</div>';
+  }).join("");
+  $("steps").addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("button[data-k]") : null;
+    if (!b || b.disabled) return;
+    var d = +b.getAttribute("data-d"), k = b.getAttribute("data-k");
+    if (k === "p") p = Math.min(MAXP, Math.max(1, p + d));
+    if (k === "n") n = Math.min(200, Math.max(0, n + d));
+    if (k === "e") e = Math.min(MAXP + 10, Math.max(0, e + d));
+    render();
+  });
+
+  /* ---------- periodic table ---------- */
+  var cells = {};
+  (function () {
+    var slots = {};
+    EL.forEach(function (x) { slots[x.row + ":" + x.col] = x; });
+    var html = "";
+    for (var r = 1; r <= 10; r++) {
+      for (var c = 1; c <= 18; c++) {
+        if (r === 8) { html += '<div class="gap"></div>'; continue; }
+        if (r === 6 && c === 3) { html += '<div class="gap marker">57–71</div>'; continue; }
+        if (r === 7 && c === 3) { html += '<div class="gap marker">89–103</div>'; continue; }
+        var x = slots[r + ":" + c];
+        if (!x) { html += '<div class="gap"></div>'; continue; }
+        html += '<button type="button" class="'+x.cat+'" data-z="'+x.z+'" title="'+esc(x.name)+'">' +
+                '<span class="z">'+x.z+'</span>'+x.sym+'</button>';
+      }
+    }
+    $("pt").innerHTML = html;
+    $("pt").querySelectorAll("button[data-z]").forEach(function (b) {
+      cells[b.getAttribute("data-z")] = b;
+    });
+    $("pt").addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest("button[data-z]") : null;
+      if (!b) return;
+      var z = +b.getAttribute("data-z");
+      p = z; e = z; n = MASS[z - 1] - z;
+      render();
+    });
+  })();
+
+  /* ---------- nucleus + electron drawing ---------- */
+  function drawAtom() {
+    var total = p + n, cx = 160, cy = 150;
+    var eRad = 122;
+    // phyllotaxis packing keeps the nucleus looking packed at any count
+    var dot = total > 120 ? 3.4 : total > 60 ? 4.4 : total > 24 ? 5.8 : 7.6;
+    var spread = dot * 1.85;
+    var order = [];
+    for (var i = 0; i < total; i++) order.push(i < p ? "p" : "n");
+    // interleave so protons and neutrons mix rather than forming two blocks
+    var mixed = [], pi = 0, ni = 0;
+    for (i = 0; i < total; i++) {
+      var takeP = (p - pi) >= (n - ni) ? true : false;
+      if (pi >= p) takeP = false; else if (ni >= n) takeP = true;
+      if (takeP) { mixed.push("p"); pi++; } else { mixed.push("n"); ni++; }
+    }
+    var parts = "";
+    for (i = 0; i < total; i++) {
+      var a = i * 2.399963, rr = spread * Math.sqrt(i + 0.5);
+      var x = cx + rr * Math.cos(a), y = cy + rr * Math.sin(a);
+      parts += '<circle cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="'+dot+
+               '" fill="'+(mixed[i]==="p"?"var(--proton)":"var(--neutron)")+
+               '" stroke="var(--surface)" stroke-width="'+(dot>5?1:.6)+'"/>';
+    }
+    var shown = Math.min(e, 44);
+    var ering = '<circle cx="'+cx+'" cy="'+cy+'" r="'+eRad+'" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>';
+    for (i = 0; i < shown; i++) {
+      var ea = (i / Math.max(shown,1)) * Math.PI * 2 - Math.PI / 2;
+      ering += '<circle cx="'+(cx + eRad*Math.cos(ea)).toFixed(2)+'" cy="'+(cy + eRad*Math.sin(ea)).toFixed(2)+
+               '" r="4.2" fill="var(--electron)" stroke="var(--surface)" stroke-width="1"/>';
+    }
+    var cap = e > shown ? '<text x="'+cx+'" y="288" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--ink-3)">'+
+              e+' electrons · '+shown+' drawn</text>' : "";
+    $("atom").innerHTML = '<title id="atomdesc">Nucleus of '+p+' protons and '+n+
+      ' neutrons, with '+e+' electrons</title>' + ering + parts + cap;
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    var x = byZ[p];
+    $("n-p").textContent = p; $("n-n").textContent = n; $("n-e").textContent = e;
+    var A = p + n, q = p - e;
+
+    $("vA").textContent = A; $("vZ").textContent = p;
+    $("vP").textContent = p; $("vE").textContent = e; $("vN").textContent = n;
+
+    var qs = q === 0 ? "" : sup(Math.abs(q) === 1 ? (q > 0 ? "+" : "-")
+                                                 : Math.abs(q) + (q > 0 ? "+" : "-"));
+    $("notation").innerHTML = "<sup>"+A+"</sup><sub>"+p+"</sub>"+esc(x.sym)+
+                              (qs ? "<sup>"+qs+"</sup>" : "");
+    $("elname").innerHTML = "<b>"+esc(x.name)+"</b> · " +
+      (x.cat === "m" ? "metal" : x.cat === "d" ? "metalloid" : "nonmetal") +
+      " · written " + esc(x.sym) + "-" + A;
+
+    $("charge").className = "msg" + (q !== 0 ? " ion" : "");
+    if (q === 0) {
+      $("charge").innerHTML = "Neutral atom — " + p + " protons balanced by " + e +
+        " electrons. Add or remove an electron and it becomes an ion; the element does not change.";
+    } else {
+      $("charge").innerHTML = "<b>" + (q > 0 ? "Cation" : "Anion") + ", charge " +
+        (q > 0 ? "+" : "−") + Math.abs(q) + "</b> — " +
+        (q > 0 ? "lost " + q + " electron" + (q > 1 ? "s" : "")
+               : "gained " + (-q) + " electron" + (q < -1 ? "s" : "")) +
+        ". Protons are untouched, so it is still " + esc(x.name) + ".";
+    }
+
+    var ratio = p > 0 ? n / p : 0;
+    $("vizNote").innerHTML = "Mass number <b>A = " + p + " + " + n + " = " + A +
+      "</b>. Neutron-to-proton ratio " + ratio.toFixed(2) + ".";
+
+    Object.keys(cells).forEach(function (z) { cells[z].classList.toggle("on", +z === p); });
+    drawAtom();
+  }
+
+  /* ---------- worksheet drills ---------- */
+  var T1 = [ { z:12, a:26 }, { z:17, a:35 }, { z:92, a:235 } ];
+  var T2 = [
+    { lab:"³⁹K",        z:19, a:39,  q:0  },
+    { lab:"⁶⁵Cu",        z:29, a:65,  q:0  },
+    { lab:"¹⁴N³⁻", z:7,  a:14,  q:-3 },
+    { lab:"⁴⁴Ca²⁺", z:20, a:44,  q:2  },
+    { lab:"¹⁸O²⁻",  z:8,  a:18,  q:-2 }
+  ];
+  var show1 = false, show2 = false;
+
+  function drawT1() {
+    var h = "<thead><tr><th>Z</th><th>A</th><th>Symbol</th><th></th></tr></thead><tbody>";
+    T1.forEach(function (r, i) {
+      var el = byZ[r.z];
+      h += "<tr><td>"+r.z+"</td><td>"+r.a+"</td><td"+(show1?"":' class="hide"')+">" +
+           (show1 ? "<sup>"+r.a+"</sup><sub>"+r.z+"</sub>"+el.sym+" · "+el.name : "—") +
+           '</td><td><button class="load" data-t="1" data-i="'+i+'">load</button></td></tr>';
+    });
+    $("t1").innerHTML = h + "</tbody>";
+  }
+  function drawT2() {
+    var h = "<thead><tr><th>Species</th><th>Atomic number</th><th>Protons</th><th>Electrons</th>" +
+            "<th>Neutrons</th><th></th></tr></thead><tbody>";
+    T2.forEach(function (r, i) {
+      var pr = r.z, ee = r.z - r.q, nn = r.a - r.z;
+      var c = show2 ? "" : ' class="hide"';
+      h += "<tr><td>"+r.lab+"</td>" +
+           "<td"+c+">"+(show2?r.z:"—")+"</td><td"+c+">"+(show2?pr:"—")+"</td>" +
+           "<td"+c+">"+(show2?ee:"—")+"</td><td"+c+">"+(show2?nn:"—")+"</td>" +
+           '<td><button class="load" data-t="2" data-i="'+i+'">load</button></td></tr>';
+    });
+    $("t2").innerHTML = h + "</tbody>";
+  }
+  function onLoad(ev) {
+    var b = ev.target.closest ? ev.target.closest("button.load") : null;
+    if (!b) return;
+    var i = +b.getAttribute("data-i");
+    if (b.getAttribute("data-t") === "1") { p = T1[i].z; n = T1[i].a - T1[i].z; e = T1[i].z; }
+    else { var r = T2[i]; p = r.z; n = r.a - r.z; e = r.z - r.q; }
+    render();
+    document.querySelector(".build").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  $("t1").addEventListener("click", onLoad);
+  $("t2").addEventListener("click", onLoad);
+  $("r1").addEventListener("click", function () {
+    show1 = !show1; this.textContent = show1 ? "Hide answers" : "Reveal answers"; drawT1();
+  });
+  $("r2").addEventListener("click", function () {
+    show2 = !show2; this.textContent = show2 ? "Hide answers" : "Reveal answers"; drawT2();
+  });
+
+  drawT1(); drawT2(); render();
+})();
+</script>
