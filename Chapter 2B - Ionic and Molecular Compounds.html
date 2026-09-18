@@ -1,0 +1,400 @@
+<title>Ionic and Molecular Compounds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg:#e9edf0; --surface:#f8fafb; --surface-2:#eff3f6;
+    --ink:#0e1418; --ink-2:#51616c; --ink-3:#7b8993;
+    --line:#c6d0d7; --line-2:#d9e1e6;
+    --cold:#0d7c8b; --hot:#b4530d; --focus:#0d7c8b;
+    --ok:#1a6b4a; --bad:#a3301d;
+    --cat:#f2e3d5; --an:#d7e7ea;
+    --f-display:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+    --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+      --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+      --line:#233039; --line-2:#1b252c;
+      --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+      --ok:#4cc38a; --bad:#f07a5f;
+      --cat:#3a2716; --an:#0f2c33;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+    --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+    --line:#233039; --line-2:#1b252c;
+    --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+    --ok:#4cc38a; --bad:#f07a5f;
+    --cat:#3a2716; --an:#0f2c33;
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body);
+         font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding-inline:20px; padding-block:28px 64px;
+          display:grid; gap:26px; }
+  .eyebrow { margin:0; font-family:var(--f-mono); font-size:12px; letter-spacing:.13em;
+             text-transform:uppercase; color:var(--cold); }
+  h1 { margin:6px 0 0; font-family:var(--f-display); font-weight:700;
+       font-size:clamp(30px,5.2vw,50px); line-height:1.02; letter-spacing:-.015em;
+       text-wrap:balance; max-width:21ch; }
+  .standfirst { margin:12px 0 0; font-size:17px; line-height:1.5; color:var(--ink-2);
+                max-width:64ch; text-wrap:pretty; }
+  .panel { border:1px solid var(--line); border-radius:3px; background:var(--surface); overflow:hidden; }
+  .phead { padding:11px 16px; border-bottom:1px solid var(--line); background:var(--surface-2);
+           display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; }
+  .phead .k { font-family:var(--f-mono); font-size:11px; letter-spacing:.12em;
+              text-transform:uppercase; color:var(--hot); }
+  .phead .t { font-family:var(--f-display); font-weight:600; font-size:18px; }
+
+  .pickers { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+  @media (max-width:700px) { .pickers { grid-template-columns:1fr; } }
+  .pick { padding:13px 16px; display:grid; gap:9px; align-content:start; }
+  .pick + .pick { border-left:1px solid var(--line); }
+  @media (max-width:700px) { .pick + .pick { border-left:0; border-top:1px solid var(--line); } }
+  .pick .k { font-family:var(--f-mono); font-size:10.5px; letter-spacing:.11em;
+             text-transform:uppercase; color:var(--ink-3); }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { padding:5px 10px; border:1px solid var(--line); border-radius:2px;
+          background:var(--surface-2); color:var(--ink); font-family:var(--f-mono);
+          font-size:13px; cursor:pointer; }
+  .chip:hover { border-color:var(--hot); }
+  .chip[aria-pressed="true"] { background:var(--cat); border-color:var(--hot); font-weight:500; }
+  .pick.an .chip[aria-pressed="true"] { background:var(--an); border-color:var(--cold); }
+  .sub { font-family:var(--f-body); font-size:11px; color:var(--ink-3); margin-left:5px; }
+
+  .work { border-top:1px solid var(--line); padding:16px; display:grid; gap:14px; }
+  .bigf { font-family:var(--f-mono); font-size:clamp(30px,6vw,46px); line-height:1.1; }
+  .bigf sub { font-size:.52em; }
+  .bigf sup { font-size:.42em; }
+  .nm { font-family:var(--f-display); font-weight:600; font-size:clamp(19px,3.2vw,26px); }
+  .steps { display:grid; gap:0; border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+  .srow { display:grid; grid-template-columns:26px 1fr; gap:11px; padding:10px 13px;
+          border-bottom:1px solid var(--line-2); background:var(--surface-2); align-items:start; }
+  .srow:last-child { border-bottom:0; }
+  .srow .n { font-family:var(--f-mono); font-size:11px; color:var(--ink-3); padding-top:3px; }
+  .srow .b { display:grid; gap:3px; }
+  .srow .t { font-size:14.5px; text-wrap:pretty; }
+  .srow .m { font-family:var(--f-mono); font-size:14px; color:var(--ink-2); }
+  .srow .m sub { font-size:.72em; }
+  .crit { display:flex; align-items:baseline; gap:8px; font-size:14.5px; }
+  .crit .mark { font-family:var(--f-mono); font-weight:500; }
+  .crit.ok .mark { color:var(--ok); }
+  .crit.bad .mark { color:var(--bad); }
+  .flag { font-size:13.5px; color:var(--hot); text-wrap:pretty; }
+
+  .gridw { padding:14px 16px; display:grid; gap:12px; }
+  .scroll { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-family:var(--f-mono); font-size:13.5px; }
+  th { text-align:left; font-weight:500; font-size:10.5px; letter-spacing:.09em;
+       text-transform:uppercase; color:var(--ink-3); padding:0 12px 6px 0;
+       border-bottom:1px solid var(--line); white-space:nowrap; }
+  td { padding:8px 12px 8px 0; border-bottom:1px solid var(--line-2); white-space:nowrap; }
+  tr:last-child td { border-bottom:0; }
+  td.hid { color:var(--ink-3); }
+  td button { border:0; background:none; padding:0; font:inherit; color:var(--cold);
+              cursor:pointer; text-decoration:underline; text-underline-offset:2px; }
+  td button:hover { color:var(--hot); }
+  .btn { padding:8px 15px; border:1px solid var(--line); border-radius:2px;
+         background:var(--surface); color:var(--ink); font-family:var(--f-mono);
+         font-size:12px; letter-spacing:.09em; text-transform:uppercase; cursor:pointer; }
+  .btn:hover { border-color:var(--ink-3); }
+  .note { font-size:13.5px; color:var(--ink-3); text-wrap:pretty; max-width:70ch; }
+  .cols2 { columns:2; column-gap:26px; }
+  @media (max-width:620px) { .cols2 { columns:1; } }
+  .poly { break-inside:avoid; display:flex; justify-content:space-between; gap:14px;
+          padding:5px 0; border-bottom:1px solid var(--line-2); font-family:var(--f-mono);
+          font-size:13px; }
+  .poly span:last-child { color:var(--ink-2); font-family:var(--f-body); font-size:13px; }
+  :focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+  footer { font-size:13px; color:var(--ink-3); border-top:1px solid var(--line);
+           padding-top:14px; max-width:74ch; text-wrap:pretty; }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">CHEM 1171 · Chapter 2B</p>
+    <h1>Ionic and molecular compounds, built to the two criteria</h1>
+    <p class="standfirst">A metal with a nonmetal gives an ionic compound; two nonmetals give a molecular one. For the ionic case every formula you write has to clear the same two tests — it must be in simplest form, and the charges must add to zero. Pick a cation and an anion and watch both tests run.</p>
+  </header>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Ionic</span><span class="t">Cross the charges, then check the two criteria</span></div>
+    <div class="pickers">
+      <div class="pick ca">
+        <span class="k">Cation — metal, or a polyatomic cation</span>
+        <div class="chips" id="cats"></div>
+      </div>
+      <div class="pick an">
+        <span class="k">Anion — nonmetal, or a polyatomic anion</span>
+        <div class="chips" id="ans"></div>
+      </div>
+    </div>
+    <div class="work">
+      <div class="bigf" id="formula"></div>
+      <div class="nm" id="name"></div>
+      <div class="steps" id="steps"></div>
+      <p class="flag" id="flag"></p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Worksheet</span><span class="t">Write the formula and name for each pair</span></div>
+    <div class="gridw">
+      <div class="scroll"><table id="grid"></table></div>
+      <div><button class="btn" id="rg">Reveal answers</button></div>
+      <p class="note">Click any answer to load it into the builder above. Three of these twelve need a reduction, and three need parentheses — the two places formulas usually go wrong.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Worksheet</span><span class="t">Name these, with the cation's charge</span></div>
+    <div class="gridw">
+      <div class="scroll"><table id="named"></table></div>
+      <div><button class="btn" id="rn">Reveal answers</button></div>
+      <p class="note">Every cation here is a transition metal, so each one needs the Stock system — a Roman numeral giving the charge it carries in <em>this</em> formula. Read the charge back off the subscripts.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Molecular</span><span class="t">Two nonmetals, so count them with prefixes</span></div>
+    <div class="gridw">
+      <div class="scroll"><table id="mol"></table></div>
+      <div><button class="btn" id="rm">Reveal answers</button></div>
+      <p class="note">Order: the element further left in a period goes first, and the element further down a group goes first. Prefixes run mono, di, tri, tetra, penta, hexa, hepta, octa, nona, deca. Drop <em>mono</em> on the first element only — once the first element carries a prefix, the second takes one too, even when there is just one of it.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Reference</span><span class="t">Polyatomic ions</span></div>
+    <div class="gridw">
+      <div class="cols2" id="polylist"></div>
+      <p class="note">This table is the one you are given. The monatomic ions are not — those you read off the periodic table from the group number, and the <em>-ide</em> endings you learn.</p>
+    </div>
+  </section>
+
+  <footer>Charges for the representative elements follow the group rule: groups 1, 2 and 3 give +1, +2 and +3; groups 5, 6 and 7 give −3, −2 and −1, being what each needs to reach eight. Group 4 and the noble gases sit outside this. Transition metals carry more than one charge, which is why they are named with a Roman numeral. Prefix names here keep the full vowel, so P₄O₁₀ reads tetraphosphorus decaoxide; some texts elide it to decoxide, and monoxide is elided everywhere.</footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var SUBD = { "0":"₀","1":"₁","2":"₂","3":"₃","4":"₄",
+               "5":"₅","6":"₆","7":"₇","8":"₈","9":"₉" };
+  function subs(n) { return String(n).replace(/\d/g, function (d) { return SUBD[d]; }); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  function gcd(a, b) { return b ? gcd(b, a % b) : a; }
+  // In the arithmetic line the sign alone will not do: "1 x +" has to read "1 x +1".
+  function signed(q) { return (q > 0 ? "+" : "−") + Math.abs(q); }
+  function chg(q) { return Math.abs(q) === 1 ? (q > 0 ? "+" : "−")
+                                             : Math.abs(q) + (q > 0 ? "+" : "−"); }
+
+  // f: formula fragment · q: charge · poly: needs parentheses when it takes a subscript
+  var CATIONS = [
+    { f:"Na", q:1, name:"sodium" },      { f:"K",  q:1, name:"potassium" },
+    { f:"Li", q:1, name:"lithium" },     { f:"Cs", q:1, name:"cesium" },
+    { f:"Mg", q:2, name:"magnesium" },   { f:"Ca", q:2, name:"calcium" },
+    { f:"Ba", q:2, name:"barium" },      { f:"Al", q:3, name:"aluminum" },
+    { f:"Fe", q:2, name:"iron(II)", tm:1 },   { f:"Fe", q:3, name:"iron(III)", tm:1 },
+    { f:"Cu", q:1, name:"copper(I)", tm:1 },  { f:"Cu", q:2, name:"copper(II)", tm:1 },
+    { f:"Cr", q:2, name:"chromium(II)", tm:1 }, { f:"Cr", q:3, name:"chromium(III)", tm:1 },
+    { f:"Pb", q:2, name:"lead(II)", tm:1 },   { f:"Sn", q:4, name:"tin(IV)", tm:1 },
+    { f:"Hg₂", q:2, name:"mercury(I)", tm:1, poly:1 },
+    { f:"NH₄", q:1, name:"ammonium", poly:1 }
+  ];
+  var ANIONS = [
+    { f:"F",  q:-1, name:"fluoride" },  { f:"Cl", q:-1, name:"chloride" },
+    { f:"Br", q:-1, name:"bromide" },   { f:"I",  q:-1, name:"iodide" },
+    { f:"O",  q:-2, name:"oxide" },     { f:"S",  q:-2, name:"sulfide" },
+    { f:"N",  q:-3, name:"nitride" },   { f:"P",  q:-3, name:"phosphide" },
+    { f:"OH", q:-1, name:"hydroxide", poly:1 },
+    { f:"NO₃", q:-1, name:"nitrate", poly:1 },
+    { f:"NO₂", q:-1, name:"nitrite", poly:1 },
+    { f:"ClO₃", q:-1, name:"chlorate", poly:1 },
+    { f:"CN", q:-1, name:"cyanide", poly:1 },
+    { f:"HCO₃", q:-1, name:"hydrogen carbonate", poly:1 },
+    { f:"H₂PO₄", q:-1, name:"dihydrogen phosphate", poly:1 },
+    { f:"MnO₄", q:-1, name:"permanganate", poly:1 },
+    { f:"SO₄", q:-2, name:"sulfate", poly:1 },
+    { f:"SO₃", q:-2, name:"sulfite", poly:1 },
+    { f:"CO₃", q:-2, name:"carbonate", poly:1 },
+    { f:"CrO₄", q:-2, name:"chromate", poly:1 },
+    { f:"PO₄", q:-3, name:"phosphate", poly:1 }
+  ];
+
+  function build(c, a) {
+    var rawC = Math.abs(a.q), rawA = c.q;          // criss-cross
+    var g = gcd(rawC, rawA);
+    return { nc: rawC / g, na: rawA / g, rawC: rawC, rawA: rawA, reduced: g > 1, g: g };
+  }
+  function piece(ion, n) {
+    if (n === 1) return esc(ion.f);
+    return ion.poly ? "(" + esc(ion.f) + ")<sub>" + n + "</sub>"
+                    : esc(ion.f) + "<sub>" + n + "</sub>";
+  }
+  function formulaHTML(c, a, r) { return piece(c, r.nc) + piece(a, r.na); }
+  function formulaText(c, a, r) {
+    function p(ion, n) {
+      if (n === 1) return ion.f;
+      return ion.poly ? "(" + ion.f + ")" + subs(n) : ion.f + subs(n);
+    }
+    return p(c, r.nc) + p(a, r.na);
+  }
+
+  var ci = 1, ai = 1;   // opens on K+ / Cl-, the worksheet's first cell
+  function chips(list, host, sel, cls) {
+    host.innerHTML = list.map(function (x, i) {
+      return '<button class="chip" type="button" data-i="' + i + '" aria-pressed="' + (i === sel) + '">' +
+        esc(x.f) + "<sup>" + chg(x.q) + "</sup><span class=\"sub\">" + esc(x.name) + "</span></button>";
+    }).join("");
+  }
+
+  function render() {
+    var c = CATIONS[ci], a = ANIONS[ai], r = build(c, a);
+    chips(CATIONS, document.getElementById("cats"), ci);
+    chips(ANIONS, document.getElementById("ans"), ai);
+
+    document.getElementById("formula").innerHTML = formulaHTML(c, a, r);
+    document.getElementById("name").textContent = c.name + " " + a.name;
+
+    var sum = r.nc * c.q + r.na * a.q;
+    var s = "";
+    s += '<div class="srow"><span class="n">1</span><span class="b">' +
+      '<span class="t">Read each charge. ' + (c.tm ? "A transition metal, so its charge is fixed by the formula rather than by its group." :
+        c.poly ? "A polyatomic cation, from the table." : "A representative metal, so the group number gives it.") + '</span>' +
+      '<span class="m">' + esc(c.f) + "<sup>" + chg(c.q) + "</sup> and " + esc(a.f) + "<sup>" + chg(a.q) + "</sup></span></span></div>";
+    s += '<div class="srow"><span class="n">2</span><span class="b">' +
+      '<span class="t">Cross them over: each ion hands the other the size of its charge as a subscript.</span>' +
+      '<span class="m">' + esc(c.f) + (r.rawC > 1 ? "<sub>" + r.rawC + "</sub>" : "") +
+      esc(a.f) + (r.rawA > 1 ? "<sub>" + r.rawA + "</sub>" : "") + "</span></span></div>";
+    s += '<div class="srow"><span class="n">3</span><span class="b">' +
+      '<span class="t">' + (r.reduced
+        ? "Both subscripts share a factor of " + r.g + ", so reduce. This is criterion one."
+        : "Nothing to reduce — the subscripts share no common factor.") + '</span>' +
+      '<div class="crit ok"><span class="mark">✓</span><span>Criterion 1 · the formula is in its simplest form' +
+      (r.reduced ? ", after dividing through by " + r.g : "") + "</span></div></span></div>";
+    s += '<div class="srow"><span class="n">4</span><span class="b">' +
+      '<span class="t">Add the charges, counting how many of each ion the formula holds.</span>' +
+      '<span class="m">(' + r.nc + " × " + signed(c.q) + ") + (" + r.na + " × " + signed(a.q) + ") = " +
+      (r.nc * c.q) + " " + (r.na * a.q < 0 ? "− " + Math.abs(r.na * a.q) : "+ " + (r.na * a.q)) + " = " + sum + "</span>" +
+      '<div class="crit ' + (sum === 0 ? "ok" : "bad") + '"><span class="mark">' + (sum === 0 ? "✓" : "✗") +
+      '</span><span>Criterion 2 · the charges ' + (sum === 0 ? "add to zero" : "do not balance") + "</span></div></span></div>";
+    document.getElementById("steps").innerHTML = s;
+
+    var flags = [];
+    if ((c.poly && r.nc > 1) || (a.poly && r.na > 1)) {
+      flags.push("Parentheses are doing real work here: the subscript applies to every atom of the polyatomic ion, not just the last one.");
+    }
+    if (!c.poly && c.f.length === 2 && r.nc > 1) {
+      flags.push(esc(c.f) + " is a two-letter symbol for one element, not a polyatomic ion — so no parentheses, even with a subscript.");
+    }
+    if (c.tm) flags.push("A Roman numeral is required: " + esc(c.f) + " carries more than one charge, and the name has to say which one this is.");
+    document.getElementById("flag").innerHTML = flags.join(" ");
+  }
+
+  document.getElementById("cats").addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest(".chip") : null;
+    if (b) { ci = +b.getAttribute("data-i"); render(); }
+  });
+  document.getElementById("ans").addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest(".chip") : null;
+    if (b) { ai = +b.getAttribute("data-i"); render(); }
+  });
+
+  /* ---------- worksheet grid ---------- */
+  var GC = [1, 5, 7], GA = [1, 4, 8, 16];   // K+ Ca2+ Al3+  ×  Cl- O2- OH- SO4^2-
+  var showG = false;
+  function drawGrid() {
+    var h = "<thead><tr><th></th>";
+    GA.forEach(function (j) { h += "<th>" + ANIONS[j].f + chg(ANIONS[j].q) + "</th>"; });
+    h += "</tr></thead><tbody>";
+    GC.forEach(function (i) {
+      h += "<tr><td>" + CATIONS[i].f + "<sup>" + chg(CATIONS[i].q) + "</sup></td>";
+      GA.forEach(function (j) {
+        var r = build(CATIONS[i], ANIONS[j]);
+        h += showG
+          ? '<td><button data-c="' + i + '" data-a="' + j + '">' + formulaHTML(CATIONS[i], ANIONS[j], r) +
+            "</button><br><span style=\"color:var(--ink-3);font-family:var(--f-body);font-size:12.5px\">" +
+            CATIONS[i].name + " " + ANIONS[j].name + "</span></td>"
+          : '<td class="hid">—</td>';
+      });
+      h += "</tr>";
+    });
+    document.getElementById("grid").innerHTML = h + "</tbody>";
+  }
+  document.getElementById("grid").addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("button[data-c]") : null;
+    if (!b) return;
+    ci = +b.getAttribute("data-c"); ai = +b.getAttribute("data-a"); render();
+    document.querySelector(".work").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  document.getElementById("rg").addEventListener("click", function () {
+    showG = !showG; this.textContent = showG ? "Hide answers" : "Reveal answers"; drawGrid();
+  });
+
+  /* ---------- naming drill: transition metals ---------- */
+  var NAMED = [
+    { f:"CrSO₃", name:"chromium(II) sulfite",  cat:"Cr²⁺", an:"SO₃²⁻" },
+    { f:"FeCl₂", name:"iron(II) chloride",     cat:"Fe²⁺", an:"Cl⁻" },
+    { f:"CuO",        name:"copper(II) oxide",      cat:"Cu²⁺", an:"O²⁻" }
+  ];
+  var showN = false;
+  function drawNamed() {
+    var h = "<thead><tr><th>Formula</th><th>Name</th><th>Cation &amp; charge</th><th>Anion &amp; charge</th></tr></thead><tbody>";
+    NAMED.forEach(function (r) {
+      h += "<tr><td>" + r.f + "</td>" + (showN
+        ? "<td>" + r.name + "</td><td>" + r.cat + "</td><td>" + r.an + "</td>"
+        : '<td class="hid">—</td><td class="hid">—</td><td class="hid">—</td>') + "</tr>";
+    });
+    document.getElementById("named").innerHTML = h + "</tbody>";
+  }
+  document.getElementById("rn").addEventListener("click", function () {
+    showN = !showN; this.textContent = showN ? "Hide answers" : "Reveal answers"; drawNamed();
+  });
+
+  /* ---------- molecular naming ---------- */
+  var MOL = [
+    { f:"P₄O₆",  name:"tetraphosphorus hexaoxide" },
+    { f:"CCl₄",       name:"carbon tetrachloride" },
+    { f:"SF₆",        name:"sulfur hexafluoride" },
+    { f:"SO₂",        name:"sulfur dioxide" },
+    { f:"N₂O",        name:"dinitrogen monoxide", why:"the first element carries a prefix, so the single oxygen takes one too" },
+    { f:"N₂Cl₄", name:"dinitrogen tetrachloride" },
+    { f:"HI",              name:"hydrogen iodide", why:"one of each, so no prefixes at all" },
+    { f:"Si₂Br₆", name:"disilicon hexabromide" }
+  ];
+  var showM = false;
+  function drawMol() {
+    var h = "<thead><tr><th>Formula</th><th>Name</th><th></th></tr></thead><tbody>";
+    MOL.forEach(function (r) {
+      h += "<tr><td>" + r.f + "</td>" +
+        (showM ? "<td>" + r.name + "</td><td style=\"color:var(--ink-3);font-family:var(--f-body);font-size:12.5px;white-space:normal\">" +
+                 (r.why || "") + "</td>"
+               : '<td class="hid">—</td><td></td>') + "</tr>";
+    });
+    document.getElementById("mol").innerHTML = h + "</tbody>";
+  }
+  document.getElementById("rm").addEventListener("click", function () {
+    showM = !showM; this.textContent = showM ? "Hide answers" : "Reveal answers"; drawMol();
+  });
+
+  /* ---------- polyatomic reference ---------- */
+  document.getElementById("polylist").innerHTML =
+    CATIONS.filter(function (x) { return x.poly; })
+      .concat(ANIONS.filter(function (x) { return x.poly; }))
+      .map(function (x) {
+        return '<div class="poly"><span>' + esc(x.f) + "<sup>" + chg(x.q) + "</sup></span><span>" +
+               esc(x.name) + "</span></div>";
+      }).join("");
+
+  drawGrid(); drawNamed(); drawMol(); render();
+})();
+</script>
