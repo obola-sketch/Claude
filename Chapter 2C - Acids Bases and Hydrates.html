@@ -1,0 +1,400 @@
+<title>Acids, Bases and Hydrates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --bg:#e9edf0; --surface:#f8fafb; --surface-2:#eff3f6;
+    --ink:#0e1418; --ink-2:#51616c; --ink-3:#7b8993;
+    --line:#c6d0d7; --line-2:#d9e1e6;
+    --cold:#0d7c8b; --hot:#b4530d; --focus:#0d7c8b;
+    --ok:#1a6b4a; --bad:#a3301d;
+    --dry:#e8e4da; --wet:#4b74c4;
+    --f-display:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+    --f-body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+      --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+      --line:#233039; --line-2:#1b252c;
+      --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+      --ok:#4cc38a; --bad:#f07a5f;
+      --dry:#3b382f; --wet:#5b84d4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:#0b1014; --surface:#141c22; --surface-2:#101820;
+    --ink:#e6eef3; --ink-2:#8fa2ae; --ink-3:#6b7d89;
+    --line:#233039; --line-2:#1b252c;
+    --cold:#2fc6d6; --hot:#ef9134; --focus:#2fc6d6;
+    --ok:#4cc38a; --bad:#f07a5f;
+    --dry:#3b382f; --wet:#5b84d4;
+  }
+
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--f-body);
+         font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding-inline:20px; padding-block:28px 64px;
+          display:grid; gap:26px; }
+  .eyebrow { margin:0; font-family:var(--f-mono); font-size:12px; letter-spacing:.13em;
+             text-transform:uppercase; color:var(--cold); }
+  h1 { margin:6px 0 0; font-family:var(--f-display); font-weight:700;
+       font-size:clamp(30px,5.2vw,50px); line-height:1.02; letter-spacing:-.015em;
+       text-wrap:balance; max-width:21ch; }
+  .standfirst { margin:12px 0 0; font-size:17px; line-height:1.5; color:var(--ink-2);
+                max-width:64ch; text-wrap:pretty; }
+  .panel { border:1px solid var(--line); border-radius:3px; background:var(--surface); overflow:hidden; }
+  .phead { padding:11px 16px; border-bottom:1px solid var(--line); background:var(--surface-2);
+           display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; }
+  .phead .k { font-family:var(--f-mono); font-size:11px; letter-spacing:.12em;
+              text-transform:uppercase; color:var(--hot); }
+  .phead .t { font-family:var(--f-display); font-weight:600; font-size:18px; }
+  .body { padding:15px 16px; display:grid; gap:13px; }
+  .note { font-size:13.5px; color:var(--ink-3); text-wrap:pretty; max-width:72ch; }
+  .lede { margin:0; color:var(--ink-2); max-width:66ch; text-wrap:pretty; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { padding:5px 11px; border:1px solid var(--line); border-radius:2px;
+          background:var(--surface-2); color:var(--ink); font-family:var(--f-mono);
+          font-size:13px; cursor:pointer; }
+  .chip:hover { border-color:var(--hot); }
+  .chip[aria-pressed="true"] { border-color:var(--hot); background:var(--surface);
+                               font-weight:500; box-shadow:inset 0 -2px 0 var(--hot); }
+
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:0;
+         border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+  @media (max-width:640px) { .two { grid-template-columns:1fr; } }
+  .half { padding:13px 15px; background:var(--surface-2); display:grid; gap:4px; align-content:start; }
+  .half + .half { border-left:1px solid var(--line); }
+  @media (max-width:640px) { .half + .half { border-left:0; border-top:1px solid var(--line); } }
+  .half .k { font-family:var(--f-mono); font-size:10.5px; letter-spacing:.11em;
+             text-transform:uppercase; color:var(--ink-3); }
+  .half .f { font-family:var(--f-mono); font-size:24px; }
+  .half .n { font-family:var(--f-display); font-weight:600; font-size:19px; }
+  .half .w { font-size:13px; color:var(--ink-3); }
+  .eqn { font-family:var(--f-mono); font-size:15px; color:var(--ink-2);
+         padding:10px 13px; border-left:3px solid var(--cold); background:var(--surface-2);
+         overflow-x:auto; }
+
+  .scroll { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-family:var(--f-mono); font-size:13.5px; }
+  th { text-align:left; font-weight:500; font-size:10.5px; letter-spacing:.09em;
+       text-transform:uppercase; color:var(--ink-3); padding:0 14px 6px 0;
+       border-bottom:1px solid var(--line); white-space:nowrap; }
+  td { padding:7px 14px 7px 0; border-bottom:1px solid var(--line-2); white-space:nowrap; }
+  tr:last-child td { border-bottom:0; }
+  td.nm { font-family:var(--f-body); }
+  td.mut { color:var(--ink-3); font-family:var(--f-body); white-space:normal; font-size:13px; }
+
+  /* hydrate lab */
+  .lab { display:grid; grid-template-columns:200px minmax(0,1fr); gap:0; }
+  @media (max-width:700px) { .lab { grid-template-columns:1fr; } }
+  .dish { padding:16px; border-right:1px solid var(--line); display:grid; gap:9px;
+          justify-items:center; align-content:start; }
+  @media (max-width:700px) { .dish { border-right:0; border-bottom:1px solid var(--line); } }
+  .dish svg { width:150px; height:auto; }
+  .dish .cap { font-family:var(--f-mono); font-size:11.5px; color:var(--ink-3); text-align:center; }
+  .labc { padding:16px; display:grid; gap:13px; align-content:start; }
+  .rng { display:grid; gap:4px; }
+  .rng label { font-family:var(--f-mono); font-size:11px; letter-spacing:.1em;
+               text-transform:uppercase; color:var(--ink-3); }
+  input[type="range"] { width:100%; accent-color:var(--hot); margin:0; }
+  .chain { display:grid; gap:0; border:1px solid var(--line); border-radius:2px; overflow:hidden; }
+  .crow { display:grid; grid-template-columns:auto 1fr; gap:11px; padding:8px 13px;
+          border-bottom:1px solid var(--line-2); background:var(--surface-2); align-items:baseline; }
+  .crow:last-child { border-bottom:0; }
+  .crow .k { font-family:var(--f-mono); font-size:10.5px; letter-spacing:.09em;
+             text-transform:uppercase; color:var(--ink-3); white-space:nowrap; }
+  .crow .v { font-family:var(--f-mono); font-size:14px; font-variant-numeric:tabular-nums; }
+  .verdict { font-size:15px; text-wrap:pretty; }
+  .verdict.ok { color:var(--ok); }
+  .verdict.part { color:var(--hot); }
+  .verdict b { font-weight:600; }
+
+  .flagbox { border:1px solid var(--line); border-left:3px solid var(--cold);
+             border-radius:2px; padding:11px 14px; background:var(--surface-2);
+             font-size:14px; color:var(--ink-2); text-wrap:pretty; }
+  .flagbox b { color:var(--ink); font-weight:600; }
+  :focus-visible { outline:2px solid var(--focus); outline-offset:2px; }
+  footer { font-size:13px; color:var(--ink-3); border-top:1px solid var(--line);
+           padding-top:14px; max-width:74ch; text-wrap:pretty; }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">CHEM 1171 · Chapter 2C</p>
+    <h1>Acids, bases and hydrates — what water does to a formula</h1>
+    <p class="standfirst">Water is the thread running through all three. Dissolve a molecular compound and it may hand over a hydrogen ion, which makes it an acid. Dissolve an ionic one and it may hand over a hydroxide, which makes it a base. Or let water attach itself to an ionic solid in a fixed number and you have a hydrate — the one you will weigh in lab.</p>
+  </header>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Acids</span><span class="t">The same substance has two names</span></div>
+    <div class="body">
+      <p class="lede">An acid yields hydrogen ions in water. The catch students trip on is that the pure substance and its solution are named differently — HCl is a gas called hydrogen chloride until it meets water, and only then is it hydrochloric acid.</p>
+      <div class="chips" id="acidChips"></div>
+      <div class="two">
+        <div class="half">
+          <span class="k">Pure substance — molecular compound</span>
+          <span class="f" id="aPureF"></span>
+          <span class="n" id="aPureN"></span>
+          <span class="w">named as any two nonmetals would be</span>
+        </div>
+        <div class="half">
+          <span class="k">Dissolved in water — acid</span>
+          <span class="f" id="aAcidF"></span>
+          <span class="n" id="aAcidN"></span>
+          <span class="w" id="aRule"></span>
+        </div>
+      </div>
+      <div class="eqn" id="aEq1"></div>
+      <div class="eqn" id="aEq2"></div>
+      <p class="note">Both equations describe the same thing. Write water in as a reactant and the proton lands on it as hydronium, H₃O⁺; leave water out and write it over the arrow, and the proton is written bare as H⁺. Textbooks use the two interchangeably.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Acids</span><span class="t">Oxoacids — hydrogen, oxygen and one more element</span></div>
+    <div class="body">
+      <p class="lede">An oxoacid holds hydrogen, oxygen and a third element, and takes its name from that third element. The counts of H and O vary; the naming element does not.</p>
+      <div class="scroll"><table id="oxo"></table></div>
+      <p class="note">The pattern links straight back to the polyatomic ions from 2B: an <em>-ate</em> anion gives an <em>-ic</em> acid, and an <em>-ite</em> anion gives an <em>-ous</em> acid. Nitrate becomes nitric; nitrite becomes nitrous.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Bases</span><span class="t">Yielding hydroxide instead</span></div>
+    <div class="body">
+      <p class="lede">A base yields hydroxide ions in water. In this chapter that means a group 1 or group 2 metal joined to OH⁻ — which is just an ionic compound from 2B, read for what it releases.</p>
+      <div class="scroll"><table id="bases"></table></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Hydrates</span><span class="t">Your lab: how much water came off?</span></div>
+    <div class="lab">
+      <div class="dish">
+        <svg id="dishSvg" viewBox="0 0 150 120" role="img" aria-label="Crucible of barium chloride"></svg>
+        <span class="cap" id="dishCap"></span>
+      </div>
+      <div class="labc">
+        <p class="lede">A hydrate is an ionic compound carrying a fixed number of water molecules, counted with the same prefixes as molecular compounds. Heat <span style="font-family:var(--f-mono)">BaCl₂·2H₂O</span> and the water leaves. Weigh what stays and you can work out how many waters you actually drove off.</p>
+        <div class="rng">
+          <label for="m1">Mass left after heating, from 5.000 g of the dihydrate</label>
+          <input type="range" id="m1" min="4262" max="5000" step="1" value="4262">
+        </div>
+        <div class="chain" id="chain"></div>
+        <p class="verdict" id="verdict"></p>
+        <p class="note">The residue is assumed to be pure anhydrous BaCl₂ — that assumption is what makes the ratio land on 2. Stop heating early and it is still holding water, so the number you calculate comes out low. A ratio under 2 means keep heating, not that the formula was wrong.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Hydrates</span><span class="t">Naming them</span></div>
+    <div class="body">
+      <div class="scroll"><table id="hyd"></table></div>
+      <div class="flagbox"><b>Anhydrous versus hydrated.</b> Copper(II) sulfate is a pale off-white powder when dry and turns deep blue as CuSO₄·5H₂O once it takes up water. For some compounds the color alone tells you which one is sitting in the dish.</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Names</span><span class="t">Common and systematic</span></div>
+    <div class="body">
+      <div class="scroll"><table id="common"></table></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><span class="k">Objective 8</span><span class="t">A look at organic compounds</span></div>
+    <div class="body">
+      <div class="flagbox">Dr. Jalloh's note: <b>organic chemistry is not on the exam.</b> It is here so you know the branch exists — carbon was left out of the ionic and molecular rules precisely because it has a chemistry of its own.</div>
+      <p class="lede">What decides how a carbon compound reacts is its functional group. Swap the group and the chemistry changes, even when most of the molecule does not.</p>
+      <div class="scroll"><table id="fg"></table></div>
+      <p class="lede">The alkanes are the plainest case — carbon and hydrogen only, each following C<sub>n</sub>H<sub>2n+2</sub>.</p>
+      <div class="scroll"><table id="alk"></table></div>
+    </div>
+  </section>
+
+  <footer>Formula masses here use BaCl₂ at 208.23 g/mol and H₂O at 18.015 g/mol, giving BaCl₂·2H₂O at 244.26 g/mol. The lab slider runs from complete dehydration, 4.262 g, up to the untouched 5.000 g sample.</footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+
+  /* ---------------- binary acids ---------------- */
+  // Each is a molecular compound as a pure substance and an acid in water.
+  var ACIDS = [
+    { f:"HF",  pure:"hydrogen fluoride", acid:"hydrofluoric acid", an:"F⁻",  anN:"fluoride",  root:"fluor",  h:1 },
+    { f:"HCl", pure:"hydrogen chloride", acid:"hydrochloric acid", an:"Cl⁻", anN:"chloride",  root:"chlor",  h:1 },
+    { f:"HBr", pure:"hydrogen bromide",  acid:"hydrobromic acid",  an:"Br⁻", anN:"bromide",   root:"brom",   h:1 },
+    { f:"HI",  pure:"hydrogen iodide",   acid:"hydroiodic acid",   an:"I⁻",  anN:"iodide",    root:"iod",    h:1 },
+    { f:"H₂S", pure:"hydrogen sulfide", acid:"hydrosulfuric acid", an:"S²⁻", anN:"sulfide", root:"sulfur", h:2 }
+  ];
+  var ai = 1;
+  function drawAcids() {
+    $("acidChips").innerHTML = ACIDS.map(function (a, i) {
+      return '<button class="chip" type="button" data-i="' + i + '" aria-pressed="' + (i === ai) + '">' +
+        esc(a.f) + "</button>";
+    }).join("");
+    var a = ACIDS[ai];
+    $("aPureF").textContent = a.f;
+    $("aPureN").textContent = a.pure;
+    $("aAcidF").innerHTML = esc(a.f) + '<span style="font-size:.6em;color:var(--ink-3)">(aq)</span>';
+    $("aAcidN").textContent = a.acid;
+    $("aRule").textContent = "hydro- + " + a.root + " + -ic acid";
+    var n = a.h === 1 ? "" : a.h;
+    $("aEq1").textContent = a.f + "(aq) + " + (a.h === 1 ? "" : a.h + " ") + "H₂O(l)  →  " +
+      (a.h === 1 ? "" : a.h + " ") + "H₃O⁺(aq) + " + a.an + "(aq)";
+    $("aEq2").textContent = a.f + "  —H₂O→  " + (a.h === 1 ? "" : a.h + " ") +
+      "H⁺(aq) + " + a.an + "(aq)";
+  }
+  $("acidChips").addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest(".chip") : null;
+    if (b) { ai = +b.getAttribute("data-i"); drawAcids(); }
+  });
+
+  /* ---------------- oxoacids ---------------- */
+  var OXO = [
+    { f:"HNO₃", x:"nitrogen",   n:"nitric acid",     ion:"NO₃⁻ nitrate" },
+    { f:"HNO₂", x:"nitrogen",   n:"nitrous acid",    ion:"NO₂⁻ nitrite" },
+    { f:"H₂CO₃", x:"carbon", n:"carbonic acid", ion:"CO₃²⁻ carbonate" },
+    { f:"H₂SO₄", x:"sulfur", n:"sulfuric acid", ion:"SO₄²⁻ sulfate" },
+    { f:"H₂SO₃", x:"sulfur", n:"sulfurous acid", ion:"SO₃²⁻ sulfite" },
+    { f:"H₃PO₄", x:"phosphorus", n:"phosphoric acid", ion:"PO₄³⁻ phosphate" }
+  ];
+  $("oxo").innerHTML = "<thead><tr><th>Acid</th><th>Element X</th><th>Name</th><th>From the anion</th></tr></thead><tbody>" +
+    OXO.map(function (o) {
+      return "<tr><td>" + o.f + "</td><td class=\"nm\">" + o.x + "</td><td class=\"nm\">" + o.n +
+             "</td><td>" + o.ion + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  /* ---------------- bases ---------------- */
+  var BASES = [
+    { f:"NaOH", n:"sodium hydroxide",  d:"Na⁺ + OH⁻" },
+    { f:"KOH",  n:"potassium hydroxide", d:"K⁺ + OH⁻" },
+    { f:"LiOH", n:"lithium hydroxide", d:"Li⁺ + OH⁻" },
+    { f:"Ca(OH)₂", n:"calcium hydroxide", d:"Ca²⁺ + 2 OH⁻" },
+    { f:"Ba(OH)₂", n:"barium hydroxide",  d:"Ba²⁺ + 2 OH⁻" }
+  ];
+  $("bases").innerHTML = "<thead><tr><th>Base</th><th>Name</th><th>In water it yields</th></tr></thead><tbody>" +
+    BASES.map(function (b) {
+      return "<tr><td>" + b.f + "</td><td class=\"nm\">" + b.n + "</td><td>" + b.d + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  /* ---------------- hydrate lab ---------------- */
+  var M_BACL2 = 208.23, M_H2O = 18.015, M0 = 5.000;
+  function drawLab() {
+    var m1 = parseInt($("m1").value, 10) / 1000;
+    var lost = M0 - m1;
+    var molW = lost / M_H2O;
+    var molS = m1 / M_BACL2;              // residue assumed anhydrous, as in the lab
+    var n = molS > 0 ? molW / molS : 0;
+
+    var rows = [
+      ["Sample taken", M0.toFixed(3) + " g BaCl₂·2H₂O"],
+      ["Mass after heating", m1.toFixed(3) + " g"],
+      ["Water driven off", lost.toFixed(3) + " g"],
+      ["mol H₂O", lost.toFixed(3) + " ÷ " + M_H2O + " = " + molW.toFixed(5)],
+      ["mol BaCl₂", m1.toFixed(3) + " ÷ " + M_BACL2 + " = " + molS.toFixed(5)],
+      ["Ratio H₂O : BaCl₂", n.toFixed(2) + " : 1"]
+    ];
+    $("chain").innerHTML = rows.map(function (r) {
+      return '<div class="crow"><span class="k">' + r[0] + '</span><span class="v">' + r[1] + "</span></div>";
+    }).join("");
+
+    var v = $("verdict");
+    if (n >= 1.95) {
+      v.className = "verdict ok";
+      v.innerHTML = "All the water is off. The ratio rounds to <b>2</b>, so the formula was <b>BaCl₂·2H₂O</b> — barium chloride dihydrate.";
+    } else if (n >= 0.4) {
+      v.className = "verdict part";
+      v.innerHTML = "Ratio <b>" + n.toFixed(2) + "</b> — short of 2, so some water is still in the dish. Keep heating and weigh again.";
+    } else {
+      v.className = "verdict part";
+      v.innerHTML = "Barely any mass lost. Either heating has not started in earnest or the sample was already dry.";
+    }
+
+    // crucible: fill colour tracks how much water is left in the solid
+    var wet = Math.max(0, Math.min(1, (m1 - 4.262) / (M0 - 4.262)));
+    var col = wet > 0.02 ? "var(--wet)" : "var(--dry)";
+    var steam = "";
+    if (wet > 0.05) {
+      for (var i = 0; i < 3; i++) {
+        var x = 52 + i * 23, o = 0.25 + wet * 0.45;
+        steam += '<path d="M' + x + ' 34 q -6 -10 0 -19 q 6 -9 0 -18" fill="none" stroke="var(--ink-3)" ' +
+                 'stroke-width="2" stroke-linecap="round" opacity="' + o.toFixed(2) + '"/>';
+      }
+    }
+    $("dishSvg").innerHTML = steam +
+      '<path d="M30 46 L120 46 L104 96 Q75 104 46 96 Z" fill="var(--surface-2)" stroke="var(--line)" stroke-width="2"/>' +
+      '<path d="M44 74 L106 74 L101 94 Q75 101 49 94 Z" fill="' + col + '" opacity="0.95"/>' +
+      '<path d="M26 46 L124 46" stroke="var(--ink-3)" stroke-width="3" stroke-linecap="round"/>';
+    $("dishCap").textContent = wet > 0.02
+      ? "still hydrated · " + (M0 - m1).toFixed(3) + " g lost"
+      : "anhydrous BaCl₂";
+  }
+  $("m1").addEventListener("input", drawLab);
+
+  /* ---------------- hydrate naming ---------------- */
+  var HYD = [
+    { f:"BaCl₂·2H₂O", n:"barium chloride dihydrate", w:"your lab compound" },
+    { f:"LiCl·H₂O", n:"lithium chloride monohydrate", w:"one water, so mono-" },
+    { f:"MgSO₄·7H₂O", n:"magnesium sulfate heptahydrate", w:"" },
+    { f:"Sr(NO₃)₂·4H₂O", n:"strontium nitrate tetrahydrate", w:"" },
+    { f:"CuSO₄·5H₂O", n:"copper(II) sulfate pentahydrate", w:"blue; the dry salt is off-white" },
+    { f:"CuSO₄", n:"copper(II) sulfate, anhydrous", w:"no water attached" }
+  ];
+  $("hyd").innerHTML = "<thead><tr><th>Formula</th><th>Name</th><th>Note</th></tr></thead><tbody>" +
+    HYD.map(function (h) {
+      return "<tr><td>" + h.f + "</td><td class=\"nm\">" + h.n + "</td><td class=\"mut\">" + h.w + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  /* ---------------- common names ---------------- */
+  var COMMON = [
+    { f:"H₂O", c:"water", s:"dihydrogen monoxide" },
+    { f:"NH₃", c:"ammonia", s:"nitrogen trihydride" },
+    { f:"CO₂", c:"dry ice, when solid", s:"carbon dioxide" },
+    { f:"NaCl", c:"table salt", s:"sodium chloride" },
+    { f:"N₂O", c:"laughing gas", s:"dinitrogen monoxide" },
+    { f:"CaCO₃", c:"limestone, chalk", s:"calcium carbonate" }
+  ];
+  $("common").innerHTML = "<thead><tr><th>Formula</th><th>Common name</th><th>Systematic name</th></tr></thead><tbody>" +
+    COMMON.map(function (c) {
+      return "<tr><td>" + c.f + "</td><td class=\"nm\">" + c.c + "</td><td class=\"nm\">" + c.s + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  /* ---------------- organic ---------------- */
+  var FG = [
+    { f:"CH₄", n:"methane", g:"alkane", w:"carbon and hydrogen only" },
+    { f:"CH₃OH", n:"methanol", g:"alcohol", w:"one H swapped for —OH" },
+    { f:"CH₃NH₂", n:"methylamine", g:"amine", w:"one H swapped for —NH₂" },
+    { f:"CH₃COOH", n:"acetic acid", g:"carboxylic acid", w:"one H swapped for —COOH" }
+  ];
+  $("fg").innerHTML = "<thead><tr><th>Compound</th><th>Name</th><th>Functional group</th><th>What changed</th></tr></thead><tbody>" +
+    FG.map(function (x) {
+      return "<tr><td>" + x.f + "</td><td class=\"nm\">" + x.n + "</td><td class=\"nm\">" + x.g +
+             "</td><td class=\"mut\">" + x.w + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  var SUBD = { "0":"₀","1":"₁","2":"₂","3":"₃","4":"₄",
+               "5":"₅","6":"₆","7":"₇","8":"₈","9":"₉" };
+  function sub(n) { return String(n).replace(/\d/g, function (d) { return SUBD[d]; }); }
+  var ALK = ["methane","ethane","propane","butane","pentane","hexane","heptane","octane","nonane","decane"];
+  $("alk").innerHTML = "<thead><tr><th>n</th><th>Name</th><th>Formula</th></tr></thead><tbody>" +
+    ALK.map(function (nm, i) {
+      var n = i + 1;
+      return "<tr><td>" + n + "</td><td class=\"nm\">" + nm + "</td><td>C" +
+             (n > 1 ? sub(n) : "") + "H" + sub(2 * n + 2) + "</td></tr>";
+    }).join("") + "</tbody>";
+
+  drawAcids(); drawLab();
+})();
+</script>
