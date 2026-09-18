@@ -9,11 +9,11 @@
   Imported from the Claude Design project "Separation" (source: Separation.dc.html).
 
   The source was a design component: <x-dc> markup driven by the dc-runtime, with
-  its design tokens supplied at run time by the "broadsheet" design system
-  (_ds/broadsheet-18378c1d-.../styles.css). That stylesheet is not part of the
-  published artifact, so the token values below are a reconstruction of the
-  broadsheet look rather than a copy of it. Everything else — structure, copy and
-  inline styles — is the authored design, unchanged.
+  its design tokens supplied at run time by the Broadsheet design system. The
+  runtime constructs are resolved here to plain HTML — <x-dc> and the four
+  <sc-if> gates unwrapped, the <sc-raw-*> tags rewritten as a real <table> —
+  and the real Broadsheet stylesheet is linked, so every colour, font and
+  spacing value is the system's own rather than a reconstruction.
 
   The component exposed three boolean props, all defaulting to true. Each gated a
   section that is included inline here:
@@ -22,66 +22,16 @@
     showBoundaryNote  -> the "Where the line blurs" section
 -->
 
+<link rel="stylesheet" href="_ds/broadsheet/styles.css">
+
 <style>
-  :root {
-    color-scheme: light;
-
-    /* Surface and ink */
-    --color-bg:           #faf9f5;
-    --color-text:         #141413;
-    --color-neutral-700:  #5b5852;   /* captions            — 6.7:1 on bg */
-    --color-neutral-800:  #3a3833;   /* reagent particle    — 11.1:1 on bg */
-
-    /* Categorical pair: the two substances in the diagrams.
-       Validated warm/cool pair — CVD dE 19.0 (protan), normal-vision dE 27.5,
-       both >= 3:1 against the surface. */
-    --color-accent:       #c15f3c;   /* substance A */
-    --color-accent-2:     #1f62a8;   /* substance B */
-
-    /* Text-weight steps of the accent hue (eyebrows, links) */
-    --color-accent-700:   #9a4423;   /* 6.2:1 on bg */
-    --color-accent-900:   #6e3119;   /* 9.4:1 on bg */
-
-    /* Spacing scale, 4px base */
-    --space-2:  8px;
-    --space-3: 12px;
-    --space-4: 16px;
-    --space-6: 24px;
-    --space-8: 32px;
-
-    --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-    --font-body:    Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
-  }
-
-  /* Carried over from the component's <helmet> block */
-  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+  /* Page-level only. Everything else — tokens, base type, .table — is
+     Broadsheet's, from the linked stylesheet. */
   a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 2px; }
   a:hover { color: var(--color-accent-900); }
-
-  /* The comparison table carried class="table" from the design system. */
-  .table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.45; }
-  .table th {
-    text-align: left;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-accent-700);
-    padding: 0 var(--space-4) var(--space-3) 0;
-    border-bottom: 1.5px solid var(--color-text);
-  }
-  .table td {
-    vertical-align: top;
-    padding: var(--space-3) var(--space-4) var(--space-3) 0;
-    border-bottom: 1px solid rgba(20, 20, 19, 0.14);
-  }
-  .table tr > *:last-child { padding-right: 0; }
-  .table tbody tr:last-child td { border-bottom: 0; }
 </style>
 </head>
 <body>
-
 <div style="max-width: 1120px; margin: 0 auto; padding: var(--space-8) var(--space-6) 52px; display: grid; gap: 52px;">
 
   <header style="display: grid; gap: var(--space-4);">
@@ -257,6 +207,7 @@
   </section>
 
 </div>
+
 
 </body>
 </html>
