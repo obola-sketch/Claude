@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two ways to take a mixture apart</title>
+
+<!--
+  Imported from the Claude Design project "Separation" (source: Separation.dc.html).
+
+  The source was a design component: <x-dc> markup driven by the dc-runtime, with
+  its design tokens supplied at run time by the "broadsheet" design system
+  (_ds/broadsheet-18378c1d-.../styles.css). That stylesheet is not part of the
+  published artifact, so the token values below are a reconstruction of the
+  broadsheet look rather than a copy of it. Everything else — structure, copy and
+  inline styles — is the authored design, unchanged.
+
+  The component exposed three boolean props, all defaulting to true. Each gated a
+  section that is included inline here:
+    showStageCaptions -> the italic caption under each diagram
+    showComparison    -> the "Side by side" table
+    showBoundaryNote  -> the "Where the line blurs" section
+-->
+
+<style>
+  :root {
+    color-scheme: light;
+
+    /* Surface and ink */
+    --color-bg:           #faf9f5;
+    --color-text:         #141413;
+    --color-neutral-700:  #5b5852;   /* captions            — 6.7:1 on bg */
+    --color-neutral-800:  #3a3833;   /* reagent particle    — 11.1:1 on bg */
+
+    /* Categorical pair: the two substances in the diagrams.
+       Validated warm/cool pair — CVD dE 19.0 (protan), normal-vision dE 27.5,
+       both >= 3:1 against the surface. */
+    --color-accent:       #c15f3c;   /* substance A */
+    --color-accent-2:     #1f62a8;   /* substance B */
+
+    /* Text-weight steps of the accent hue (eyebrows, links) */
+    --color-accent-700:   #9a4423;   /* 6.2:1 on bg */
+    --color-accent-900:   #6e3119;   /* 9.4:1 on bg */
+
+    /* Spacing scale, 4px base */
+    --space-2:  8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --font-body:    Georgia, "Iowan Old Style", "Times New Roman", Times, serif;
+  }
+
+  /* Carried over from the component's <helmet> block */
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--color-accent-900); }
+
+  /* The comparison table carried class="table" from the design system. */
+  .table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 1.45; }
+  .table th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-700);
+    padding: 0 var(--space-4) var(--space-3) 0;
+    border-bottom: 1.5px solid var(--color-text);
+  }
+  .table td {
+    vertical-align: top;
+    padding: var(--space-3) var(--space-4) var(--space-3) 0;
+    border-bottom: 1px solid rgba(20, 20, 19, 0.14);
+  }
+  .table tr > *:last-child { padding-right: 0; }
+  .table tbody tr:last-child td { border-bottom: 0; }
+</style>
+</head>
+<body>
+
+<div style="max-width: 1120px; margin: 0 auto; padding: var(--space-8) var(--space-6) 52px; display: grid; gap: 52px;">
+
+  <header style="display: grid; gap: var(--space-4);">
+    <p style="margin: 0; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700);">Separation science</p>
+    <h1 style="margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: clamp(36px, 5.6vw, 58px); line-height: 1.04; max-width: 22ch;">Two ways to take a mixture apart</h1>
+    <p style="margin: 0; font-size: 19px; line-height: 1.5; max-width: 58ch; text-wrap: pretty;">One sorts particles by a property they do not share. The other converts the particle you want to remove into something else. The difference is whether anything leaves the process as a different substance than it entered.</p>
+  </header>
+
+  <section style="display: grid; gap: var(--space-6);">
+    <div style="display: grid; gap: var(--space-3); max-width: 62ch;">
+      <p style="margin: 0; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700);">01 · Physical separation</p>
+      <h2 style="margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 31px; line-height: 1.1;">Exploit a difference in property</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.55; text-wrap: pretty;">The components are already distinct substances sitting side by side. Sorting them needs only a property they do not share: size, density, boiling point, charge, solubility, magnetism.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 35px;">
+      <div style="display: grid; gap: var(--space-3); justify-items: start;">
+        <div style="display: grid; grid-template-columns: repeat(3, 44px); gap: var(--space-2);">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">Mixture of two substances</p>
+      </div>
+
+      <div style="display: grid; gap: var(--space-2); justify-items: center; min-width: 9rem;">
+        <p style="margin: 0; font-size: 14px; font-style: italic; text-align: center; line-height: 1.35;">filter · distil · centrifuge</p>
+        <div style="display: flex; align-items: center; gap: 0;">
+          <div style="width: 6rem; height: 2px; background: var(--color-text);"></div>
+          <div style="width: 0; height: 0; border-left: 10px solid var(--color-text); border-top: 6px solid transparent; border-bottom: 6px solid transparent;"></div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">no bonds touched</p>
+      </div>
+
+      <div style="display: grid; gap: var(--space-3); justify-items: start;">
+        <div style="display: flex; gap: 25px;">
+          <div style="display: grid; grid-template-columns: repeat(3, 44px); gap: var(--space-2);">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 44px); gap: var(--space-2);">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">The same two substances, now apart</p>
+      </div>
+    </div>
+
+        <p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 64ch; font-style: italic; text-wrap: pretty;">Every particle leaves the process as the particle that entered it. Only its location changed, which is why remixing puts you back where you started.</p>
+  
+  </section>
+
+  <section style="display: grid; gap: var(--space-6);">
+    <div style="display: grid; gap: var(--space-3); max-width: 62ch;">
+      <p style="margin: 0; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700);">02 · Chemical separation</p>
+      <h2 style="margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 31px; line-height: 1.1;">Convert what you want to remove</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.55; text-wrap: pretty;">Here the target shares whatever property you would sort on, or is not a separate substance at all: it is bound inside a compound. A reagent reacts with it selectively, and the product of that reaction is what gets taken away.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 35px;">
+      <div style="display: grid; gap: var(--space-3); justify-items: start;">
+        <div style="display: grid; grid-template-columns: repeat(3, 44px); gap: var(--space-2);">
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">Mixture of two substances</p>
+      </div>
+
+      <div style="display: grid; gap: var(--space-2); justify-items: center; min-width: 9rem;">
+        <div style="display: flex; align-items: center; gap: var(--space-2);">
+          <div style="width: 22px; height: 22px; border-radius: 50%; background: var(--color-neutral-800);"></div>
+          <p style="margin: 0; font-size: 14px; font-style: italic;">selective reagent</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0;">
+          <div style="width: 6rem; height: 2px; background: var(--color-text);"></div>
+          <div style="width: 0; height: 0; border-left: 10px solid var(--color-text); border-top: 6px solid transparent; border-bottom: 6px solid transparent;"></div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">bonds break and form</p>
+      </div>
+
+      <div style="display: grid; gap: var(--space-3); justify-items: start;">
+        <div style="display: flex; gap: 25px; align-items: flex-start;">
+          <div style="display: grid; grid-template-columns: repeat(3, 44px); gap: var(--space-2);">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent);"></div>
+          </div>
+          <div style="display: grid; gap: var(--space-2);">
+            <div style="display: flex; align-items: center;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+              <div style="width: 8px; height: 3px; background: var(--color-text);"></div>
+              <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--color-neutral-800);"></div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+              <div style="width: 8px; height: 3px; background: var(--color-text);"></div>
+              <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--color-neutral-800);"></div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-2);"></div>
+              <div style="width: 8px; height: 3px; background: var(--color-text);"></div>
+              <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--color-neutral-800);"></div>
+            </div>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: var(--color-neutral-700);">One substance recovered, one turned into a new compound</p>
+      </div>
+    </div>
+
+        <p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 64ch; font-style: italic; text-wrap: pretty;">What leaves the process is not what entered it. Getting the original substance back takes a second reaction, not a second mixing.</p>
+  
+  </section>
+
+    <section style="display: grid; gap: 25px;">
+    <h2 style="margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 24px;">Side by side</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">&nbsp;</th>
+          <th>Physical</th>
+          <th>Chemical</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-style: italic;">What it exploits</td>
+          <td>A difference in a physical property</td>
+          <td>A difference in reactivity</td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">Molecules</td>
+          <td>Unchanged throughout</td>
+          <td>Broken apart and reformed</td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">What comes out</td>
+          <td>The original components</td>
+          <td>At least one substance that was not there before</td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">Undoing it</td>
+          <td>Remix them</td>
+          <td>Run the reverse reaction</td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">Energy involved</td>
+          <td>Usually small: heat of vaporisation, mechanical work</td>
+          <td>Bond energies, often with heat or current supplied</td>
+        </tr>
+        <tr>
+          <td style="font-style: italic;">Typical methods</td>
+          <td>Filtration, distillation, centrifugation, sieving, magnetic sorting</td>
+          <td>Precipitation, ion exchange, acid–base extraction, electrolysis, roasting</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+    <section style="display: grid; gap: var(--space-4); max-width: 64ch;">
+    <h2 style="margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 24px;">Where the line blurs</h2>
+    <p style="margin: 0; font-size: 17px; line-height: 1.6; text-wrap: pretty;">The boundary is a matter of degree rather than a hard rule. Dissolving is counted as physical, though solvation involves real interaction between solute and solvent. Chromatography separates by repeated, reversible binding: chemical interaction doing physical work. Solvent extraction sits on either side depending on whether the target is complexed on the way across.</p>
+    <p style="margin: 0; font-size: 17px; line-height: 1.6; text-wrap: pretty;">The working test stays the same. Ask what you would find if you analysed the output: the substances you started with, or different ones.</p>
+  </section>
+
+</div>
+
+</body>
+</html>
