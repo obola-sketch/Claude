@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260918-05-13efa67","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YACgEZulLoA,0","Arial Narrow":"YAGyDvJ_4Ts,0","Arial Rounded MT Bold":"YAFcfoaHu-s,0","Arial":"YAGyDvJ_4Ts,0","Avenir Next":"YAFcfmNq6UY,0","Baloo 2":"YADK30bC6HQ,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Broken Glyph":"YADZ-exUkv0,0","Canva Sans":"YAFdJjTk5UU,1","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAFcfvtOAUY,1","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","Courier Prime":"YAD1aFjegN8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAFdJpU7Kkk,0","Georgia":"YAGzXkO0pEM,0","Ghost Mono":"YAHQutsX00Q,0","Hanken Grotesk":"YAFcfhwp99E,0","Helvetica Neue":"YAFcf6CtJfI,0","Helvetica":"YAFcf6CtJfI,0","IBM Plex Mono":"YAFdJkmvhGI,0","Impact":"YAFcfnjI7Vk,0","Instrument Serif":"YAHFeOnZNEk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YADK3zbC6RM,0","JetBrains Mono":"YAFdJksXcAk,0","Josefin Sans":"YAFdJjvw9Ps,0","Lato":"YAFdJuFCnaw,0","Libre Baskerville":"YACgEUFdPdA,0","Lobster":"YAD8SnSjSFI,0","Lora":"YACgEXvxf8Q,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YAFdtQi73Xs,0","Nunito":"YAFdJoNRMmU,1","Oleo Script":"YACgEQQ14jI,0","Oswald":"YACgEQY10lw,0","Pacifico":"YADLjORQ1u4,0","Phantom Sans":"YAFdJvgJ5TU,0","Playfair Display":"YAFdJhem5V8,1","Plus Jakarta Sans":"YAGvf3_u0_Q,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YAFdJpYtCxE,1","Raleway":"YAFdJhmxbVQ,1","Roboto Slab":"YAFdJswIKAg,0","Rockwell":"YAFcfyVZnN0,0","Rye":"YACgEdQP21k,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Source Serif 4":"YACgEfdj394,0","Space Grotesk":"YADZ-dYEmhg,0","Space Mono":"YADW1-vpsoc,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Trebuchet MS":"YAFcfrglpVA,0","UV Display":"YAEdVfSSpYo,0","UV Sans":"YAFdJvgJ5TU,0","Ubuntu":"YACgERDU--Q,0","Verdana":"YAGzXTctYtQ,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YAD1aFjegN8,0","ui-sans-serif":"YACkoD1yZN0,0"}}');</script><script src="/_sdk/83d6dfdadcd4750a.telemetry_sdk.js" integrity="sha512-XS4Dvzp6vbagZS9vFErihvr8aO3S0tH78KWUefn06fmL4WYqryBtZj/IOLITYj7dFA4gPVvPg1W/JB1DK3uLNQ=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry Concepts</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#071328; --panel:#0d2040cc; --line:#7ce7f430; --cyan:#76edf4; --teal:#24cfbd; --violet:#a58bff; --yellow:#ffd66c; --ink:#eaf8ff; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; width:100%; color:var(--ink); font-family:"DM Sans",sans-serif; background:#071328; overflow-x:hidden; }
+    .science-shell { width:100%; min-height:calc(100 * min(var(--vh, 1vh), 1vh)); position:relative; overflow:hidden; }
+    .science-shell:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.34; background-image:radial-gradient(circle at 20% 15%,#1d5e8866 0 1px,transparent 1.5px),radial-gradient(circle at 85% 70%,#9d87ff55 0 1px,transparent 1.5px); background-size:46px 46px,70px 70px; }
+    .glow { position:absolute; border-radius:999px; filter:blur(70px); pointer-events:none; opacity:.35; }
+    .glass { background:linear-gradient(135deg,rgba(20,50,89,.84),rgba(8,24,52,.72)); border:1px solid var(--line); box-shadow:0 22px 60px #02081455, inset 0 1px 0 #ffffff12; backdrop-filter:blur(16px); }
+    .section-card { border-radius:24px; padding:clamp(1.25rem,3vw,2.3rem); }
+    .eyebrow { color:var(--cyan); letter-spacing:.16em; text-transform:uppercase; font-size:.72rem; font-weight:700; }
+    .heading-font { font-family:Fraunces,serif; }
+    .nav-item,.selector,.example-card,.element-tile,.answer-btn { transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease; }
+    .nav-item:hover,.selector:hover,.example-card:hover,.element-tile:hover,.answer-btn:hover { transform:translateY(-2px); border-color:#76edf4b3; box-shadow:0 10px 24px #01071660; }
+    .nav-item.active,.selector.active,.example-card.active { background:#76edf41a; border-color:var(--cyan); color:#fff; }
+    .hero-image { mask-image:linear-gradient(to left,black 30%,transparent 85%); opacity:.42; }
+    .branch-line { border-left:1px solid #76edf477; }
+    .node { border:1px solid #76edf44a; background:#0a2145a6; }
+    .particle-stage { min-height:260px; position:relative; overflow:hidden; border:1px solid #76edf450; border-radius:20px; background:radial-gradient(circle at 50% 40%,#1b457875,transparent 67%),#071934; }
+    .particle { position:absolute; width:18px; height:18px; border-radius:50%; background:var(--particle,#76edf4); box-shadow:0 0 16px var(--particle,#76edf4); }
+    .solid .particle { animation:none; }
+    .liquid .particle { animation:wobble 2.3s ease-in-out infinite alternate; }
+    .gas .particle { animation:drift 4s ease-in-out infinite alternate; }
+    .plasma .particle { animation:plasma 1.2s linear infinite alternate; }
+    @keyframes wobble { to { transform:translate(9px,-8px); } }
+    @keyframes drift { to { transform:translate(28px,-22px); } }
+    @keyframes plasma { to { transform:translate(15px,12px) scale(1.18); filter:hue-rotate(35deg); } }
+    .bond-scene { min-height:255px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; border-radius:20px; background:radial-gradient(circle,#173d7278,transparent 62%),#071934; }
+    .atom { width:72px; height:72px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.35rem; position:relative; z-index:2; }
+    .atom:after { content:""; position:absolute; inset:-10px; border:1px solid currentColor; border-radius:50%; opacity:.55; }
+    .electron { position:absolute; width:12px; height:12px; border-radius:50%; background:var(--yellow); box-shadow:0 0 12px var(--yellow); z-index:3; }
+    .bond-line { width:105px; height:2px; background:linear-gradient(90deg,#76edf4,#a58bff); }
+    .change-scene { height:110px; background:linear-gradient(135deg,#11355a,#091b3a); border:1px solid #76edf433; }
+    .element-tile { min-height:58px; border:1px solid #ffffff1a; border-radius:12px; padding:7px; text-align:left; color:#eaf8ff; background:#102748; }
+    .element-tile.hidden-tile { display:none; }
+    .element-tile[data-category="nonmetal"] { border-top:3px solid #76edf4; }
+    .element-tile[data-category="noble"] { border-top:3px solid #a58bff; }
+    .element-tile[data-category="metal"] { border-top:3px solid #ffd66c; }
+    .element-tile[data-category="metalloid"] { border-top:3px solid #24cfbd; }
+    .element-tile.selected { background:#76edf421; border-color:var(--cyan); }
+    .status { min-height:24px; }
+    .answer-btn:disabled { cursor:default; opacity:.55; }
+    .answer-btn:disabled:hover { transform:none; box-shadow:none; border-color:#ffffff1a; }
+    .answer-btn.is-correct, .answer-btn.is-correct:disabled { opacity:1; background:#24cfbd2e; border-color:var(--teal); color:#d8fff8; }
+    .answer-btn.is-wrong, .answer-btn.is-wrong:disabled { opacity:1; background:#ff8d6c2e; border-color:#ff8d6c; color:#ffe6dd; }
+    .no-results { display:none; }
+    .no-results.show { display:block; }
+    @media (max-width:700px) { .hero-image { opacity:.18; mask-image:none; } .particle-stage { min-height:220px; } }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/8de366929c5f3b48.data_sdk.js" type="text/javascript" integrity="sha512-TyQ8k8cZj66xe/aENmn6RyZpdOFZXbAo5+KBG3PeFM+Q4qMTHU8xAqmq4ADClNfPrstgQYV6OzZHwLTnElzB2g=="></script>
+  <script src="/_sdk/0ddbbee1c66b1212.editing_sdk.js" type="text/javascript" integrity="sha512-HQn5LM1yruQSbY78ATUril6QeOJ9xj7KqO64ltLtb4vBwI5Qv3/tloFFOndBPZTNZoeV5xKzuth5y6FTi9crsg=="></script>
+  <script src="/_sdk/765e1fea0cec97ce.resizing_sdk.js" type="text/javascript" integrity="sha512-IRTJnqww0+HQ5V/LlWEQrlD5SrYHaVvaeVoNe8HYQXoaguzUGheSd9+n9s6WOgaTcEH0g37DuINHZ9aqfzWjlw=="></script>
+ </head>
+ <body data-template-id="__page-root" style="background: rgb(7, 19, 40);">
+  <div class="science-shell">
+   <div class="glow" style="width:360px;height:360px;background:#147fbc;top:40px;left:-130px"></div>
+   <div class="glow" style="width:300px;height:300px;background:#7654d8;top:440px;right:-130px"></div>
+   <header class="relative z-10 w-full border-b border-cyan-200/10 bg-[#071328d9] backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-4">
+     <div>
+      <p data-template-id="header-kicker" class="canva-text eyebrow" style="color: rgb(118, 237, 244); font-weight: 700; font-style: normal; font-size: 12px;">Interactive science studio</p>
+      <h1 data-template-id="page-title" class="canva-text heading-font mt-1 font-bold" style="color: rgb(242, 252, 255); font-weight: 700; font-style: normal; font-size: 32px;">Chemistry Concepts</h1>
+     </div>
+     <nav aria-label="Learning sections" class="flex flex-wrap gap-2"><button type="button" class="nav-item active rounded-full border border-cyan-100/20 px-3 py-2 text-sm" data-target="classification">Matter</button> <button type="button" class="nav-item rounded-full border border-cyan-100/20 px-3 py-2 text-sm" data-target="states">States</button> <button type="button" class="nav-item rounded-full border border-cyan-100/20 px-3 py-2 text-sm" data-target="bonds">Bonds</button> <button type="button" class="nav-item rounded-full border border-cyan-100/20 px-3 py-2 text-sm" data-target="changes">Changes</button> <button type="button" class="nav-item rounded-full border border-cyan-100/20 px-3 py-2 text-sm" data-target="periodic">Elements</button>
+     </nav>
+    </div>
+   </header>
+   <main class="relative z-10 mx-auto w-full max-w-7xl space-y-8 px-5 py-8">
+    <section class="glass section-card relative overflow-hidden"><img data-template-id="hero-image" loading="lazy" class="canva-image hero-image absolute inset-y-0 right-0 h-full w-3/5 object-cover" src="https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="Scientist in gloves analyzing blue liquid in a laboratory setting with microscope and glassware.">
+     <div class="relative max-w-2xl">
+      <p data-template-id="hero-eyebrow" class="canva-text eyebrow" style="color: rgb(118, 237, 244); font-weight: 700; font-style: normal; font-size: 12px;">Explore. Test. Connect.</p>
+      <h2 data-template-id="hero-title" class="canva-text heading-font mt-3 font-bold leading-tight" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">See chemistry from the particle level up.</h2>
+      <p data-template-id="hero-description" class="canva-text mt-4 max-w-xl leading-7 text-cyan-50/80" style="color: rgb(213, 243, 251); font-weight: 400; font-style: normal; font-size: 17px; line-height: 1.5;">Move through the building blocks of matter, test your understanding, and discover why substances behave the way they do.</p>
+     </div>
+     <aside data-template-id="explore-panel" class="canva-panel relative mt-7 max-w-2xl rounded-2xl border border-cyan-100/15 p-4" style="background: rgba(5, 21, 45, 0.74);">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+       <div>
+        <p data-template-id="explore-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 17px;">Explore a concept</p>
+        <p data-template-id="explore-caption" class="canva-text mt-1 text-sm text-cyan-50/65" style="color: rgb(185, 220, 231); font-weight: 400; font-style: normal; font-size: 14px;">Choose a section below to build your learning path.</p>
+       </div>
+       <div class="flex items-center gap-3"><span id="progress-count" class="rounded-full bg-cyan-300/15 px-3 py-1 text-sm font-bold text-cyan-200">0 / 5</span> <button data-template-id="start-over" id="start-over" type="button" class="canva-button rounded-full border border-cyan-200/30 px-4 py-2 text-sm" style="background: rgb(16, 46, 80); color: rgb(217, 248, 255); font-weight: 600; font-style: normal; font-size: 14px;">Start over</button>
+       </div>
+      </div>
+      <div class="mt-3 h-2 overflow-hidden rounded-full bg-[#041023]">
+       <div id="progress-bar" class="h-full w-0 rounded-full bg-gradient-to-r from-cyan-300 to-teal-300 transition-all duration-500"></div>
+      </div>
+     </aside>
+    </section>
+    <section id="classification" class="glass section-card">
+     <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+       <p data-template-id="matter-eyebrow" class="canva-text eyebrow" style="color: rgb(118, 237, 244); font-weight: 700; font-style: normal; font-size: 12px;">01 / Classification of Matter</p>
+       <h2 data-template-id="matter-title" class="canva-text heading-font mt-2 font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">How is matter organized?</h2>
+      </div><button data-template-id="matter-reset" id="matter-reset" type="button" class="canva-button rounded-full border border-cyan-200/30 px-4 py-2 text-sm" style="background: rgb(16, 46, 80); color: rgb(217, 248, 255); font-weight: 600; font-style: normal; font-size: 14px;">Reset example</button>
+     </div>
+     <div class="mt-7 grid gap-6 lg:grid-cols-[1.1fr_.9fr]">
+      <div class="rounded-2xl border border-cyan-100/15 bg-[#071a36a8] p-5">
+       <div class="node rounded-xl p-3 text-center font-bold">
+        Matter
+       </div>
+       <div class="mx-auto h-5 w-px bg-cyan-200/50"></div>
+       <div class="grid grid-cols-2 gap-4">
+        <div class="branch-line pl-3">
+         <div class="node rounded-xl p-3 text-center text-sm font-semibold">
+          Pure Substances
+         </div>
+         <div class="mt-3 grid gap-2">
+          <div class="rounded-lg bg-cyan-300/10 p-2 text-center text-sm">
+           Elements
+          </div>
+          <div class="rounded-lg bg-cyan-300/10 p-2 text-center text-sm">
+           Compounds
+          </div>
+         </div>
+        </div>
+        <div class="branch-line pl-3">
+         <div class="node rounded-xl p-3 text-center text-sm font-semibold">
+          Mixtures
+         </div>
+         <div class="mt-3 grid gap-2">
+          <div class="rounded-lg bg-violet-300/10 p-2 text-center text-sm">
+           Homogeneous
+          </div>
+          <div class="rounded-lg bg-violet-300/10 p-2 text-center text-sm">
+           Heterogeneous
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="mt-5 grid grid-cols-2 gap-3"><button type="button" class="example-card active rounded-xl border border-cyan-100/20 p-3 text-left" data-example="oxygen"><strong>O₂</strong><span class="block text-xs text-cyan-50/65">oxygen</span></button> <button type="button" class="example-card rounded-xl border border-cyan-100/20 p-3 text-left" data-example="water"><strong>H₂O</strong><span class="block text-xs text-cyan-50/65">water</span></button> <button type="button" class="example-card rounded-xl border border-cyan-100/20 p-3 text-left" data-example="saltwater"><strong>NaCl + H₂O</strong><span class="block text-xs text-cyan-50/65">saltwater</span></button> <button type="button" class="example-card rounded-xl border border-cyan-100/20 p-3 text-left" data-example="trail"><strong>Mixed pieces</strong><span class="block text-xs text-cyan-50/65">trail mix</span></button>
+       </div>
+      </div>
+      <aside class="particle-stage p-5">
+       <p id="matter-type" class="text-sm font-bold text-cyan-200">Element · pure substance</p>
+       <h3 id="matter-name" class="heading-font mt-2 text-3xl font-bold">Oxygen</h3>
+       <p id="matter-description" class="mt-3 max-w-sm text-sm leading-6 text-cyan-50/75">Oxygen contains only one kind of atom. Its particles are pairs of identical oxygen atoms.</p>
+       <div id="matter-particles" class="absolute bottom-6 right-6 flex gap-3"></div>
+      </aside>
+     </div>
+    </section>
+    <section id="states" class="glass section-card">
+     <p data-template-id="states-eyebrow" class="canva-text eyebrow" style="color: rgb(118, 237, 244); font-weight: 700; font-style: normal; font-size: 12px;">02 / States of Matter</p>
+     <h2 data-template-id="states-title" class="canva-text heading-font mt-2 font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Change the energy. Watch particles respond.</h2>
+     <div class="mt-6 grid gap-6 lg:grid-cols-[.85fr_1.15fr]">
+      <div>
+       <div class="grid grid-cols-2 gap-3"><button type="button" class="selector active rounded-xl border border-cyan-100/20 p-4 text-left" data-state="solid"><strong>Solid</strong><span class="block mt-1 text-xs text-cyan-50/65">ordered particles</span></button> <button type="button" class="selector rounded-xl border border-cyan-100/20 p-4 text-left" data-state="liquid"><strong>Liquid</strong><span class="block mt-1 text-xs text-cyan-50/65">flowing particles</span></button> <button type="button" class="selector rounded-xl border border-cyan-100/20 p-4 text-left" data-state="gas"><strong>Gas</strong><span class="block mt-1 text-xs text-cyan-50/65">spaced particles</span></button> <button type="button" class="selector rounded-xl border border-cyan-100/20 p-4 text-left" data-state="plasma"><strong>Plasma</strong><span class="block mt-1 text-xs text-cyan-50/65">charged particles</span></button>
+       </div>
+       <div class="mt-5 rounded-2xl border border-cyan-100/15 bg-[#061832] p-5">
+        <h3 id="state-name" class="heading-font text-2xl font-bold">Solid</h3>
+        <dl class="mt-4 grid grid-cols-3 gap-3 text-sm">
+         <div>
+          <dt class="text-cyan-200/65">
+           Shape
+          </dt>
+          <dd id="state-shape" class="mt-1 font-semibold">
+           Fixed
+          </dd>
+         </div>
+         <div>
+          <dt class="text-cyan-200/65">
+           Volume
+          </dt>
+          <dd id="state-volume" class="mt-1 font-semibold">
+           Fixed
+          </dd>
+         </div>
+         <div>
+          <dt class="text-cyan-200/65">
+           Motion
+          </dt>
+          <dd id="state-motion" class="mt-1 font-semibold">
+           Vibrate
+          </dd>
+         </div>
+        </dl>
+       </div>
+      </div>
+      <div id="state-stage" class="particle-stage solid" aria-label="Animated particle model for solid state"></div>
+     </div>
+    </section>
+    <section id="bonds" class="glass section-card">
+     <p data-template-id="bonds-eyebrow" class="canva-text eyebrow" style="color: rgb(165, 139, 255); font-weight: 700; font-style: normal; font-size: 12px;">03 / Chemical Bonds</p>
+     <h2 data-template-id="bonds-title" class="canva-text heading-font mt-2 font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Why atoms join together</h2>
+     <div class="mt-6 grid gap-6 lg:grid-cols-[.9fr_1.1fr]">
+      <div class="space-y-3"><button type="button" class="selector active w-full rounded-xl border border-cyan-100/20 p-4 text-left" data-bond="ionic"><strong>Ionic bond</strong><span class="block mt-1 text-sm text-cyan-50/65">electrons transfer between atoms</span></button> <button type="button" class="selector w-full rounded-xl border border-cyan-100/20 p-4 text-left" data-bond="covalent"><strong>Covalent bond</strong><span class="block mt-1 text-sm text-cyan-50/65">atoms share electrons</span></button> <button type="button" class="selector w-full rounded-xl border border-cyan-100/20 p-4 text-left" data-bond="metallic"><strong>Metallic bond</strong><span class="block mt-1 text-sm text-cyan-50/65">positive ions share mobile electrons</span></button>
+      </div>
+      <div>
+       <div id="bond-scene" class="bond-scene">
+        <div id="bond-left" class="atom bg-cyan-300 text-[#082044]">
+         Na
+        </div>
+        <div class="bond-line"></div>
+        <div id="bond-right" class="atom bg-violet-300 text-[#221046]">
+         Cl
+        </div>
+        <div id="bond-electron" class="electron"></div>
+       </div>
+       <div class="mt-4 rounded-2xl border border-cyan-100/15 bg-[#061832] p-4">
+        <h3 id="bond-name" class="font-bold text-cyan-200">Ionic bonding · sodium chloride</h3>
+        <p id="bond-description" class="mt-2 text-sm leading-6 text-cyan-50/75">A sodium atom transfers an electron to chlorine. The opposite charges attract and form an ionic lattice.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section id="changes" class="glass section-card">
+     <div class="flex flex-wrap items-end justify-between gap-3">
+      <div>
+       <p data-template-id="changes-eyebrow" class="canva-text eyebrow" style="color: rgb(255, 214, 108); font-weight: 700; font-style: normal; font-size: 12px;">04 / Physical vs Chemical Change</p>
+       <h2 data-template-id="changes-title" class="canva-text heading-font mt-2 font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Can you spot a new substance?</h2>
+      </div>
+      <div class="flex flex-wrap gap-2"><button data-template-id="quiz-clear" id="quiz-clear" type="button" class="canva-button rounded-full border border-cyan-200/30 px-4 py-2 text-sm" style="background: rgb(16, 46, 80); color: rgb(217, 248, 255); font-weight: 600; font-style: normal; font-size: 14px;">Clear answers</button> <button data-template-id="quiz-new" id="quiz-new" type="button" class="canva-button rounded-full border border-cyan-200/30 px-4 py-2 text-sm" style="background: rgb(23, 74, 116); color: rgb(234, 252, 255); font-weight: 600; font-style: normal; font-size: 14px;">New questions</button>
+      </div>
+     </div>
+     <p data-template-id="changes-intro" class="canva-text mt-2 max-w-2xl text-cyan-50/70" style="color: rgb(200, 234, 244); font-weight: 400; font-style: normal; font-size: 16px;">Choose physical or chemical for each transformation. The explanation appears as soon as you decide, and every round pulls a fresh set of transformations from the question bank.</p>
+     <div class="mt-4 flex flex-wrap items-center gap-3"><span id="quiz-round" class="rounded-full bg-yellow-300/15 px-3 py-1 text-sm font-bold text-yellow-200">Round 1</span> <span id="quiz-score" class="text-sm text-cyan-50/75" aria-live="polite">0 of 4 answered</span>
+     </div>
+     <div id="change-grid" class="mt-6 grid gap-4 md:grid-cols-2"></div>
+     <p id="saved-count" class="mt-4 text-sm text-cyan-50/55"></p>
+     <p id="save-status" class="status text-sm text-cyan-200" aria-live="polite"></p>
+    </section>
+    <section id="periodic" class="glass section-card">
+     <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+       <p data-template-id="periodic-eyebrow" class="canva-text eyebrow" style="color: rgb(36, 207, 189); font-weight: 700; font-style: normal; font-size: 12px;">05 / Periodic Table</p>
+       <h2 data-template-id="periodic-title" class="canva-text heading-font mt-2 font-bold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Meet the elements</h2>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+       <span class="h-2 w-2 rounded-full bg-cyan-300"></span>Nonmetal <span class="h-2 w-2 rounded-full bg-violet-300"></span>Noble gas <span class="h-2 w-2 rounded-full bg-yellow-300"></span>Metal
+      </div>
+     </div>
+     <div class="mt-6 grid gap-6 lg:grid-cols-[1.35fr_.65fr]">
+      <div><label data-template-id="element-search-label" class="canva-text mb-2 block text-sm font-semibold" for="element-search" style="color: rgb(217, 248, 255); font-weight: 600; font-style: normal; font-size: 14px;">Search an element</label> <input data-template-id="element-search" id="element-search" class="canva-input w-full rounded-xl border border-cyan-100/20 bg-[#061832] px-4 py-3 text-cyan-50 outline-none placeholder:text-cyan-50/45 focus:border-cyan-300" type="search" placeholder="Try oxygen, O, or gold" style="background: rgb(6, 24, 50); color: rgb(234, 248, 255); font-weight: 400; font-style: normal; font-size: 16px;">
+       <div class="mt-3 flex flex-wrap gap-2" aria-label="Element filters"><button type="button" class="selector active rounded-full border border-cyan-100/20 px-3 py-1.5 text-sm" data-filter="all">All</button><button type="button" class="selector rounded-full border border-cyan-100/20 px-3 py-1.5 text-sm" data-filter="nonmetal">Nonmetals</button><button type="button" class="selector rounded-full border border-cyan-100/20 px-3 py-1.5 text-sm" data-filter="metal">Metals</button><button type="button" class="selector rounded-full border border-cyan-100/20 px-3 py-1.5 text-sm" data-filter="noble">Noble gases</button>
+       </div>
+       <div id="element-grid" class="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-6"><button class="element-tile selected" data-symbol="H" data-name="Hydrogen" data-number="1" data-mass="1.008" data-group="Group 1 · nonmetal" data-properties="Lightest element; a major part of water and stars." data-category="nonmetal"><small>1</small><strong class="block text-lg">H</strong></button> <button class="element-tile" data-symbol="He" data-name="Helium" data-number="2" data-mass="4.003" data-group="Group 18 · noble gas" data-properties="Very unreactive gas used in balloons and cooling systems." data-category="noble"><small>2</small><strong class="block text-lg">He</strong></button> <button class="element-tile" data-symbol="C" data-name="Carbon" data-number="6" data-mass="12.011" data-group="Group 14 · nonmetal" data-properties="Forms the backbone of organic molecules and living things." data-category="nonmetal"><small>6</small><strong class="block text-lg">C</strong></button> <button class="element-tile" data-symbol="N" data-name="Nitrogen" data-number="7" data-mass="14.007" data-group="Group 15 · nonmetal" data-properties="Makes up about 78% of Earth's atmosphere." data-category="nonmetal"><small>7</small><strong class="block text-lg">N</strong></button> <button class="element-tile" data-symbol="O" data-name="Oxygen" data-number="8" data-mass="15.999" data-group="Group 16 · nonmetal" data-properties="Supports respiration and combustion." data-category="nonmetal"><small>8</small><strong class="block text-lg">O</strong></button> <button class="element-tile" data-symbol="Ne" data-name="Neon" data-number="10" data-mass="20.180" data-group="Group 18 · noble gas" data-properties="A noble gas that glows red-orange in discharge tubes." data-category="noble"><small>10</small><strong class="block text-lg">Ne</strong></button> <button class="element-tile" data-symbol="Na" data-name="Sodium" data-number="11" data-mass="22.990" data-group="Group 1 · alkali metal" data-properties="Soft, reactive metal found in table salt compounds." data-category="metal"><small>11</small><strong class="block text-lg">Na</strong></button> <button class="element-tile" data-symbol="Mg" data-name="Magnesium" data-number="12" data-mass="24.305" data-group="Group 2 · alkaline earth metal" data-properties="Lightweight metal used in alloys and bright flares." data-category="metal"><small>12</small><strong class="block text-lg">Mg</strong></button> <button class="element-tile" data-symbol="Si" data-name="Silicon" data-number="14" data-mass="28.085" data-group="Group 14 · metalloid" data-properties="A semiconductor used in computer chips and glass." data-category="metalloid"><small>14</small><strong class="block text-lg">Si</strong></button> <button class="element-tile" data-symbol="Cl" data-name="Chlorine" data-number="17" data-mass="35.45" data-group="Group 17 · halogen" data-properties="Reactive nonmetal used in salts and water treatment." data-category="nonmetal"><small>17</small><strong class="block text-lg">Cl</strong></button> <button class="element-tile" data-symbol="Ar" data-name="Argon" data-number="18" data-mass="39.948" data-group="Group 18 · noble gas" data-properties="Inert gas used in light bulbs and welding." data-category="noble"><small>18</small><strong class="block text-lg">Ar</strong></button> <button class="element-tile" data-symbol="K" data-name="Potassium" data-number="19" data-mass="39.098" data-group="Group 1 · alkali metal" data-properties="Reactive metal important for nerve and muscle function." data-category="metal"><small>19</small><strong class="block text-lg">K</strong></button> <button class="element-tile" data-symbol="Ca" data-name="Calcium" data-number="20" data-mass="40.078" data-group="Group 2 · alkaline earth metal" data-properties="Essential for bones and teeth; found in limestone." data-category="metal"><small>20</small><strong class="block text-lg">Ca</strong></button> <button class="element-tile" data-symbol="Fe" data-name="Iron" data-number="26" data-mass="55.845" data-group="Transition metal" data-properties="Strong metal used in steel and essential in blood." data-category="metal"><small>26</small><strong class="block text-lg">Fe</strong></button> <button class="element-tile" data-symbol="Cu" data-name="Copper" data-number="29" data-mass="63.546" data-group="Transition metal" data-properties="Excellent electrical conductor with a reddish color." data-category="metal"><small>29</small><strong class="block text-lg">Cu</strong></button> <button class="element-tile" data-symbol="Ag" data-name="Silver" data-number="47" data-mass="107.868" data-group="Transition metal" data-properties="Shiny metal with very high electrical conductivity." data-category="metal"><small>47</small><strong class="block text-lg">Ag</strong></button> <button class="element-tile" data-symbol="Au" data-name="Gold" data-number="79" data-mass="196.967" data-group="Transition metal" data-properties="Dense, unreactive metal prized for jewelry and electronics." data-category="metal"><small>79</small><strong class="block text-lg">Au</strong></button> <button class="element-tile" data-symbol="U" data-name="Uranium" data-number="92" data-mass="238.029" data-group="Actinide metal" data-properties="Dense radioactive metal used as nuclear fuel." data-category="metal"><small>92</small><strong class="block text-lg">U</strong></button>
+       </div>
+       <p id="element-empty" class="no-results mt-3 text-sm text-cyan-50/60">No elements match that search. Try a name like “neon” or a symbol like “Fe”.</p>
+      </div>
+      <aside class="rounded-2xl border border-cyan-100/15 bg-[#061832] p-5">
+       <p class="eyebrow">Selected element</p>
+       <div class="mt-4 flex items-center gap-4">
+        <div id="element-symbol" class="heading-font flex h-16 w-16 items-center justify-center rounded-2xl bg-cyan-300 text-3xl font-bold text-[#071328]">
+         H
+        </div>
+        <div>
+         <h3 id="element-name" class="heading-font text-2xl font-bold">Hydrogen</h3>
+         <p id="element-group" class="text-sm text-cyan-200">Group 1 · nonmetal</p>
+        </div>
+       </div>
+       <dl class="mt-6 grid grid-cols-2 gap-4 text-sm">
+        <div>
+         <dt class="text-cyan-50/55">
+          Atomic number
+         </dt>
+         <dd id="element-number" class="mt-1 text-lg font-bold">
+          1
+         </dd>
+        </div>
+        <div>
+         <dt class="text-cyan-50/55">
+          Atomic mass
+         </dt>
+         <dd id="element-mass" class="mt-1 text-lg font-bold">
+          1.008
+         </dd>
+        </div>
+       </dl>
+       <p id="element-properties" class="mt-5 border-t border-cyan-100/15 pt-4 text-sm leading-6 text-cyan-50/75">Lightest element; a major part of water and stars.</p>
+      </aside>
+     </div>
+    </section>
+   </main>
+   <footer class="relative z-10 w-full px-5 pb-8 text-center">
+    <p data-template-id="footer-note" class="canva-text text-sm text-cyan-50/55" style="color: rgb(158, 202, 217); font-weight: 400; font-style: normal; font-size: 14px;">Chemistry is a story of particles, energy, and change — keep exploring.</p>
+   </footer>
+  </div>
+  <script>
+    /* ---------------------------------------------------------------- utils */
+    const $ = id => document.getElementById(id);
+    const shuffle = list => {
+      const out = list.slice();
+      for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
+      return out;
+    };
+    /* the stylesheet reads --vh, so keep it in sync with the real viewport */
+    const setViewportUnit = () => document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+    setViewportUnit();
+    window.addEventListener('resize', setViewportUnit);
+
+    /* ------------------------------------------------------------- progress */
+    const SECTION_COUNT = 5;
+    const explored = new Set();
+    function renderProgress() {
+      $('progress-count').textContent = explored.size + ' / ' + SECTION_COUNT;
+      $('progress-bar').style.width = Math.round((explored.size / SECTION_COUNT) * 100) + '%';
+    }
+    /* only real interaction counts, so the first paint starts at 0 / 5 */
+    function markExplored(section) { if (!explored.has(section)) { explored.add(section); renderProgress(); } }
+
+    document.querySelectorAll('.nav-item').forEach(button => button.addEventListener('click', () => {
+      document.getElementById(button.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      button.classList.add('active');
+    }));
+
+    /* ------------------------------------------------ 01 · matter examples */
+    const examples = {
+      oxygen:{type:'Element · pure substance',name:'Oxygen',description:'Oxygen contains only one kind of atom. Its particles are pairs of identical oxygen atoms.',particles:['#76edf4','#76edf4','#76edf4','#76edf4']},
+      water:{type:'Compound · pure substance',name:'Water',description:'Water has hydrogen and oxygen chemically bonded in a fixed ratio. Every particle is an H₂O molecule.',particles:['#76edf4','#ffd66c','#76edf4','#ffd66c']},
+      saltwater:{type:'Homogeneous mixture',name:'Saltwater',description:'Salt dissolves evenly in water. Different particles are present, but the mixture looks uniform throughout.',particles:['#76edf4','#a58bff','#76edf4','#a58bff']},
+      trail:{type:'Heterogeneous mixture',name:'Trail mix',description:'Different ingredients remain visibly separate, so the composition varies from one handful to another.',particles:['#ffd66c','#24cfbd','#a58bff','#ff8d6c']}
+    };
+    function showMatter(key, track = true) {
+      const item = examples[key];
+      $('matter-type').textContent = item.type;
+      $('matter-name').textContent = item.name;
+      $('matter-description').textContent = item.description;
+      const holder = $('matter-particles');
+      holder.innerHTML = '';
+      item.particles.forEach(color => { const dot = document.createElement('span'); dot.style.cssText = `width:28px;height:28px;border-radius:50%;background:${color};box-shadow:0 0 15px ${color}`; holder.appendChild(dot); });
+      document.querySelectorAll('.example-card').forEach(el => el.classList.toggle('active', el.dataset.example === key));
+      if (track) markExplored('matter');
+    }
+    document.querySelectorAll('.example-card').forEach(el => el.addEventListener('click', () => showMatter(el.dataset.example)));
+    $('matter-reset').addEventListener('click', () => showMatter('oxygen'));
+
+    /* -------------------------------------------------- 02 · states of matter */
+    const states = {
+      solid:{shape:'Fixed',volume:'Fixed',motion:'Vibrate',positions:[[32,42],[47,42],[62,42],[32,58],[47,58],[62,58],[32,74],[47,74],[62,74],[32,90],[47,90],[62,90]]},
+      liquid:{shape:'Takes container shape',volume:'Fixed',motion:'Slide past each other',positions:[[30,67],[48,62],[63,70],[39,80],[56,83],[70,89],[29,95],[48,98],[66,104]]},
+      gas:{shape:'Fills container',volume:'Variable',motion:'Rapid and random',positions:[[15,22],[73,28],[43,40],[85,59],[20,66],[55,78],[35,104],[78,110]]},
+      plasma:{shape:'Fills container',volume:'Variable',motion:'Fast charged particles',positions:[[18,24],[76,25],[45,44],[85,68],[24,72],[55,85],[35,108],[74,112]]}
+    };
+    function showState(key, track = true) {
+      const item = states[key], stage = $('state-stage');
+      stage.className = 'particle-stage ' + key;
+      stage.innerHTML = '';
+      item.positions.forEach((pos, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'particle';
+        dot.style.left = pos[0] + '%';
+        dot.style.top = pos[1] + 'px';
+        dot.style.setProperty('--particle', key === 'plasma' ? (i % 2 ? '#ffd66c' : '#a58bff') : '#76edf4');
+        dot.style.animationDelay = (i * .12) + 's';
+        stage.appendChild(dot);
+      });
+      $('state-name').textContent = key[0].toUpperCase() + key.slice(1);
+      $('state-shape').textContent = item.shape;
+      $('state-volume').textContent = item.volume;
+      $('state-motion').textContent = item.motion;
+      document.querySelectorAll('[data-state]').forEach(el => el.classList.toggle('active', el.dataset.state === key));
+      if (track) markExplored('states');
+    }
+    document.querySelectorAll('[data-state]').forEach(el => el.addEventListener('click', () => showState(el.dataset.state)));
+
+    /* --------------------------------------------------------- 03 · bonding */
+    const bonds = {
+      ionic:{left:'Na',right:'Cl',name:'Ionic bonding · sodium chloride',description:'A sodium atom transfers an electron to chlorine. The opposite charges attract and form an ionic lattice.',leftColor:'#76edf4',rightColor:'#a58bff'},
+      covalent:{left:'H',right:'H',name:'Covalent bonding · hydrogen gas',description:'Atoms share pairs of electrons so both can achieve more stable outer electron shells.',leftColor:'#76edf4',rightColor:'#76edf4'},
+      metallic:{left:'Cu',right:'Cu',name:'Metallic bonding · copper',description:'Metal atoms form positive ions in a lattice while outer electrons move freely between them.',leftColor:'#ffd66c',rightColor:'#ffd66c'}
+    };
+    function showBond(key, track = true) {
+      const b = bonds[key], left = $('bond-left'), right = $('bond-right'), electron = $('bond-electron');
+      left.textContent = b.left; right.textContent = b.right;
+      left.style.background = b.leftColor; right.style.background = b.rightColor;
+      electron.style.left = key === 'ionic' ? '62%' : '48%';
+      electron.style.top = key === 'metallic' ? '35%' : '48%';
+      $('bond-name').textContent = b.name;
+      $('bond-description').textContent = b.description;
+      document.querySelectorAll('[data-bond]').forEach(el => el.classList.toggle('active', el.dataset.bond === key));
+      if (track) markExplored('bonds');
+    }
+    document.querySelectorAll('[data-bond]').forEach(el => el.addEventListener('click', () => showBond(el.dataset.bond)));
+
+    /* ------------------------------------- 04 · physical vs chemical change */
+    const CHANGE_LABEL = { physical: 'a physical change', chemical: 'a chemical change' };
+    const CHANGE_QUESTIONS = [
+      { id:'melt-ice',       title:'Melting ice',                      from:'🧊', to:'💧', type:'physical', why:'Water stays H₂O. Only the arrangement and energy of the particles change, and refreezing reverses it.' },
+      { id:'dissolve-salt',  title:'Dissolving salt in water',         from:'🧂', to:'💧', type:'physical', why:'The ions spread through the water, but evaporating the water brings the same salt straight back.' },
+      { id:'boil-water',     title:'Boiling water',                    from:'💧', to:'☁️', type:'physical', why:'Steam is still H₂O. The molecules have simply gained enough energy to escape the liquid.' },
+      { id:'crush-can',      title:'Crushing an aluminium can',        from:'🥫', to:'🗜️', type:'physical', why:'Only the shape changes. Every atom in the crushed can is still aluminium.' },
+      { id:'shred-paper',    title:'Shredding paper',                  from:'📄', to:'✂️', type:'physical', why:'Cutting changes size and shape, not composition. The pieces are still paper.' },
+      { id:'freeze-juice',   title:'Freezing juice into a lolly',      from:'🧃', to:'🧊', type:'physical', why:'Cooling locks the particles in place. Let it melt and you get the same juice back.' },
+      { id:'magnet-filings', title:'Pulling iron filings out of sand', from:'🏖️', to:'🧲', type:'physical', why:'A magnet separates the iron again, so the two substances were never chemically joined.' },
+      { id:'condense-steam', title:'Steam condensing on a window',     from:'☁️', to:'💧', type:'physical', why:'Water vapour cools and returns to liquid water — same substance, less energy.' },
+      { id:'rust-iron',      title:'Rusting iron',                     from:'🔩', to:'🟤', type:'chemical', why:'Iron reacts with oxygen and water to form iron oxide, a new substance with new properties.' },
+      { id:'burn-paper',     title:'Burning paper',                    from:'📄', to:'🔥', type:'chemical', why:'Combustion turns cellulose into ash, carbon dioxide and water vapour, releasing heat and light.' },
+      { id:'bake-cake',      title:'Baking a cake',                    from:'🥣', to:'🎂', type:'chemical', why:'Heat drives reactions that build new compounds and release gas. You cannot get the batter back.' },
+      { id:'sour-milk',      title:'Milk turning sour',                from:'🥛', to:'🧀', type:'chemical', why:'Bacteria convert lactose into lactic acid, a different substance that curdles the milk protein.' },
+      { id:'vinegar-soda',   title:'Vinegar meeting baking soda',      from:'🧴', to:'🫧', type:'chemical', why:'The acid and the carbonate react to make carbon dioxide gas, water and a salt.' },
+      { id:'tarnish-silver', title:'Silver tarnishing',                from:'🥈', to:'⬛', type:'chemical', why:'Silver reacts with sulfur compounds in the air to form black silver sulfide on the surface.' },
+      { id:'brown-apple',    title:'A cut apple browning',             from:'🍎', to:'🟫', type:'chemical', why:'Enzymes speed up a reaction with oxygen that builds new brown pigments in the flesh.' },
+      { id:'fireworks',      title:'A firework exploding',             from:'🧨', to:'🎆', type:'chemical', why:'Metal salts and an oxidiser react explosively, producing new gases and coloured light.' }
+    ];
+    const ROUND_SIZE = 4;
+    let roundNumber = 0;
+    let currentRound = [];
+    let previousIds = [];
+    const answered = new Map();
+
+    /* balanced draw: half physical, half chemical, preferring items the last round did not use */
+    function pickRound() {
+      const preferUnseen = list => {
+        const fresh = list.filter(q => !previousIds.includes(q.id));
+        const seen = list.filter(q => previousIds.includes(q.id));
+        return [...shuffle(fresh), ...shuffle(seen)];
+      };
+      const physical = preferUnseen(CHANGE_QUESTIONS.filter(q => q.type === 'physical'));
+      const chemical = preferUnseen(CHANGE_QUESTIONS.filter(q => q.type === 'chemical'));
+      const half = Math.floor(ROUND_SIZE / 2);
+      const chosen = [...physical.slice(0, half), ...chemical.slice(0, ROUND_SIZE - half)];
+      previousIds = chosen.map(q => q.id);
+      return shuffle(chosen);
+    }
+
+    function renderRound() {
+      const grid = $('change-grid');
+      grid.innerHTML = '';
+      currentRound.forEach(question => {
+        const card = document.createElement('article');
+        card.className = 'rounded-2xl border border-cyan-100/15 bg-[#071a36a8] p-4';
+        card.dataset.question = question.id;
+        /* the arrow keeps one neutral colour for every card — the old orange arrow
+           gave the chemical answers away before the learner chose */
+        card.innerHTML =
+          '<div class="change-scene flex items-center justify-center rounded-xl text-3xl">' +
+            '<span>' + question.from + '</span><span class="mx-3 text-cyan-200/70">→</span><span>' + question.to + '</span>' +
+          '</div>' +
+          '<h3 class="mt-3 font-bold">' + question.title + '</h3>' +
+          '<div class="mt-3 flex gap-2">' +
+            '<button type="button" class="answer-btn rounded-lg border border-cyan-100/20 px-3 py-2 text-sm" data-choice="physical">Physical</button>' +
+            '<button type="button" class="answer-btn rounded-lg border border-cyan-100/20 px-3 py-2 text-sm" data-choice="chemical">Chemical</button>' +
+          '</div>' +
+          '<p class="answer-result mt-3 hidden text-sm" aria-live="polite"></p>';
+        grid.appendChild(card);
+      });
+      renderScore();
+    }
+
+    function renderScore() {
+      const total = currentRound.length;
+      const done = answered.size;
+      const right = [...answered.values()].filter(Boolean).length;
+      $('quiz-round').textContent = 'Round ' + roundNumber;
+      if (done === 0) $('quiz-score').textContent = '0 of ' + total + ' answered — pick physical or chemical for each card.';
+      else if (done < total) $('quiz-score').textContent = done + ' of ' + total + ' answered · ' + right + ' correct so far';
+      else $('quiz-score').textContent = 'Round complete · ' + right + ' of ' + total + ' correct' + (right === total ? ' — perfect!' : '') + '. Tap “New questions” to play again.';
+    }
+
+    function setStatus(text) { $('save-status').textContent = text; }
+
+    /* ------------------------------------------------------ saved records */
+    let backendRecords = [];
+    let savingAvailable = false;
+    function renderSavedCount() {
+      $('saved-count').textContent = backendRecords.length ? 'Knowledge checks saved: ' + backendRecords.length : '';
+    }
+    const handler = {
+      onDataChanged(data) { backendRecords = Array.isArray(data) ? data : []; renderSavedCount(); }
+    };
+    async function initializeData() {
+      if (!window.dataSdk || typeof window.dataSdk.init !== 'function') { savingAvailable = false; return; }
+      try {
+        const result = await window.dataSdk.init(handler);
+        savingAvailable = !!(result && result.isOk);
+      } catch (error) { savingAvailable = false; }
+      if (!savingAvailable) setStatus('Your answers are still scored here, but saving them is unavailable right now.');
+    }
+    async function saveAnswer(question, choice, correct) {
+      if (!savingAvailable) return;
+      if (backendRecords.length >= 999) { setStatus('The saved-answer limit has been reached, so this round is scored but not saved.'); return; }
+      setStatus('Saving your answer…');
+      try {
+        const result = await window.dataSdk.create({
+          section: 'Physical vs Chemical Change',
+          question: question.title,
+          user_answer: choice === 'physical' ? 'Physical change' : 'Chemical change',
+          correct,
+          completed_at: new Date().toISOString()
+        });
+        setStatus(result && result.isOk ? 'Answer saved to your learning record.' : 'We could not confirm that save, but your score above is up to date.');
+      } catch (error) {
+        setStatus('Saving is unavailable right now — your score above is still up to date.');
+      }
+    }
+
+    /* one answer per card: both buttons lock until the round is cleared or replaced */
+    function handleAnswer(button) {
+      const card = button.closest('article');
+      const question = currentRound.find(item => item.id === card.dataset.question);
+      if (!question || answered.has(question.id)) return;
+      const choice = button.dataset.choice;
+      const correct = choice === question.type;
+      answered.set(question.id, correct);
+
+      card.querySelectorAll('.answer-btn').forEach(btn => { btn.disabled = true; });
+      button.classList.add(correct ? 'is-correct' : 'is-wrong');
+
+      const result = card.querySelector('.answer-result');
+      result.textContent = (correct ? 'Correct — this is ' : 'Not quite — this is ') + CHANGE_LABEL[question.type] + '. ' + question.why;
+      result.classList.remove('hidden');
+      result.classList.toggle('text-teal-200', correct);
+      result.classList.toggle('text-orange-200', !correct);
+
+      markExplored('changes');
+      renderScore();
+      saveAnswer(question, choice, correct);
+    }
+    $('change-grid').addEventListener('click', event => {
+      const button = event.target.closest('.answer-btn');
+      if (button && !button.disabled) handleAnswer(button);
+    });
+
+    function clearAnswers() { answered.clear(); renderRound(); setStatus(''); }
+    function newQuestions() { roundNumber += 1; currentRound = pickRound(); answered.clear(); renderRound(); setStatus(''); }
+    $('quiz-clear').addEventListener('click', clearAnswers);
+    $('quiz-new').addEventListener('click', newQuestions);
+
+    /* ------------------------------------------------------ 05 · elements */
+    let activeFilter = 'all';
+    function filterElements() {
+      const term = $('element-search').value.trim().toLowerCase();
+      let visible = 0;
+      document.querySelectorAll('.element-tile').forEach(tile => {
+        const matchesText = (tile.dataset.name + ' ' + tile.dataset.symbol).toLowerCase().includes(term);
+        const matchesCat = activeFilter === 'all' || tile.dataset.category === activeFilter;
+        const show = matchesText && matchesCat;
+        tile.classList.toggle('hidden-tile', !show);
+        if (show) visible += 1;
+      });
+      $('element-empty').classList.toggle('show', visible === 0);
+    }
+    function selectElement(tile, track = true) {
+      if (!tile) return;
+      document.querySelectorAll('.element-tile').forEach(item => item.classList.remove('selected'));
+      tile.classList.add('selected');
+      ['symbol', 'name', 'number', 'mass', 'group', 'properties'].forEach(key => { $('element-' + key).textContent = tile.dataset[key]; });
+      if (track) markExplored('periodic');
+    }
+    $('element-search').addEventListener('input', filterElements);
+    document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach(item => item.classList.toggle('active', item === button));
+      filterElements();
+    }));
+    document.querySelectorAll('.element-tile').forEach(tile => tile.addEventListener('click', () => selectElement(tile)));
+    function resetElements() {
+      $('element-search').value = '';
+      activeFilter = 'all';
+      document.querySelectorAll('[data-filter]').forEach(item => item.classList.toggle('active', item.dataset.filter === 'all'));
+      filterElements();
+      selectElement(document.querySelector('.element-tile'), false);
+    }
+
+    /* --------------------------------------------------------- start over */
+    $('start-over').addEventListener('click', () => {
+      explored.clear();
+      renderProgress();
+      roundNumber = 0;
+      previousIds = [];
+      showMatter('oxygen', false);
+      showState('solid', false);
+      showBond('ionic', false);
+      resetElements();
+      newQuestions();
+      document.querySelectorAll('.nav-item').forEach((item, index) => item.classList.toggle('active', index === 0));
+      setStatus('Everything is reset and a fresh set of questions is ready.');
+    });
+
+    /* ------------------------------------------------------ first paint */
+    renderProgress();
+    showMatter('oxygen', false);
+    showState('solid', false);
+    showBond('ionic', false);
+    selectElement(document.querySelector('.element-tile'), false);
+    newQuestions();
+    renderSavedCount();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
+      initializeData();
+    });
+    if (document.readyState !== 'loading') {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') window.lucide.createIcons();
+      initializeData();
+    }
+  </script>
+ 
+</body></html>
