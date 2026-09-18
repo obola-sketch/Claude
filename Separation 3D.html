@@ -626,6 +626,131 @@
     background: var(--surface);
     color: var(--ink);
   }
+
+  /* ---------- percent composition ---------- */
+  .pc-build { padding: 16px; display: grid; gap: 14px; }
+  .pc-steppers { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pc-el {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface-2);
+  }
+  .pc-el .sym {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--f-mono);
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .pc-el .dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-3);
+    flex: none;
+  }
+  .pc-el button {
+    width: 28px; height: 28px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--f-mono);
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .pc-el button:hover { border-color: var(--hot); }
+  .pc-el .n {
+    min-width: 22px;
+    text-align: center;
+    font-family: var(--f-mono);
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pc-formula {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 20px;
+    font-family: var(--f-mono);
+  }
+  .pc-formula .big { font-size: 26px; }
+  .pc-formula .mm { font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .pc-formula .conv { font-size: 12.5px; color: var(--ink-3); font-family: var(--f-body); }
+
+  .pc-bar { display: flex; width: 100%; height: 38px; gap: 2px; }
+  .pc-seg {
+    position: relative;
+    min-width: 2px;
+    border: 1px solid rgba(120,120,120,.45);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .pc-keys { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+  .pc-key {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--f-mono);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .pc-key .dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    border: 1px solid var(--ink-3);
+    flex: none;
+  }
+  .pc-target {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+    padding: 13px 16px;
+    display: grid;
+    gap: 9px;
+  }
+  .pc-samples { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pc-sample {
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    cursor: pointer;
+  }
+  .pc-sample[aria-pressed="true"] { border-color: var(--hot); color: var(--hot); }
+  .pc-verdict { font-size: 14.5px; color: var(--ink-2); text-wrap: pretty; }
+  .pc-verdict.win { color: var(--cold); }
+  .pc-work { padding: 14px 16px; display: grid; gap: 9px; }
+  .pc-work table { border-collapse: collapse; width: 100%; font-family: var(--f-mono); font-size: 13px; }
+  .pc-work th {
+    text-align: left;
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding: 0 12px 6px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .pc-work td {
+    padding: 7px 12px 7px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .pc-work tr:last-child td { border-bottom: 0; }
+  .pc-work .note { font-family: var(--f-body); font-size: 13.5px; color: var(--ink-3); text-wrap: pretty; }
+  .pc-scroll { overflow-x: auto; }
 </style>
 
 <div class="wrap">
@@ -765,6 +890,38 @@
         <p class="tp-ratio" id="tp-ratio"></p>
         <p>A conversion factor is a fixed ratio. That one is not fixed — it drifts as you drag, and near 0 °C it runs away entirely, because 0 °C is 32 °F rather than zero. Two scales that disagree about where nothing is cannot be related by multiplication alone. You need <b>K = °C + 273.15</b> and <b>°F = °C × 9/5 + 32</b>: a shift as well as a stretch.</p>
         <p>The exception is worth holding onto. <b>Differences do convert as factors</b>, because the offset subtracts away: a change of 1 K is a change of 1 °C, and a change of 1 °C is a change of 1.8 °F. So dimensional analysis works on a temperature <b>change</b> — and never on a temperature <b>reading</b>.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="da pc">
+    <div class="da-intro">
+      <span class="tag">Last · Percent composition</span>
+      <h2>From a formula to its percentages, and back again</h2>
+      <p>Mass percent is what a lab actually measures; a formula is what you want. Going one way is arithmetic. Coming back is the same mole conversion you have been doing all along, run on each element and then divided by the smallest. Build a formula and watch its composition, or take a sample's percentages and work out what it was.</p>
+    </div>
+
+    <div class="panel">
+      <div class="pc-build">
+        <div class="pc-steppers" id="pc-steppers"></div>
+        <div class="pc-formula">
+          <span class="big" id="pc-formula">&nbsp;</span>
+          <span class="mm" id="pc-mm"></span>
+          <span class="conv" id="pc-conv"></span>
+        </div>
+        <div class="pc-bar" id="pc-bar"></div>
+        <div class="pc-keys" id="pc-keys"></div>
+      </div>
+
+      <div class="pc-target">
+        <div class="pc-samples" id="pc-samples"></div>
+        <p class="pc-verdict" id="pc-verdict"></p>
+      </div>
+
+      <div class="pc-work">
+        <div class="pc-scroll"><table id="pc-work"></table></div>
+        <p class="note" id="pc-note"></p>
       </div>
     </div>
   </section>
@@ -1635,5 +1792,177 @@
   }
   rangeEl.addEventListener("input", paint);
   paint();
+})();
+</script>
+<script>
+(function () {
+  "use strict";
+
+  // Colours match the atoms in the 3D view above, so a red segment and a red
+  // sphere are the same element. Every segment is direct-labelled with its
+  // symbol and percent, so identity never rests on colour alone.
+  var ELS = [
+    { s: "Ca", m: 40.078, c: "#7d9a77" },
+    { s: "C",  m: 12.011, c: "#23282c" },
+    { s: "H",  m: 1.008,  c: "#e4e9ed" },
+    { s: "O",  m: 15.999, c: "#c1291f" }
+  ];
+  var SUB = { 0: "₀", 1: "₁", 2: "₂", 3: "₃", 4: "₄",
+              5: "₅", 6: "₆", 7: "₇", 8: "₈", 9: "₉" };
+
+  var SAMPLES = [
+    { label: "scrubber deposit", counts: { Ca: 1, C: 1, O: 3 }, conv: null,
+      note: "The solid the lime scrubber drops out. Its empirical and molecular formulas are the same." },
+    { label: "the reagent", counts: { Ca: 1, H: 2, O: 2 }, conv: "Ca(OH)₂",
+      note: "Written CaH₂O₂ by raw composition; chemists group it as Ca(OH)₂ to show the two hydroxides." },
+    { label: "organic residue", counts: { C: 1, H: 2, O: 1 }, conv: null,
+      note: "Try C₂H₄O₂ as well — acetic acid. It matches these percentages exactly." }
+  ];
+
+  var counts = { Ca: 1, C: 1, H: 0, O: 3 };
+  var si = 0;
+
+  var elSteppers = document.getElementById("pc-steppers");
+  var elFormula = document.getElementById("pc-formula");
+  var elMM = document.getElementById("pc-mm");
+  var elConv = document.getElementById("pc-conv");
+  var elBar = document.getElementById("pc-bar");
+  var elKeys = document.getElementById("pc-keys");
+  var elSamples = document.getElementById("pc-samples");
+  var elVerdict = document.getElementById("pc-verdict");
+  var elWork = document.getElementById("pc-work");
+  var elNote = document.getElementById("pc-note");
+  if (!elSteppers) return;
+
+  function sub(n) { return String(n).replace(/\d/g, function (d) { return SUB[d]; }); }
+  function mass(cs) {
+    var t = 0;
+    for (var i = 0; i < ELS.length; i++) t += (cs[ELS[i].s] || 0) * ELS[i].m;
+    return t;
+  }
+  function pct(cs) {
+    var t = mass(cs), out = {};
+    for (var i = 0; i < ELS.length; i++) {
+      var e = ELS[i];
+      out[e.s] = t > 0 ? ((cs[e.s] || 0) * e.m / t) * 100 : 0;
+    }
+    return out;
+  }
+  function formula(cs) {
+    var out = "";
+    for (var i = 0; i < ELS.length; i++) {
+      var n = cs[ELS[i].s] || 0;
+      if (n > 0) out += ELS[i].s + (n > 1 ? sub(n) : "");
+    }
+    return out;
+  }
+  function matches(a, b) {
+    for (var i = 0; i < ELS.length; i++) {
+      if (Math.abs(a[ELS[i].s] - b[ELS[i].s]) > 0.05) return false;
+    }
+    return true;
+  }
+
+  elSteppers.innerHTML = ELS.map(function (e) {
+    return '<div class="pc-el">' +
+      '<span class="sym"><span class="dot" style="background:' + e.c + '"></span>' + e.s +
+      " · " + e.m.toFixed(3) + "</span>" +
+      '<button type="button" data-el="' + e.s + '" data-d="-1" aria-label="fewer ' + e.s + '">−</button>' +
+      '<span class="n" id="pc-n-' + e.s + '"></span>' +
+      '<button type="button" data-el="' + e.s + '" data-d="1" aria-label="more ' + e.s + '">+</button>' +
+      "</div>";
+  }).join("");
+
+  elSamples.innerHTML = SAMPLES.map(function (s, i) {
+    return '<button class="pc-sample" type="button" data-i="' + i + '" aria-pressed="' +
+      (i === 0) + '">' + s.label + "</button>";
+  }).join("");
+
+  elSteppers.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest("button[data-el]") : null;
+    if (!b) return;
+    var k = b.getAttribute("data-el");
+    counts[k] = Math.max(0, Math.min(8, (counts[k] || 0) + parseInt(b.getAttribute("data-d"), 10)));
+    render();
+  });
+  elSamples.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest(".pc-sample") : null;
+    if (!b) return;
+    si = parseInt(b.getAttribute("data-i"), 10);
+    render();
+  });
+
+  function render() {
+    var total = mass(counts);
+    var mine = pct(counts);
+    var sample = SAMPLES[si];
+    var tgtCounts = { Ca: 0, C: 0, H: 0, O: 0 };
+    for (var k in sample.counts) tgtCounts[k] = sample.counts[k];
+    var tgt = pct(tgtCounts);
+
+    for (var i = 0; i < ELS.length; i++) {
+      document.getElementById("pc-n-" + ELS[i].s).textContent = counts[ELS[i].s] || 0;
+    }
+    document.getElementById("pc-samples").querySelectorAll(".pc-sample").forEach(function (b, n) {
+      b.setAttribute("aria-pressed", String(n === si));
+    });
+
+    elFormula.innerHTML = total > 0 ? formula(counts) : "&nbsp;";
+    elMM.textContent = total > 0 ? total.toFixed(2) + " g/mol" : "";
+
+    // ---- composition bar, direct-labelled ----
+    var bar = "", keys = "";
+    for (i = 0; i < ELS.length; i++) {
+      var e = ELS[i], p = mine[e.s];
+      if (p <= 0) continue;
+      bar += '<div class="pc-seg" style="flex:' + p.toFixed(4) + ';background:' + e.c +
+        '" title="' + e.s + " " + p.toFixed(2) + '%"></div>';
+      keys += '<span class="pc-key"><span class="dot" style="background:' + e.c + '"></span>' +
+        e.s + " " + p.toFixed(2) + "%</span>";
+    }
+    elBar.innerHTML = bar;
+    elKeys.innerHTML = keys || '<span class="pc-key">add an atom to see a composition</span>';
+
+    // ---- verdict against the selected sample ----
+    var hit = total > 0 && matches(mine, tgt);
+    var exact = hit && formula(counts) === formula(tgtCounts);
+    elConv.textContent = exact && sample.conv ? "conventionally written " + sample.conv : "";
+
+    if (!hit) {
+      elVerdict.className = "pc-verdict";
+      elVerdict.innerHTML = "Sample reads " + ELS.filter(function (e) { return tgt[e.s] > 0; })
+        .map(function (e) { return "<b>" + tgt[e.s].toFixed(2) + "% " + e.s + "</b>"; }).join(", ") +
+        ". Build a formula that matches it.";
+    } else if (!exact) {
+      elVerdict.className = "pc-verdict win";
+      elVerdict.innerHTML = "Matched — and note what just happened. <b>" + formula(counts) +
+        "</b> and <b>" + formula(tgtCounts) + "</b> have identical percentages, because composition only fixes the <b>ratio</b> of atoms, never how many. That ratio is the <b>empirical formula</b>; only the molar mass (" +
+        total.toFixed(2) + " vs " + mass(tgtCounts).toFixed(2) + " g/mol) tells the two apart.";
+    } else {
+      elVerdict.className = "pc-verdict win";
+      elVerdict.innerHTML = "Matched. <b>" + formula(counts) + "</b> at " + total.toFixed(2) +
+        " g/mol accounts for every percentage point.";
+    }
+
+    // ---- the systematic route back ----
+    var rows = ELS.filter(function (e) { return tgt[e.s] > 0; }).map(function (e) {
+      return { s: e.s, c: e.c, g: tgt[e.s], mol: tgt[e.s] / e.m };
+    });
+    var min = Math.min.apply(null, rows.map(function (r) { return r.mol; }));
+    var h = "<thead><tr><th>Element</th><th>Mass in 100 g</th><th>÷ molar mass = mol</th>" +
+            "<th>÷ smallest</th><th>Whole number</th></tr></thead><tbody>";
+    rows.forEach(function (r) {
+      var ratio = r.mol / min;
+      h += "<tr><td><span class=\"pc-key\"><span class=\"dot\" style=\"background:" + r.c + "\"></span>" +
+        r.s + "</span></td><td>" + r.g.toFixed(2) + " g</td><td>" + r.mol.toFixed(4) +
+        "</td><td>" + ratio.toFixed(3) + "</td><td>" + Math.round(ratio) + "</td></tr>";
+    });
+    elWork.innerHTML = h + "</tbody>";
+    elNote.textContent = "Assume exactly 100 g, so each percent becomes grams. Convert each to moles with " +
+      "its molar mass — the same factor from the track above — then divide every result by the " +
+      "smallest. The whole-number column is the empirical formula. " + sample.note;
+  }
+
+  render();
 })();
 </script>
