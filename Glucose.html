@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>β-D-Glucose</title>
+<link rel="stylesheet" href="_ds/broadsheet/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+  /* Broadsheet ships no type-size tokens — its scale is set on h1-h6 in
+     styles.css — and its spacing scale has no step 5. This page was authored
+     against four names the system does not define, which left h1 inheriting
+     body size and .bar with no gap. Defined here, page-locally, at the
+     system's own values: 13px is its h6, 20px its h4, 42px its h1, and 25px
+     is the missing rung of the 5px 1.25x ladder between --space-4 and
+     --space-6. Delete this block if the system ever grows them. */
+  :root {
+    --text-sm: 13px;
+    --text-lg: 20px;
+    --text-4xl: 42px;
+    --space-5: 25px;
+  }
+</style>
+<style>
+  three-d-stage:not(:defined){visibility:hidden}
+  html,body{margin:0;height:100%}
+  body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);display:flex;flex-direction:column}
+  header{padding:var(--space-6) var(--space-6) var(--space-3);max-width:62ch}
+  .kicker{font-size:var(--text-sm);letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent-700);margin:0 0 var(--space-2)}
+  h1{font-family:var(--font-heading);font-size:var(--text-4xl);line-height:1.05;margin:0 0 var(--space-3);font-weight:600}
+  h1 em{font-style:italic}
+  p.lede{margin:0;font-size:var(--text-lg);line-height:1.5;text-wrap:pretty}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding:0 var(--space-6) var(--space-4)}
+  .legend{display:flex;gap:var(--space-4);align-items:center;font-size:var(--text-sm)}
+  .legend span{display:flex;gap:var(--space-2);align-items:center}
+  .dot{width:.85em;height:.85em;border-radius:50%;display:inline-block}
+  .stage-wrap{flex:1;min-height:420px;padding:0 var(--space-6) var(--space-6)}
+  /* the starter stage defaults to its own warm ground; hand it the system's */
+  three-d-stage{width:100%;height:100%;display:block;--stage-bg:var(--color-bg)}
+</style>
+</head>
+<body>
+  <header>
+    <p class="kicker">Carbohydrate · C<sub>6</sub>H<sub>12</sub>O<sub>6</sub></p>
+    <h1>β-<em>D</em>-Glucopyranose</h1>
+    <p class="lede">The all-equatorial chair: six ring positions, five hydroxyls and one hydroxymethyl arm, drawn ball-and-stick inside a translucent van der Waals envelope. Drag to orbit, scroll to zoom.</p>
+  </header>
+  <div class="bar">
+    <div class="legend">
+      <span><i class="dot" style="background:#25221f"></i>Carbon</span>
+      <span><i class="dot" style="background:#d6006c"></i>Oxygen</span>
+      <span><i class="dot" style="background:#f3f2f2;box-shadow:inset 0 0 0 1px rgba(32,30,29,.3)"></i>Hydrogen</span>
+    </div>
+    <button class="btn btn-ghost" id="shellBtn">Hide van der Waals shell</button>
+  </div>
+  <div class="stage-wrap">
+    <three-d-stage name="beta-d-glucose" autorotate></three-d-stage>
+  </div>
+  <script src="three-d-stage.js"></script>
+  <script type="module" src="glucose-model.js"></script>
+</body>
+</html>
