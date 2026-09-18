@@ -504,6 +504,128 @@
   }
   @media (prefers-reduced-motion: reduce) { .shake { animation: none; } }
   .da-actions { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 16px 16px; }
+
+  /* ---------- problem tabs ---------- */
+  .da-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+  .da-tab {
+    flex: 1 1 200px;
+    padding: 10px 16px;
+    border: 0;
+    border-right: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--ink-2);
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    text-align: left;
+    cursor: pointer;
+  }
+  .da-tab:last-child { border-right: 0; }
+  .da-tab[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--hot);
+    box-shadow: inset 0 2px 0 var(--hot);
+  }
+
+  /* ---------- temperature ---------- */
+  .tp-scales { display: grid; gap: 16px; padding: 22px 16px 8px; }
+  .tp-row { display: grid; gap: 6px; }
+  .tp-row .lab {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .tp-row .now {
+    font-size: 17px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .tp-bar {
+    position: relative;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .tp-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .tp-tick span {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    color: var(--ink-3);
+    white-space: nowrap;
+  }
+  .tp-mark {
+    position: absolute;
+    top: -3px; bottom: -3px;
+    width: 2px;
+    background: var(--hot);
+    transition: left .12s linear;
+  }
+  .tp-mark::after {
+    content: "";
+    position: absolute;
+    left: -3px; top: 4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--hot);
+  }
+  .tp-ctl { padding: 4px 16px 14px; display: grid; gap: 4px; }
+  .tp-ctl label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .tp-ctl input[type="range"] { accent-color: var(--hot); }
+  .tp-marks { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 16px; }
+  .tp-pin {
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-family: var(--f-mono);
+    font-size: 11.5px;
+    cursor: pointer;
+  }
+  .tp-pin:hover { border-color: var(--hot); color: var(--ink); }
+  .tp-why {
+    border-top: 1px solid var(--line);
+    padding: 15px 16px;
+    display: grid;
+    gap: 9px;
+    background: var(--surface-2);
+  }
+  .tp-why h3 {
+    margin: 0;
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .tp-why p { margin: 0; color: var(--ink-2); max-width: 66ch; text-wrap: pretty; }
+  .tp-why b { color: var(--ink); font-weight: 600; }
+  .tp-ratio {
+    font-family: var(--f-mono);
+    font-size: 14px;
+    padding: 9px 12px;
+    border-left: 3px solid var(--hot);
+    background: var(--surface);
+    color: var(--ink);
+  }
 </style>
 
 <div class="wrap">
@@ -588,9 +710,14 @@
     </div>
 
     <div class="panel">
+      <div class="da-tabs" role="group" aria-label="Problem">
+        <button class="da-tab" id="da-tab-0" aria-pressed="true">01 · Mass → mass</button>
+        <button class="da-tab" id="da-tab-1" aria-pressed="false">02 · Mass → volume (density)</button>
+      </div>
+
       <div class="da-problem">
         <span class="k">Problem</span>
-        <p>A lime scrubber captures <b>25.0 g</b> of CO₂. From the same reaction the 3D view runs — CO₂ + Ca(OH)₂ → CaCO₃ + H₂O — what mass of calcium carbonate does that produce?</p>
+        <p id="da-question"></p>
       </div>
 
       <div class="da-trackwrap">
@@ -611,6 +738,33 @@
       <div class="da-actions">
         <button class="btn" id="da-undo">Undo</button>
         <button class="btn" id="da-reset">Reset</button>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="da tp">
+    <div class="da-intro">
+      <span class="tag">And then · Temperature</span>
+      <h2>The conversion that is not a factor</h2>
+      <p>Density slotted into the track because it is a ratio. Temperature will not, and it is worth knowing exactly why: the three scales do not share a zero. Because of that offset, °C and °F are not proportional, so there is no ratio you can write that cancels one into the other. Drag the marker and watch the tick marks refuse to line up.</p>
+    </div>
+
+    <div class="panel">
+      <div class="tp-scales" id="tp-scales"></div>
+
+      <div class="tp-ctl">
+        <label for="tp-range">Drag the temperature</label>
+        <input type="range" id="tp-range" min="-27315" max="100000" step="5" value="2500">
+      </div>
+
+      <div class="tp-marks" id="tp-marks"></div>
+
+      <div class="tp-why">
+        <h3>Why you cannot cancel units here</h3>
+        <p class="tp-ratio" id="tp-ratio"></p>
+        <p>A conversion factor is a fixed ratio. That one is not fixed — it drifts as you drag, and near 0 °C it runs away entirely, because 0 °C is 32 °F rather than zero. Two scales that disagree about where nothing is cannot be related by multiplication alone. You need <b>K = °C + 273.15</b> and <b>°F = °C × 9/5 + 32</b>: a shift as well as a stretch.</p>
+        <p>The exception is worth holding onto. <b>Differences do convert as factors</b>, because the offset subtracts away: a change of 1 K is a change of 1 °C, and a change of 1 °C is a change of 1.8 °F. So dimensional analysis works on a temperature <b>change</b> — and never on a temperature <b>reading</b>.</p>
       </div>
     </div>
   </section>
@@ -1193,117 +1347,137 @@
 (function () {
   "use strict";
 
-  var START = { value: 25.0, disp: "25.0", unit: "g CO₂" };
-  var TARGET = "g CaCO₃";
+  /* ================= dimensional analysis track ================= */
 
-  // Each factor is a ratio equal to 1. den.unit must match the trailing unit
-  // for the factor to cancel — that single rule is the whole mechanic.
-  var FACTORS = [
-    { id: "mmco2",   num: { v: 1,        d: "1",           u: "mol CO₂" },
-                     den: { v: 44.01,    d: "44.01",       u: "g CO₂" },
-                     why: "molar mass of CO₂" },
-    { id: "mmco2i",  num: { v: 44.01,    d: "44.01",       u: "g CO₂" },
-                     den: { v: 1,        d: "1",           u: "mol CO₂" },
-                     why: "the same, inverted" },
-    { id: "ratio",   num: { v: 1,        d: "1",           u: "mol CaCO₃" },
-                     den: { v: 1,        d: "1",           u: "mol CO₂" },
-                     why: "mole ratio from the equation" },
-    { id: "mmcaco3", num: { v: 100.09,   d: "100.09",      u: "g CaCO₃" },
-                     den: { v: 1,        d: "1",           u: "mol CaCO₃" },
-                     why: "molar mass of CaCO₃" },
-    { id: "avo",     num: { v: 6.022e23, d: "6.022×10²³", u: "molecules CO₂" },
-                     den: { v: 1,        d: "1",           u: "mol CO₂" },
-                     why: "Avogadro's number" },
-    { id: "mmcaco3i",num: { v: 1,        d: "1",           u: "mol CaCO₃" },
-                     den: { v: 100.09,   d: "100.09",      u: "g CaCO₃" },
-                     why: "molar mass of CaCO₃, inverted" }
+  // Every factor is a ratio equal to one. A factor is admitted only when its
+  // denominator unit matches the unit currently trailing the chain — that one
+  // rule drives placement, rejection and the strike-throughs.
+  var F = {
+    mmco2:    { num: { v: 1,      d: "1",      u: "mol CO₂" },
+                den: { v: 44.01,  d: "44.01",  u: "g CO₂" },
+                why: "molar mass of CO₂" },
+    mmco2i:   { num: { v: 44.01,  d: "44.01",  u: "g CO₂" },
+                den: { v: 1,      d: "1",      u: "mol CO₂" },
+                why: "the same, inverted" },
+    ratio:    { num: { v: 1,      d: "1",      u: "mol CaCO₃" },
+                den: { v: 1,      d: "1",      u: "mol CO₂" },
+                why: "mole ratio from the equation" },
+    mmcaco3:  { num: { v: 100.09, d: "100.09", u: "g CaCO₃" },
+                den: { v: 1,      d: "1",      u: "mol CaCO₃" },
+                why: "molar mass of CaCO₃" },
+    mmcaco3i: { num: { v: 1,      d: "1",      u: "mol CaCO₃" },
+                den: { v: 100.09, d: "100.09", u: "g CaCO₃" },
+                why: "molar mass of CaCO₃, inverted" },
+    avo:      { num: { v: 6.022e23, d: "6.022×10²³", u: "molecules CO₂" },
+                den: { v: 1,      d: "1",      u: "mol CO₂" },
+                why: "Avogadro's number" },
+    dens:     { num: { v: 1,      d: "1",      u: "cm³" },
+                den: { v: 2.71,   d: "2.71",   u: "g CaCO₃" },
+                why: "density of calcite, inverted" },
+    densi:    { num: { v: 2.71,   d: "2.71",   u: "g CaCO₃" },
+                den: { v: 1,      d: "1",      u: "cm³" },
+                why: "density of calcite, as written" }
+  };
+
+  var PROBLEMS = [
+    {
+      q: 'A lime scrubber captures <b>25.0 g</b> of CO₂. From the same reaction the 3D view runs — CO₂ + Ca(OH)₂ → CaCO₃ + H₂O — what mass of calcium carbonate does that produce?',
+      start: { value: 25.0, disp: "25.0", unit: "g CO₂" },
+      target: "g CaCO₃",
+      bank: ["mmco2", "mmco2i", "ratio", "mmcaco3", "avo", "mmcaco3i"],
+      win: "g of limestone from 25.0 g of CO₂. Set the chain up first, then multiply."
+    },
+    {
+      q: 'Same 25.0 g of captured CO₂. Calcite has a density of <b>2.71 g/cm³</b> — a ratio, so it is just another factor. What volume of solid limestone does the scrubber make?',
+      start: { value: 25.0, disp: "25.0", unit: "g CO₂" },
+      target: "cm³",
+      bank: ["mmco2", "mmco2i", "ratio", "mmcaco3", "dens", "densi"],
+      win: "cm³ of calcite. Density entered the chain exactly like a molar mass — nothing special about it."
+    }
   ];
-  var byId = {};
-  FACTORS.forEach(function (f) { byId[f.id] = f; });
+
+  var pi = 0, placed = [];
+  var P = function () { return PROBLEMS[pi]; };
 
   var track = document.getElementById("da-track");
   var bank = document.getElementById("da-bank");
+  var elQ = document.getElementById("da-question");
   var elVal = document.getElementById("da-val");
   var elUnit = document.getElementById("da-unit");
   var elMsg = document.getElementById("da-msg");
   if (!track || !bank) return;
 
-  var placed = [];
-
   function value() {
-    var v = START.value;
-    for (var i = 0; i < placed.length; i++) {
-      var f = byId[placed[i]];
-      v = v * f.num.v / f.den.v;
-    }
+    var v = P().start.value;
+    for (var i = 0; i < placed.length; i++) v = v * F[placed[i]].num.v / F[placed[i]].den.v;
     return v;
   }
   function unit() {
-    return placed.length ? byId[placed[placed.length - 1]].num.u : START.unit;
+    return placed.length ? F[placed[placed.length - 1]].num.u : P().start.unit;
   }
+  function sup(n) {
+    return String(n).replace(/[-0123456789]/g, function (c) {
+      return { "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴",
+               "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" }[c];
+    });
+  }
+  function sci(v) {
+    var e = Math.floor(Math.log10(Math.abs(v)));
+    return (v / Math.pow(10, e)).toFixed(3) + "×10" + sup(e);
+  }
+  // Three significant figures, trailing zeros kept — the whole point of the section.
   function fmt(v) {
     if (v === 0) return "0";
     var a = Math.abs(v);
-    if (a >= 1e5 || a < 1e-3) {
-      var e = Math.floor(Math.log10(a));
-      var m = v / Math.pow(10, e);
-      var sup = String(e).replace(/[-0123456789]/g, function (c) {
-        return { "-": "⁻", "0": "⁰", "1": "¹", "2": "²", "3": "³",
-                 "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷",
-                 "8": "⁸", "9": "⁹" }[c];
-      });
-      return m.toFixed(3) + "×10" + sup;
-    }
-    return String(parseFloat(v.toPrecision(3)));
+    if (a >= 1e5 || a < 1e-3) return sci(v);
+    var out = v.toPrecision(3);
+    return out.indexOf("e") >= 0 ? sci(v) : out;
   }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
-
+  function esc(x) { return String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
   function canPlace(f) { return f.den.u === unit(); }
   function anyPlayable() {
-    for (var i = 0; i < FACTORS.length; i++) if (canPlace(FACTORS[i])) return true;
+    var b = P().bank;
+    for (var i = 0; i < b.length; i++) {
+      if (placed.indexOf(b[i]) < 0 && canPlace(F[b[i]])) return true;
+    }
     return false;
   }
 
   function render() {
-    var done = unit() === TARGET;
+    var p = P(), done = unit() === p.target;
+    elQ.innerHTML = p.q;
 
-    // ---- track ----
-    var html = '<div class="da-term"><div class="da-start">' + esc(START.disp) +
-      ' <span class="cx' + (placed.length ? " gone" : "") + '">' + esc(START.unit) + '</span></div></div>';
+    var html = '<div class="da-term"><div class="da-start">' + esc(p.start.disp) +
+      ' <span class="cx' + (placed.length ? " gone" : "") + '">' + esc(p.start.unit) + "</span></div></div>";
     for (var i = 0; i < placed.length; i++) {
-      var f = byId[placed[i]];
-      var numGone = i < placed.length - 1;
-      html += '<div class="da-term"><span class="da-times">×</span>' +
-        '<div class="da-frac placed">' +
-          '<div class="num">' + esc(f.num.d) + ' <span class="cx' + (numGone ? " gone" : "") + '">' + esc(f.num.u) + '</span></div>' +
-          '<div class="den">' + esc(f.den.d) + ' <span class="cx gone">' + esc(f.den.u) + '</span></div>' +
-        '</div></div>';
+      var f = F[placed[i]], numGone = i < placed.length - 1;
+      html += '<div class="da-term"><span class="da-times">×</span><div class="da-frac placed">' +
+        '<div class="num">' + esc(f.num.d) + ' <span class="cx' + (numGone ? " gone" : "") + '">' + esc(f.num.u) + "</span></div>" +
+        '<div class="den">' + esc(f.den.d) + ' <span class="cx gone">' + esc(f.den.u) + "</span></div>" +
+        "</div></div>";
     }
     html += '<div class="da-term"><span class="da-times">' + (done ? "=" : "×") + '</span>' +
       '<div class="da-slot' + (done ? " done" : "") + '" id="da-slot">' +
-      (done ? esc(fmt(value())) + " " + esc(TARGET) : "drop a factor") + "</div></div>";
+      (done ? esc(fmt(value())) + " " + esc(p.target) : "drop a factor") + "</div></div>";
     track.innerHTML = html;
 
-    // ---- bank ----
     var b = "";
-    for (var k = 0; k < FACTORS.length; k++) {
-      var g = FACTORS[k];
-      var used = placed.indexOf(g.id) >= 0;
-      b += '<button class="da-chip" type="button" data-id="' + g.id + '"' + (used || done ? " disabled" : "") + '>' +
+    for (var k = 0; k < p.bank.length; k++) {
+      var g = F[p.bank[k]], used = placed.indexOf(p.bank[k]) >= 0;
+      b += '<button class="da-chip" type="button" data-id="' + p.bank[k] + '"' + (used || done ? " disabled" : "") + ">" +
              '<span class="num">' + esc(g.num.d) + " " + esc(g.num.u) + "</span>" +
              '<span class="den">' + esc(g.den.d) + " " + esc(g.den.u) + "</span>" +
-             '<span class="why">' + esc(g.why) + "</span>" +
-           "</button>";
+             '<span class="why">' + esc(g.why) + "</span></button>";
     }
     bank.innerHTML = b;
 
-    elVal.textContent = placed.length ? fmt(value()) : START.disp;
+    elVal.textContent = placed.length ? fmt(value()) : p.start.disp;
     elUnit.textContent = unit();
 
     if (done) {
       elMsg.className = "da-msg win";
-      elMsg.textContent = "Everything else cancelled and only " + TARGET + " is left standing — " +
-        fmt(value()) + " g of limestone from 25.0 g of CO₂. Set the chain up first, then multiply.";
+      elMsg.textContent = "Everything else cancelled and only " + p.target + " is left standing — " +
+        fmt(value()) + " " + p.win;
     } else if (!anyPlayable()) {
       elMsg.className = "da-msg bad";
       elMsg.textContent = "Nothing left in the bank has " + unit() +
@@ -1314,38 +1488,31 @@
     }
   }
 
-  function reject(chip, f) {
-    elMsg.className = "da-msg bad";
-    elMsg.textContent = f.den.u + " is not what's trailing the chain — " + unit() +
-      " is. Those don't cancel, so this factor can't go in.";
-    if (chip) {
-      chip.classList.remove("shake");
-      void chip.offsetWidth;
-      chip.classList.add("shake");
-    }
-  }
-
   function attempt(id, chip) {
-    var f = byId[id];
+    var f = F[id];
     if (!f || placed.indexOf(id) >= 0) return;
-    if (!canPlace(f)) { reject(chip, f); return; }
+    if (!canPlace(f)) {
+      elMsg.className = "da-msg bad";
+      elMsg.textContent = f.den.u + " is not what's trailing the chain — " + unit() +
+        " is. Those don't cancel, so this factor can't go in.";
+      if (chip) { chip.classList.remove("shake"); void chip.offsetWidth; chip.classList.add("shake"); }
+      return;
+    }
     placed.push(id);
     render();
   }
 
-  // click / keyboard
   bank.addEventListener("click", function (ev) {
     var chip = ev.target.closest ? ev.target.closest(".da-chip") : null;
     if (!chip || chip.disabled || chip.dataset.dragged === "1") { if (chip) chip.dataset.dragged = "0"; return; }
     attempt(chip.getAttribute("data-id"), chip);
   });
 
-  // pointer drag
   var drag = null;
   bank.addEventListener("pointerdown", function (ev) {
     var chip = ev.target.closest ? ev.target.closest(".da-chip") : null;
     if (!chip || chip.disabled) return;
-    drag = { chip: chip, id: chip.getAttribute("data-id"), x: ev.clientX, y: ev.clientY, ghost: null, moved: false };
+    drag = { chip: chip, id: chip.getAttribute("data-id"), x: ev.clientX, y: ev.clientY, ghost: null, moved: false, w: 0 };
   });
   window.addEventListener("pointermove", function (ev) {
     if (!drag) return;
@@ -1364,8 +1531,8 @@
     var slot = document.getElementById("da-slot");
     if (slot) {
       var r = slot.getBoundingClientRect();
-      var over = ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom;
-      slot.classList.toggle("over", over);
+      slot.classList.toggle("over",
+        ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom);
     }
   });
   window.addEventListener("pointerup", function (ev) {
@@ -1374,31 +1541,99 @@
     if (d.ghost) d.ghost.remove();
     var slot = document.getElementById("da-slot");
     if (slot) slot.classList.remove("over");
-    if (!d.moved) return; // let the click handler take it
+    if (!d.moved) return;
     d.chip.dataset.dragged = "1";
     if (slot) {
-      var r = slot.getBoundingClientRect();
-      var pad = 26;
+      var r = slot.getBoundingClientRect(), pad = 26;
       if (ev.clientX >= r.left - pad && ev.clientX <= r.right + pad &&
-          ev.clientY >= r.top - pad && ev.clientY <= r.bottom + pad) {
-        attempt(d.id, d.chip);
-        return;
-      }
+          ev.clientY >= r.top - pad && ev.clientY <= r.bottom + pad) { attempt(d.id, d.chip); return; }
     }
     elMsg.className = "da-msg";
     elMsg.textContent = "Dropped outside the track. Pick the factor whose bottom unit is " + unit() + ".";
   });
 
+  function setProblem(n) {
+    pi = n; placed = [];
+    document.getElementById("da-tab-0").setAttribute("aria-pressed", String(n === 0));
+    document.getElementById("da-tab-1").setAttribute("aria-pressed", String(n === 1));
+    render();
+  }
+  document.getElementById("da-tab-0").addEventListener("click", function () { setProblem(0); });
+  document.getElementById("da-tab-1").addEventListener("click", function () { setProblem(1); });
   document.getElementById("da-undo").addEventListener("click", function () {
-    if (!placed.length) return;
-    placed.pop();
-    render();
+    if (placed.length) { placed.pop(); render(); }
   });
-  document.getElementById("da-reset").addEventListener("click", function () {
-    placed = [];
-    render();
+  document.getElementById("da-reset").addEventListener("click", function () { placed = []; render(); });
+  setProblem(0);
+
+  /* ================= temperature scales ================= */
+
+  var C_MIN = -273.15, C_MAX = 1000;
+  var SCALES = [
+    { key: "K",  name: "Kelvin",     from: function (c) { return c + 273.15; },
+      ticks: [0, 200, 400, 600, 800, 1000, 1200], to: function (k) { return k - 273.15; }, dp: 1 },
+    { key: "°C", name: "Celsius", from: function (c) { return c; },
+      ticks: [-250, 0, 250, 500, 750, 1000], to: function (x) { return x; }, dp: 1 },
+    { key: "°F", name: "Fahrenheit", from: function (c) { return c * 9 / 5 + 32; },
+      ticks: [-400, 0, 400, 800, 1200, 1600], to: function (x) { return (x - 32) * 5 / 9; }, dp: 1 }
+  ];
+  var PINS = [
+    { c: -273.15, n: "absolute zero" },
+    { c: -195.8,  n: "N₂ boils" },
+    { c: -78.5,   n: "CO₂ sublimes" },
+    { c: 0,       n: "water freezes" },
+    { c: 25,      n: "the scrubber" },
+    { c: 100,     n: "water boils" },
+    { c: 900,     n: "calcination" }
+  ];
+
+  var scalesEl = document.getElementById("tp-scales");
+  var rangeEl = document.getElementById("tp-range");
+  var marksEl = document.getElementById("tp-marks");
+  var ratioEl = document.getElementById("tp-ratio");
+  if (!scalesEl || !rangeEl) return;
+
+  function pos(c) { return ((c - C_MIN) / (C_MAX - C_MIN)) * 100; }
+
+  scalesEl.innerHTML = SCALES.map(function (s, i) {
+    var ticks = s.ticks.map(function (tv) {
+      var c = s.to(tv);
+      if (c < C_MIN - 0.01 || c > C_MAX + 0.01) return "";
+      return '<div class="tp-tick" style="left:' + pos(c).toFixed(3) + '%"><span>' + tv + "</span></div>";
+    }).join("");
+    return '<div class="tp-row"><div class="lab"><span>' + s.name +
+      '</span><span class="now" id="tp-now-' + i + '"></span></div>' +
+      '<div class="tp-bar">' + ticks + '<div class="tp-mark" id="tp-mark-' + i + '"></div></div></div>';
+  }).join("");
+
+  marksEl.innerHTML = PINS.map(function (p, i) {
+    return '<button class="tp-pin" type="button" data-c="' + p.c + '">' + p.n + "</button>";
+  }).join("");
+  marksEl.addEventListener("click", function (ev) {
+    var b = ev.target.closest ? ev.target.closest(".tp-pin") : null;
+    if (!b) return;
+    rangeEl.value = String(Math.round(parseFloat(b.getAttribute("data-c")) * 100));
+    paint();
   });
 
-  render();
+  function paint() {
+    var c = parseInt(rangeEl.value, 10) / 100;
+    var left = pos(c).toFixed(3) + "%";
+    for (var i = 0; i < SCALES.length; i++) {
+      var v = SCALES[i].from(c);
+      document.getElementById("tp-now-" + i).textContent = v.toFixed(1) + " " + SCALES[i].key;
+      document.getElementById("tp-mark-" + i).style.left = left;
+    }
+    var fv = c * 9 / 5 + 32;
+    if (Math.abs(c) < 0.5) {
+      ratioEl.textContent = "°F ÷ °C at " + c.toFixed(1) + " °C = " +
+        (Math.abs(c) < 0.005 ? "undefined — 0 °C is 32 °F, so the ratio has no value at all"
+                             : "a runaway " + (fv / c).toFixed(0) + ", and climbing");
+    } else {
+      ratioEl.textContent = "°F ÷ °C at " + c.toFixed(1) + " °C = " + (fv / c).toFixed(2);
+    }
+  }
+  rangeEl.addEventListener("input", paint);
+  paint();
 })();
 </script>
